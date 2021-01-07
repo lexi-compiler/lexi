@@ -4,7 +4,7 @@ Maki is a research project to build a compiler that supports multiple languages.
 
 ## Setup
 
-You'll need `sbt 1.3.10`.
+You'll need `sbt 1.4.5`.
 
 To run the tests:
 
