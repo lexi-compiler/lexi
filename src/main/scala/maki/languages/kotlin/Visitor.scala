@@ -9,7 +9,7 @@ import scala.jdk.CollectionConverters._
 
 class Visitor extends KotlinParserBaseVisitor[ASTNode] {
   override def visitKotlinFile(ctx: KotlinParser.KotlinFileContext): ASTNode =
-    new KotlinFile {
+    new KtFile {
       context = ctx
       topLevelObjects = ctx.topLevelObject.asScala.toVector.map { topLevelObject =>
         val tlo = visitTopLevelObject(topLevelObject)

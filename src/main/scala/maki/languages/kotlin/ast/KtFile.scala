@@ -1,5 +1,5 @@
 package maki.languages.kotlin.ast
 
-case class KotlinFile(
+case class KtFile(
     var topLevelObjects: Vector[KtTopLevelObject] = Vector.empty
 ) extends ASTNode
