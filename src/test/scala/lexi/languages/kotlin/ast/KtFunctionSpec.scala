@@ -7,7 +7,12 @@ import org.scalatest.matchers.should.Matchers
 
 class KtFunctionSpec extends AnyFunSpec with Matchers {
   private def node(ast: ASTNode): KtFunction =
-    ast.asInstanceOf[KtFile].topLevelObjects.head.declaration.functionDeclaration
+    ast
+      .asInstanceOf[KtFile]
+      .topLevelObjects
+      .head
+      .declaration
+      .functionDeclaration
 
   describe("parse") {
     describe("expression function without parameters") {
@@ -19,7 +24,9 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
           name = "hello",
           `type` = "String",
           functionBody = KtFunctionBody(
-            expression = KtExpression(KtDisjunction(Vector(KtConjunction(Vector(KtEquality())))))
+            expression = KtExpression(
+              KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
+            )
           )
         )
       }
@@ -34,7 +41,9 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
           name = "hello",
           `type` = "String",
           functionBody = KtFunctionBody(
-            expression = KtExpression(KtDisjunction(Vector(KtConjunction(Vector(KtEquality())))))
+            expression = KtExpression(
+              KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
+            )
           )
         )
       }
