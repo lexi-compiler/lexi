@@ -1,6 +1,6 @@
-package lexi.frontend.kotlin.phases
+package lexi.frontend.kotlin.ast
 
-import lexi.frontend.kotlin.ast.{ASTNode, KtFile, KtProperty}
+import lexi.frontend.kotlin.phases.Parser
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
