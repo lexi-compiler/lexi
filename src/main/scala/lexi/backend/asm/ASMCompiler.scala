@@ -1,6 +1,6 @@
 package lexi.backend.asm
 
-import lexi.ir.{IrClass, IrFunction}
+import lexi.ir.Nodes.{IrClass, IrFunction}
 import org.objectweb.asm._
 
 import java.nio.file.{Files, Path}

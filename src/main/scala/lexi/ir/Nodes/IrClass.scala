@@ -1,4 +1,4 @@
-package lexi.ir
+package lexi.ir.Nodes
 
 case class IrClass(
   var name: String

@@ -1,6 +1,6 @@
 package lexi.backend.asm
 
-import lexi.ir.{IrClass, IrFunction, IrFunctionBody}
+import lexi.ir.Nodes.{IrClass, IrFunction, IrFunctionBody}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
