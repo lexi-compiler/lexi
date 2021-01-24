@@ -1,9 +1,11 @@
 package lexi
 
-import lexi.frontends.kotlin.phases.Parse
+import lexi.Phase._
+import lexi.ir.IrNode
 
 object Compiler {
-  def compile(source: String): Unit = {
-    val ast = Parse(source)
-  }
+  def compile(source: String): IrNode =
+    (parse
+      andThen analysis
+      andThen ir)(source)
 }
