@@ -16,5 +16,5 @@ object Phase {
   val semanticAnalysis: KotlinParser => ASTNode = (parser: KotlinParser) =>
     (new Visitor).visit(parser.kotlinFile)
 
-  val ir: ASTNode => IrNode = (ast: ASTNode) => new IrNode {}
+  val ir: ASTNode => IrNode = (ast: ASTNode) => Ir(ast)
 }
