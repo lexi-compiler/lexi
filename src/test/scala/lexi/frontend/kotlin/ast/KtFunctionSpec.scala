@@ -1,6 +1,6 @@
 package lexi.frontend.kotlin.ast
 
-import lexi.frontend.kotlin.phases.Parser
+import lexi.frontend.kotlin.phases.Phase.parse
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -16,7 +16,7 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
   describe("parse") {
     describe("expression function without parameters") {
       val source = """fun hello(): String = "Hello Maki!""""
-      val ast = Parser.parse(Parser(source))
+      val ast = parse(source)
 
       it("parses a KtFunction") {
         node(ast) shouldBe KtFunction(
@@ -33,7 +33,7 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
 
     describe("expression function with parameters") {
       val source = """fun hello(name: String): String = "Hello ${name}""""
-      val ast = node(Parser.parse(Parser(source)))
+      val ast = node(parse(source))
 
       it("parses a KtFunction") {
         ast shouldBe KtFunction(
