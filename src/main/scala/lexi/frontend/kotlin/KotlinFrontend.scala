@@ -7,7 +7,7 @@ import lexi.frontend.kotlin.phases.Phase.{
   semanticAnalysis,
   syntaxAnalysis
 }
-import lexi.ir.Nodes.IrNode
+import lexi.ir.nodes.IrNode
 
 object KotlinFrontend extends Frontend {
   def apply(source: String): IrNode =

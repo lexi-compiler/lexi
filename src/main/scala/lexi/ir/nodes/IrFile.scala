@@ -1,3 +1,3 @@
-package lexi.ir.Nodes
+package lexi.ir.nodes
 
 case class IrFile() extends IrNode

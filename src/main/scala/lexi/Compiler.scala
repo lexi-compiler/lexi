@@ -1,7 +1,7 @@
 package lexi
 
 import lexi.Phase._
-import lexi.ir.Nodes.IrNode
+import lexi.ir.nodes.IrNode
 
 object Compiler {
   def compile(source: String): IrNode =

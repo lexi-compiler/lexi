@@ -1,6 +1,6 @@
 package lexi.ir.phases
 
-import lexi.ir.Nodes.IrNode
+import lexi.ir.nodes.IrNode
 
 trait Phase extends lexi.Phase
 

@@ -1,4 +1,4 @@
-package lexi.ir.Nodes
+package lexi.ir.nodes
 
 import scala.collection.mutable.ListBuffer
 

@@ -1,7 +1,7 @@
 package lexi.frontend.kotlin.phases
 
 import lexi.frontend.kotlin.KotlinFrontend
-import lexi.ir.Nodes.{IrExpression, IrFunction, IrFunctionBody}
+import lexi.ir.nodes.{IrExpression, IrFunction, IrFunctionBody}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 

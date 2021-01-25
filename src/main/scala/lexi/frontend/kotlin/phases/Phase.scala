@@ -3,7 +3,7 @@ package lexi.frontend.kotlin.phases
 import lexi.frontend.kotlin.Visitor
 import lexi.frontend.kotlin.antlr.{KotlinLexer, KotlinParser}
 import lexi.frontend.kotlin.ast.ASTNode
-import lexi.ir.Nodes.IrNode
+import lexi.ir.nodes.IrNode
 import org.antlr.v4.runtime.{CharStreams, CommonTokenStream}
 
 object Phase {

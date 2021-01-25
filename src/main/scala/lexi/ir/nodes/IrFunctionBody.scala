@@ -1,4 +1,4 @@
-package lexi.ir.Nodes
+package lexi.ir.nodes
 
 case class IrFunctionBody(
   var block: Vector[String] = null,

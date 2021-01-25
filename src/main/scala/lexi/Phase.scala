@@ -1,7 +1,7 @@
 package lexi
 
 import lexi.frontend.kotlin.KotlinFrontend
-import lexi.ir.Nodes.IrNode
+import lexi.ir.nodes.IrNode
 import lexi.ir.phases.IrAnalysis
 
 trait Phase
