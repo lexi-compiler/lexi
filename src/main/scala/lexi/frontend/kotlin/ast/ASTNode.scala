@@ -1,6 +1,5 @@
 package lexi.frontend.kotlin.ast
 
-import lexi.frontend.kotlin.ASTVisitor
 import org.antlr.v4.runtime.ParserRuleContext
 
 import scala.collection.mutable.ListBuffer
@@ -14,4 +13,8 @@ trait ASTNode {
 
   def accept(visitor: ASTVisitor): ASTNode =
     visitor.visit(this)
+}
+
+trait ASTVisitor {
+  def visit(ast: ASTNode): ASTNode
 }
