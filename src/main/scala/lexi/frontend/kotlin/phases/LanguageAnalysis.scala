@@ -1,10 +1,9 @@
-package lexi.frontend.kotlin
+package lexi.frontend.kotlin.phases
 
-import lexi.frontend.Frontend
 import lexi.frontend.kotlin.phases.Phase.{ir, parse}
 import lexi.ir.nodes.IrNode
 
-object KotlinFrontend extends Frontend {
+object LanguageAnalysis {
   def apply(source: String): IrNode = {
     (parse
       andThen ir)(source)

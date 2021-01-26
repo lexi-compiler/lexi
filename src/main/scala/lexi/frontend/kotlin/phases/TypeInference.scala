@@ -1,10 +1,9 @@
 package lexi.frontend.kotlin.phases
 
-import lexi.Phase
 import lexi.frontend.kotlin.antlr.KotlinParser.PropertyDeclarationContext
 import lexi.frontend.kotlin.ast.{KtFunction, KtProperty}
 
-object TypeInference extends Phase {
+object TypeInference {
   def apply(property: KtProperty): KtProperty =
     inferPropertyType(property)
 

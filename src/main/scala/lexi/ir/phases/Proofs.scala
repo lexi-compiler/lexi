@@ -1,8 +1,7 @@
 package lexi.ir.phases
 
-import lexi.Phase
 import lexi.ir.nodes.IrNode
 
-object Proofs extends Phase {
+object Proofs {
   def apply(ir: IrNode): IrNode = new IrNode {}
 }

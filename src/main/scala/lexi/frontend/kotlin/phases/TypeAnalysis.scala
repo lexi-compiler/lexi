@@ -1,9 +1,8 @@
 package lexi.frontend.kotlin.phases
 
-import lexi.Phase
 import lexi.frontend.kotlin.ast.ASTNode
 
-object TypeAnalysis extends Phase {
+object TypeAnalysis {
   def apply(ast: ASTNode): ASTNode = {
     new ASTNode {}
   }
