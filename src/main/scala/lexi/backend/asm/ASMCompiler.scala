@@ -47,7 +47,7 @@ object ASMCompiler {
 
     val bytes = writer.toByteArray
     Files.write(
-      Path.of(s"/Users/mattmoore/Desktop/${klass.name}.class"),
+      Path.of(s"${klass.name}.class"),
       bytes
     )
   }

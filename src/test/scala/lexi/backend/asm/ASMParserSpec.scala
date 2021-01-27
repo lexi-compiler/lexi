@@ -13,7 +13,7 @@ class ASMParserSpec extends AnyFunSpec with Matchers {
       }
     }
 
-    describe("IrFunction") {
+    ignore("IrFunction") {
       it("writes a function to a generated class file") {
         val irTree = IrFunction("hello", "String", IrFunctionBody(Vector("yo")))
         ASMCompiler.compile(irTree)
