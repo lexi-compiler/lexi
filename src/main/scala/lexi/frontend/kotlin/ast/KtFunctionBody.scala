@@ -7,7 +7,7 @@ case class KtFunctionBody(
   var expression: KtExpression = null
 ) extends ASTNode
 
-object KtFunctionBody extends KotlinParserBaseVisitor[ASTNode] {
+object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
   override def visitFunctionBody(
     ctx: KotlinParser.FunctionBodyContext
   ): KtFunctionBody =

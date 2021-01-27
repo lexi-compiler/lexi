@@ -8,7 +8,7 @@ case class KtDisjunction(
   var conjunctions: Vector[KtConjunction] = Vector.empty
 ) extends ASTNode
 
-object KtDisjunction extends KotlinParserBaseVisitor[ASTNode] {
+object KtDisjunction extends KotlinParserBaseVisitor[KtDisjunction] {
   override def visitDisjunction(
     ctx: KotlinParser.DisjunctionContext
   ): KtDisjunction =

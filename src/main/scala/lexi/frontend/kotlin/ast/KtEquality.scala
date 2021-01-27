@@ -4,7 +4,7 @@ import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 case class KtEquality() extends ASTNode
 
-object KtEquality extends KotlinParserBaseVisitor[ASTNode] {
+object KtEquality extends KotlinParserBaseVisitor[KtEquality] {
   override def visitEquality(ctx: KotlinParser.EqualityContext): KtEquality =
     new KtEquality() {
       context = ctx

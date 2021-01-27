@@ -9,7 +9,7 @@ case class KtProperty(
   var dataType: String
 ) extends ASTNode
 
-object KtProperty extends KotlinParserBaseVisitor[ASTNode] {
+object KtProperty extends KotlinParserBaseVisitor[KtProperty] {
   override def visitPropertyDeclaration(
     ctx: KotlinParser.PropertyDeclarationContext
   ): KtProperty =

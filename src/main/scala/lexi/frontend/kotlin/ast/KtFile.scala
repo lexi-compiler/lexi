@@ -9,13 +9,13 @@ case class KtFile(
   var topLevelObjects: Vector[KtTopLevelObject] = Vector.empty
 ) extends ASTNode
 
-object KtFile extends KotlinParserBaseVisitor[ASTNode] {
-  override def visitKotlinFile(ctx: KotlinFileContext): ASTNode =
+object KtFile extends KotlinParserBaseVisitor[KtFile] {
+  override def visitKotlinFile(ctx: KotlinFileContext): KtFile =
     new KtFile {
       context = ctx
       topLevelObjects = ctx.topLevelObject.asScala.toVector.map {
         topLevelObject =>
-          val tlo = KtTopLevelObject.visitTopLevelObject(topLevelObject)
+          val tlo = KtTopLevelObject.visit(topLevelObject)
           tlo.parent = this
           tlo.asInstanceOf[KtTopLevelObject]
       }

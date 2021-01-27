@@ -6,7 +6,7 @@ case class KtExpression(
   var disjunction: KtDisjunction = null
 ) extends ASTNode
 
-object KtExpression extends KotlinParserBaseVisitor[ASTNode] {
+object KtExpression extends KotlinParserBaseVisitor[KtExpression] {
   override def visitExpression(
     ctx: KotlinParser.ExpressionContext
   ): KtExpression =

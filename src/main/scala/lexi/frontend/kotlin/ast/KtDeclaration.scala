@@ -8,7 +8,7 @@ case class KtDeclaration(
   var functionDeclaration: KtFunction = null
 ) extends ASTNode
 
-object KtDeclaration extends KotlinParserBaseVisitor[ASTNode] {
+object KtDeclaration extends KotlinParserBaseVisitor[KtDeclaration] {
   override def visitDeclaration(
     ctx: DeclarationContext
   ): KtDeclaration =
@@ -18,7 +18,7 @@ object KtDeclaration extends KotlinParserBaseVisitor[ASTNode] {
         if (ctx.propertyDeclaration == null) null
         else {
           val property =
-            KtProperty.visitPropertyDeclaration(ctx.propertyDeclaration)
+            KtProperty.visit(ctx.propertyDeclaration)
           property.parent = this
           property
         }
@@ -26,7 +26,7 @@ object KtDeclaration extends KotlinParserBaseVisitor[ASTNode] {
         if (ctx.functionDeclaration == null) null
         else {
           val function =
-            KtFunction.visitFunctionDeclaration(ctx.functionDeclaration)
+            KtFunction.visit(ctx.functionDeclaration)
           function.parent = this
           function
         }

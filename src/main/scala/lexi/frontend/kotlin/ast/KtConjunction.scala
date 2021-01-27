@@ -8,7 +8,7 @@ case class KtConjunction(
   var equalities: Vector[KtEquality] = Vector.empty
 ) extends ASTNode
 
-object KtConjunction extends KotlinParserBaseVisitor[ASTNode] {
+object KtConjunction extends KotlinParserBaseVisitor[KtConjunction] {
   override def visitConjunction(
     ctx: KotlinParser.ConjunctionContext
   ): KtConjunction =
