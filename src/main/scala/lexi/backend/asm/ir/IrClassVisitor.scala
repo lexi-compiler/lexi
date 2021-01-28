@@ -1,22 +1,16 @@
-package lexi.backend.asm
+package lexi.backend.asm.ir
 
-import lexi.backend.asm.ir.IrClassVisitor.visit
-import lexi.ir.nodes.{IrClass, IrFunction}
-import org.objectweb.asm._
+import lexi.ir.nodes.{IrClass, IrNode, IrVisitor}
+import org.objectweb.asm.{ClassWriter, Opcodes}
 
-import java.nio.file.{Files, Path}
-
-object ASMCompiler {
-  val asm: (IrClass) => Array[Byte] = { irClass =>
-    visit(irClass).toByteArray
-  }
-
-  def compile(function: IrFunction): Unit = {
+object IrClassVisitor extends IrVisitor[ClassWriter] {
+  override def visit(ir: IrNode): ClassWriter = {
+    val irClass = ir.asInstanceOf[IrClass]
     val writer = new ClassWriter(ClassWriter.COMPUTE_MAXS)
     writer.visit(
       Opcodes.V1_8,
       Opcodes.ACC_PUBLIC,
-      function.name.capitalize,
+      irClass.name,
       null,
       "java/lang/Object",
       null
@@ -24,7 +18,7 @@ object ASMCompiler {
 
     val method = writer.visitMethod(
       Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
-      function.name,
+      "main",
       "([Ljava/lang/String;)V",
       null,
       null
@@ -36,7 +30,7 @@ object ASMCompiler {
       "out",
       "Ljava/io/PrintStream;"
     )
-    method.visitLdcInsn("Function compiled!")
+    method.visitLdcInsn("Class compiled!")
     method.visitMethodInsn(
       Opcodes.INVOKEVIRTUAL,
       "java/io/PrintStream",
@@ -49,11 +43,6 @@ object ASMCompiler {
     method.visitEnd()
 
     writer.visitEnd()
-
-    val bytes = writer.toByteArray
-    Files.write(
-      Path.of(s"/Users/mattmoore/Desktop/${function.name.capitalize}.class"),
-      bytes
-    )
+    writer
   }
 }
