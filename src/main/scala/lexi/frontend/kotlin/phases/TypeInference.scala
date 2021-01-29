@@ -3,7 +3,7 @@ package lexi.frontend.kotlin.phases
 import lexi.frontend.kotlin.antlr.KotlinParser.PropertyDeclarationContext
 import lexi.frontend.kotlin.ast.{ASTNode, KtFunction, KtProperty}
 
-object TypeInference {
+object TypeInference:
   def apply(ast: ASTNode): ASTNode = ast
 //    ast match {
 //      case property: KtProperty => inferPropertyType(property)
@@ -40,4 +40,3 @@ object TypeInference {
 //    }
 //    ktFunction.copy(`type` = inferredType)
 //  }
-}

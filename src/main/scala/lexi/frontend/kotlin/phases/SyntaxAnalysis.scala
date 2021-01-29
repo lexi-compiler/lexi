@@ -4,7 +4,7 @@ import lexi.frontend.kotlin.antlr.{KotlinLexer, KotlinParser}
 import lexi.frontend.kotlin.ast.{ASTNode, KtFile}
 import org.antlr.v4.runtime.{CharStreams, CommonTokenStream}
 
-object SyntaxAnalysis {
+object SyntaxAnalysis:
   def apply(source: String): ASTNode =
     ((CharStreams.fromString(_: String))
       andThen (new KotlinLexer(_))
@@ -12,4 +12,3 @@ object SyntaxAnalysis {
       andThen (new KotlinParser(_))
       andThen (_.kotlinFile)
       andThen (KtFile.visit(_)))(source)
-}
