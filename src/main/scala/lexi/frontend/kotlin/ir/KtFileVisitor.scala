@@ -1,15 +1,14 @@
 package lexi.frontend.kotlin.ir
 
-import lexi.frontend.kotlin.ast.{ASTNode, KtFile, KtTopLevelObject}
+import lexi.frontend.kotlin.ast.{ASTNode, KtFile}
 import lexi.ir.nodes.IrFile
 
 object KtFileVisitor extends KtVisitor {
-  override def visit(ast: ASTNode): IrFile = {
-    val ktFile = ast.asInstanceOf[KtFile]
-    new IrFile {
-      topLevelObjects = ktFile.topLevelObjects.map { tlo: KtTopLevelObject =>
-        KtTopLevelObjectVisitor.visit(tlo)
-      }
-    }
-  }
+  override def visit(ast: ASTNode): IrFile =
+    (
+      (ktFile: KtFile) =>
+        IrFile(topLevelObjects =
+          ktFile.topLevelObjects.map(KtTopLevelObjectVisitor.visit(_))
+        )
+    )(ast.asInstanceOf[KtFile])
 }

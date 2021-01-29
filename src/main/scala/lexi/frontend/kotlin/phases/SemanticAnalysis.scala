@@ -4,5 +4,5 @@ import lexi.frontend.kotlin.ast.ASTNode
 
 object SemanticAnalysis {
   def apply(ast: ASTNode): ASTNode =
-    (TypeAnalysis.apply)(ast)
+    TypeAnalysis(ast)
 }
