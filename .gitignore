@@ -8,3 +8,4 @@ gen
 metals.sbt
 .dotty-ide.json
 .vscode
+.dotty-ide-artifact
