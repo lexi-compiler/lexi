@@ -5,6 +5,5 @@ import lexi.ir.nodes.IrClass
 
 object ASM {
   def apply(irClass: IrClass): Array[Byte] =
-    ((visit(_: IrClass))
-      andThen (_.toByteArray))(irClass)
+    visit(irClass).toByteArray
 }
