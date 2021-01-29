@@ -1,6 +1,6 @@
 package lexi.frontend.kotlin.ast
 
-import lexi.frontend.kotlin.phases.Phase.parse
+import lexi.frontend.kotlin.phases.SyntaxAnalysis
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -13,10 +13,10 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
       .declaration
       .functionDeclaration
 
-  describe("parse") {
+  describe("SyntaxAnalysis") {
     describe("expression function without parameters") {
       val source = """fun hello(): String = "Hello Maki!""""
-      val ast = parse(source)
+      val ast = SyntaxAnalysis(source)
 
       it("parses a KtFunction") {
         node(ast) shouldBe KtFunction(
@@ -33,7 +33,7 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
 
     describe("expression function with parameters") {
       val source = """fun hello(name: String): String = "Hello ${name}""""
-      val ast = node(parse(source))
+      val ast = node(SyntaxAnalysis(source))
 
       it("parses a KtFunction") {
         ast shouldBe KtFunction(
@@ -47,28 +47,5 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
         )
       }
     }
-
-    //    describe("block body function with no params and assignment in body") {
-    //      val source =
-    //        """fun f(): Int {
-    //          |  val x = 5
-    //          |  return x
-    //          |}
-    //          |""".stripMargin
-    //      val ast = Parser(source)
-    //
-    //      it("parses the function") {
-    //        ast.children.head should have(
-    //          Symbol("name")("f"),
-    //          Symbol("type")("Int")
-    //        )
-    //      }
-    //
-    //      it("parses the block body") {
-    //        ast.children.head should have(
-    //          Symbol("x")("5")
-    //        )
-    //      }
-    //    }
   }
 }
