@@ -4,7 +4,7 @@ import lexi.frontend.kotlin.phases.SyntaxAnalysis
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class KtFunctionSpec extends AnyFunSpec with Matchers {
+class KtFunctionSpec extends AnyFunSpec with Matchers:
   private def node(ast: ASTNode): KtFunction =
     ast
       .asInstanceOf[KtFile]
@@ -13,39 +13,34 @@ class KtFunctionSpec extends AnyFunSpec with Matchers {
       .declaration
       .functionDeclaration
 
-  describe("SyntaxAnalysis") {
-    describe("expression function without parameters") {
-      val source = """fun hello(): String = "Hello Maki!""""
-      val ast = SyntaxAnalysis(source)
+  describe("expression function without parameters") {
+    val source = """fun hello(): String = "Hello Maki!""""
+    val ast = SyntaxAnalysis(source)
 
-      it("parses a KtFunction") {
-        node(ast) shouldBe KtFunction(
-          name = "hello",
-          `type` = "String",
-          functionBody = KtFunctionBody(
-            expression = KtExpression(
-              KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-            )
+    it("parses a KtFunction")
+      node(ast) shouldBe KtFunction(
+        name = "hello",
+        `type` = "String",
+        functionBody = KtFunctionBody(
+          expression = KtExpression(
+            KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
           )
         )
-      }
-    }
-
-    describe("expression function with parameters") {
-      val source = """fun hello(name: String): String = "Hello ${name}""""
-      val ast = node(SyntaxAnalysis(source))
-
-      it("parses a KtFunction") {
-        ast shouldBe KtFunction(
-          name = "hello",
-          `type` = "String",
-          functionBody = KtFunctionBody(
-            expression = KtExpression(
-              KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-            )
-          )
-        )
-      }
-    }
+      )
   }
-}
+
+  describe("expression function with parameters") {
+    val source = """fun hello(name: String): String = "Hello ${name}""""
+    val ast = node(SyntaxAnalysis(source))
+
+    it("parses a KtFunction")
+      ast shouldBe KtFunction(
+        name = "hello",
+        `type` = "String",
+        functionBody = KtFunctionBody(
+          expression = KtExpression(
+            KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
+          )
+        )
+      )
+  }

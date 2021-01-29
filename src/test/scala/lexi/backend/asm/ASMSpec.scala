@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.nio.file.{Files, Path}
 
-class ASMSpec extends AnyFunSpec with Matchers {
+class ASMSpec extends AnyFunSpec with Matchers:
   describe("compile") {
     describe("IrClass") {
       val irClass = IrClass(
@@ -24,4 +24,3 @@ class ASMSpec extends AnyFunSpec with Matchers {
       }
     }
   }
-}

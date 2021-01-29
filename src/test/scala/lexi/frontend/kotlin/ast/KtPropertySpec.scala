@@ -4,7 +4,7 @@ import lexi.frontend.kotlin.phases.SyntaxAnalysis
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class KtPropertySpec extends AnyFunSpec with Matchers {
+class KtPropertySpec extends AnyFunSpec with Matchers:
   private def node(ast: ASTNode): KtProperty =
     ast
       .asInstanceOf[KtFile]
@@ -44,4 +44,3 @@ class KtPropertySpec extends AnyFunSpec with Matchers {
       )
     }
   }
-}

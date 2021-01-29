@@ -6,3 +6,5 @@ gen
 .bloop
 .metals
 metals.sbt
+.dotty-ide.json
+.vscode

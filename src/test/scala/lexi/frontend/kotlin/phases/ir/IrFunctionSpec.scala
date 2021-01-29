@@ -5,7 +5,7 @@ import lexi.ir.nodes._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class IrFunctionSpec extends AnyFunSpec with Matchers {
+class IrFunctionSpec extends AnyFunSpec with Matchers:
   private def node(ir: IrNode): IrFunction =
     ir.asInstanceOf[IrFile].topLevelObjects.head.declaration.functionDeclaration
 
@@ -23,4 +23,3 @@ class IrFunctionSpec extends AnyFunSpec with Matchers {
       )
     }
   }
-}
