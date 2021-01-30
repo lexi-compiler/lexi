@@ -11,7 +11,8 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       antlr4,
       asm,
-      dottyCompiler,
+      scala3Compiler,
+      tastyInspector,
       scalaTest % Test
     )
   )
