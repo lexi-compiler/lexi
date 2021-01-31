@@ -15,12 +15,9 @@ class ASMSpec extends AnyFunSpec with Matchers:
         methods = Vector(IrFunction(name = "main", `type` = "String"))
       )
       val bytecode = ASM(irClass)
-      val file = s"${irClass.name}.class"
 
-      Files.write(Path.of(file), bytecode)
-
-      it("writes a java class file") {
-        Files.exists(Path.of(file)) shouldBe true
+      it("generates jvm bytecode") {
+        bytecode.length should be > 0
       }
     }
   }
