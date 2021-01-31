@@ -4,6 +4,7 @@ import lexi.backend.asm.phases.ASM
 import lexi.ir.nodes.{IrClass, IrFunction}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+import org.objectweb.asm.ClassReader
 
 import java.nio.file.{Files, Path}
 
@@ -14,10 +15,12 @@ class ASMSpec extends AnyFunSpec with Matchers:
         name = "GeneratedClass",
         methods = Vector(IrFunction(name = "main", `type` = "String"))
       )
-      val bytecode = ASM(irClass)
+      val classFile = ASM(irClass)
+      val classReader = new ClassReader(classFile)
+      val className = classReader.getClassName
 
       it("generates jvm bytecode") {
-        bytecode.length should be > 0
+        className shouldBe "GeneratedClass"
       }
     }
   }
