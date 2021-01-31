@@ -1,4 +1,4 @@
-package lexi.frontend.scala.ast.phases
+package lexi.frontend.scala.phases
 
 import lexi.ir.nodes.IrNode
 import dotty.tools._
