@@ -1,8 +1,8 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "3.0.0-M3"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "io.lexi-compiler"
+ThisBuild / scalaVersion := "3.0.0-M3"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "io.lexi-compiler"
 ThisBuild / organizationName := "lexi"
 
 lazy val root = (project in file("."))
