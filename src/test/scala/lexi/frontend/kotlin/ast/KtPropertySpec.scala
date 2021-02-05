@@ -1,10 +1,8 @@
 package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.phases.SyntaxAnalysis
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 
-class KtPropertySpec extends AnyFunSpec with Matchers:
+class KtPropertySpec extends munit.FunSuite {
   private def node(ast: ASTNode): KtProperty =
     ast
       .asInstanceOf[KtFile]
@@ -13,34 +11,33 @@ class KtPropertySpec extends AnyFunSpec with Matchers:
       .declaration
       .propertyDeclaration
 
-  describe("integer declaration") {
-    val ast = SyntaxAnalysis("""val x: Int = 5""")
-
-    it("parses a KtProperty") {
-      node(ast) shouldBe KtProperty("x", "5", "Int")
-    }
+  test("integer declaration") {
+    val source = """val x: Int = 5"""
+    val ast = SyntaxAnalysis(source)
+    val ktProperty = node(ast)
+    val expected = KtProperty("x", "5", "Int")
+    assertEquals(ktProperty, expected)
   }
 
-  describe("string declaration") {
+  test("string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = "Matt"""")
-
-    it("parses a KtProperty") {
-      node(ast) shouldBe KtProperty(
-        name = "firstName",
-        expression = """"Matt"""",
-        dataType = "String"
-      )
-    }
+    val ktProperty = node(ast)
+    val expected = KtProperty(
+      name = "firstName",
+      expression = """"Matt"""",
+      dataType = "String"
+    )
+    assertEquals(ktProperty, expected)
   }
 
-  describe("empty string declaration") {
+  test("empty string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = """"")
-
-    it("parses a KtProperty") {
-      node(ast) shouldBe KtProperty(
-        name = "firstName",
-        expression = "\"\"",
-        dataType = "String"
-      )
-    }
+    val ktProperty = node(ast)
+    val expected = KtProperty(
+      name = "firstName",
+      expression = "\"\"",
+      dataType = "String"
+    )
+    assertEquals(ktProperty, expected)
   }
+}

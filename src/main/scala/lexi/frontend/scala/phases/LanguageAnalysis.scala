@@ -35,14 +35,6 @@ object LanguageAnalysis:
   }
 
   val basicClasspath = mkClasspath(List(
-//      "/Users/mattmoore/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.4/scala-library-2.13.4.jar",
-//      "/Users/mattmoore/source/dotty/library/../out/bootstrap/scala3-library-bootstrapped/scala-3.0.0-RC1/scala3-library_3.0.0-RC1-3.0.0-RC1-bin-SNAPSHOT.jar",
-//      "/Users/mattmoore/source/dotty/tasty/target/scala-3.0.0-RC1/tasty-core_3.0.0-RC1-3.0.0-RC1-bin-SNAPSHOT-nonbootstrapped.jar"
-    "/Users/mattmoore/source/dotty/compiler/target/scala-3.0.0-RC1/src_managed/main",
-    "/Users/mattmoore/source/dotty/interfaces/target/scala3-interfaces-3.0.0-RC1-bin-SNAPSHOT.jar",
-    "/Users/mattmoore/source/dotty/library/../out/bootstrap/scala3-library-bootstrapped/scala-3.0.0-RC1/scala3-library_3.0.0-RC1-3.0.0-RC1-bin-SNAPSHOT.jar",
-    "/Users/mattmoore/source/dotty/compiler/target/scala-3.0.0-RC1/scala3-compiler_3.0.0-RC1-3.0.0-RC1-bin-SNAPSHOT-nonbootstrapped.jar",
-    "/Users/mattmoore/source/dotty/tasty/target/scala-3.0.0-RC1/tasty-core_3.0.0-RC1-3.0.0-RC1-bin-SNAPSHOT-nonbootstrapped.jar",
     "/Users/mattmoore/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/compiler-interface/1.3.5/compiler-interface-1.3.5.jar",
     "/Users/mattmoore/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.4/scala-library-2.13.4.jar",
     "/Users/mattmoore/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-asm/7.3.1-scala-1/scala-asm-7.3.1-scala-1.jar",

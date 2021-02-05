@@ -1,10 +1,8 @@
 package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.phases.SyntaxAnalysis
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 
-class KtFunctionSpec extends AnyFunSpec with Matchers:
+class KtFunctionSpec extends munit.FunSuite {
   private def node(ast: ASTNode): KtFunction =
     ast
       .asInstanceOf[KtFile]
@@ -13,34 +11,35 @@ class KtFunctionSpec extends AnyFunSpec with Matchers:
       .declaration
       .functionDeclaration
 
-  describe("expression function without parameters") {
+  test("expression function without parameters") {
     val source = """fun hello(): String = "Hello Maki!""""
     val ast = SyntaxAnalysis(source)
-
-    it("parses a KtFunction")
-      node(ast) shouldBe KtFunction(
-        name = "hello",
-        `type` = "String",
-        functionBody = KtFunctionBody(
-          expression = KtExpression(
-            KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-          )
+    val ktFunction = node(ast)
+    val expected =  KtFunction(
+      name = "hello",
+      `type` = "String",
+      functionBody = KtFunctionBody(
+        expression = KtExpression(
+          KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
         )
       )
+    )
+    assertEquals(ktFunction, expected)
   }
 
-  describe("expression function with parameters") {
+  test("expression function with parameters") {
     val source = """fun hello(name: String): String = "Hello ${name}""""
-    val ast = node(SyntaxAnalysis(source))
-
-    it("parses a KtFunction")
-      ast shouldBe KtFunction(
-        name = "hello",
-        `type` = "String",
-        functionBody = KtFunctionBody(
-          expression = KtExpression(
-            KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-          )
+    val ast = SyntaxAnalysis(source)
+    val ktFunction = node(ast)
+    val expected =  KtFunction(
+      name = "hello",
+      `type` = "String",
+      functionBody = KtFunctionBody(
+        expression = KtExpression(
+          KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
         )
       )
+    )
+    assertEquals(ktFunction, expected)
   }
+}
