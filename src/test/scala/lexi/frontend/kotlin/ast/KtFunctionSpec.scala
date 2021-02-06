@@ -15,7 +15,7 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = """fun hello(): String = "Hello Maki!""""
     val ast = SyntaxAnalysis(source)
     val ktFunction = node(ast)
-    val expected =  KtFunction(
+    val expected = KtFunction(
       name = "hello",
       `type` = "String",
       functionBody = KtFunctionBody(
