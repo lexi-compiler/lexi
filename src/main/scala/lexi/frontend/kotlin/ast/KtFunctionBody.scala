@@ -2,8 +2,10 @@ package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
+import java.util.Optional
+
 case class KtFunctionBody(
-  var block: Vector[String] = null,
+  var block: KtBlock = null,
   var expression: KtExpression = null
 ) extends ASTNode
 
@@ -12,11 +14,9 @@ object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
     ctx: KotlinParser.FunctionBodyContext
   ): KtFunctionBody =
     new KtFunctionBody(
-      block = null,
-      expression = KtExpression.visitExpression(ctx.expression)
+      block = Optional.ofNullable(ctx.block).map(KtBlock.visitBlock(_)).orElse(null),
+      expression = Optional.ofNullable(ctx.expression).map(KtExpression.visitExpression(_)).orElse(null)
     ) {
       context = ctx
-      expression.parent = this
     }
-
 }

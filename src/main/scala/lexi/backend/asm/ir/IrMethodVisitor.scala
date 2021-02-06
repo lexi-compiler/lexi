@@ -16,7 +16,7 @@ class IrMethodVisitor(classWriter: ClassWriter)
         val method = classWriter.visitMethod(
           Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
           function.name,
-          "([Ljava/lang/String;)V",
+          s"([Ljava/lang/${function.`type`};)V",
           null,
           null
         )

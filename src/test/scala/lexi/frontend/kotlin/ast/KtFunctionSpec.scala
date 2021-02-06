@@ -42,4 +42,23 @@ class KtFunctionSpec extends munit.FunSuite {
     )
     assertEquals(ktFunction, expected)
   }
+
+  test("block function with parameters") {
+    val source =
+      """
+        |fun hello(name: String): String {
+        |  "Hello ${name}"
+        |}
+        |""".stripMargin
+    val ast = SyntaxAnalysis(source)
+    val ktFunction = node(ast)
+    val expected =  KtFunction(
+      name = "hello",
+      `type` = "String",
+      functionBody = KtFunctionBody(
+        block = KtBlock()
+      )
+    )
+    assertEquals(ktFunction, expected)
+  }
 }
