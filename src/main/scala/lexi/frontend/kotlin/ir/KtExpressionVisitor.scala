@@ -5,7 +5,9 @@ import lexi.ir.nodes.IrExpression
 
 object KtExpressionVisitor extends KtVisitor {
   override def visit(ast: ASTNode): IrExpression =
-    ((_: KtExpression) => new IrExpression {})(
+    ((_: KtExpression) => IrExpression(
+      
+    ))(
       ast.asInstanceOf[KtExpression]
     )
 }

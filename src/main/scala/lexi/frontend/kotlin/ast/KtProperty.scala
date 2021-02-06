@@ -3,9 +3,9 @@ package lexi.frontend.kotlin.ast
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 case class KtProperty(
-  var name: String,
-  var expression: String,
-  var dataType: String
+  var name: String = null,
+  var expression: String = null,
+  var dataType: String = null
 ) extends ASTNode
 
 object KtProperty extends KotlinParserBaseVisitor[KtProperty] {

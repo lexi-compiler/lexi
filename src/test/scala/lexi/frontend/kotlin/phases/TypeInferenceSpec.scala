@@ -12,10 +12,13 @@ class TypeInferenceSpec extends munit.FunSuite {
       .propertyDeclaration
 
   test("infers integer value") {
-    val ast = SyntaxAnalysis("val x = 5")
+    val ast = node(SyntaxAnalysis("val x = 5"))
     val typeInferredAst = TypeInference(ast)
-    val typeInferredProperty = node(typeInferredAst)
-    val expected = KtProperty("x", "5", "Int")
-    assertEquals(typeInferredProperty, expected)
+    val expected = KtProperty(
+      name = "x",
+      expression = "5",
+      dataType = "Int"
+    )
+    assertEquals(typeInferredAst, expected)
   }
 }
