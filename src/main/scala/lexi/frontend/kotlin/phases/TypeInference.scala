@@ -7,10 +7,15 @@ object TypeInference {
   private val IntPattern = "\\d+".r
   private val StringPattern = """^".*"$""".r
 
-  def apply(file: KtFile): KtFile =
+  def apply(ast: ASTNode): ASTNode = ast match
+    case file: KtFile => this.file(file)
+    case property: KtProperty => this.property(property)
+    case function: KtFunction => this.function(function)
+
+  def file(file: KtFile): KtFile =
     file
 
-  def apply(property: KtProperty): KtProperty = {
+  def property(property: KtProperty): KtProperty = {
     val textValue = property.context
       .asInstanceOf[PropertyDeclarationContext]
       .expression
@@ -22,7 +27,7 @@ object TypeInference {
     property.copy(dataType = inferredType)
   }
 
-  def apply(function: KtFunction): KtFunction = {
+  def function(function: KtFunction): KtFunction = {
     val textValue = function.context
       .asInstanceOf[FunctionDeclarationContext]
       .`type`()

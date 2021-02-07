@@ -4,4 +4,4 @@ import lexi.frontend.kotlin.ast.ASTNode
 
 object TypeAnalysis:
   def apply(ast: ASTNode): ASTNode =
-    ast
+    (TypeInference.apply _)(ast)
