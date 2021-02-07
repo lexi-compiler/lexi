@@ -1,6 +1,7 @@
 package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontend.kotlin.phases.TypeInference
 
 import java.util.Optional
 
