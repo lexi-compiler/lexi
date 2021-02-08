@@ -18,22 +18,17 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = """fun hello(): String = "Hello Maki!""""
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    val expected = KtFunction(
-      name = Some("hello"),
-      `type` = Some("String")
-    )
-    assertEquals(function, expected)
+    assertEquals(function.name, Some("hello"))
+    assertEquals(function.`type`, Some("String"))
   }
 
   test("expression function with parameters") {
     val source = """fun hello(name: String): String = "Hello ${name}""""
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    val expected =  KtFunction(
-      name = Some("hello"),
-      `type` = Some("String")
-    )
-    assertEquals(function, expected)
+    assert(function.isInstanceOf[KtFunction])
+    assertEquals(function.name, Some("hello"))
+    assertEquals(function.`type`, Some("String"))
   }
 
   test("block function with parameters") {
@@ -45,10 +40,8 @@ class KtFunctionSpec extends munit.FunSuite {
         |""".stripMargin
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    val expected =  KtFunction(
-      name = Some("hello"),
-      `type` = Some("String")
-    )
-    assertEquals(function, expected)
+    assert(function.isInstanceOf[KtFunction])
+    assertEquals(function.name, Some("hello"))
+    assertEquals(function.`type`, Some("String"))
   }
 }

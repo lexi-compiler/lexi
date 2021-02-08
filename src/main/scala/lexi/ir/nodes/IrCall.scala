@@ -1,5 +1,5 @@
 package lexi.ir.nodes
 
 case class IrCall(
-  var call: IrFunction = null
+  var call: Option[IrFunction] = None
 ) extends IrNode

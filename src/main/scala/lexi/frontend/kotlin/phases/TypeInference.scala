@@ -11,32 +11,28 @@ object TypeInference {
     case file: KtFile => this.file(file)
     case property: KtProperty => this.property(property)
     case function: KtFunction => this.function(function)
+    case _ => ast
 
   def file(file: KtFile): KtFile =
     file
 
   def property(property: KtProperty): KtProperty = {
-    val textValue = property.context
-      .asInstanceOf[PropertyDeclarationContext]
-      .expression
-      .getText
-    val inferredType = textValue match {
-      case IntPattern()    => "Int"
-      case StringPattern() => "String"
+    val inferredType = property.context.flatMap { ctx =>
+      ctx.asInstanceOf[PropertyDeclarationContext].expression.getText match
+        case IntPattern()    => Some("Int")
+        case StringPattern() => Some("String")
+        case _ => None
     }
-    property.copy(dataType = Option(inferredType))
+    property.copy(dataType = inferredType)
   }
 
   def function(function: KtFunction): KtFunction = {
-    val textValue = function.context
-      .asInstanceOf[FunctionDeclarationContext]
-      .`type`()
-      .getText
-    val inferredType = textValue match {
-      case IntPattern()    => "Int"
-      case StringPattern() => "String"
+    val inferredType = function.context.flatMap { ctx =>
+      ctx.asInstanceOf[FunctionDeclarationContext].`type`.getText match
+        case IntPattern()    => Some("Int")
+        case StringPattern() => Some("String")
+        case _ => None
     }
-    function.copy(`type` = Option(inferredType))
-    function
+    function.copy(`type` = inferredType)
   }
 }

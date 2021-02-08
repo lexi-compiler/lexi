@@ -1,6 +1,10 @@
 package lexi.frontend.kotlin.phases.ir
 
-import lexi.frontend.kotlin.ast.{KtExpressionContext, KtFunction, KtFunctionBody}
+import lexi.frontend.kotlin.ast.{
+  KtExpressionContext,
+  KtFunction,
+  KtFunctionBody
+}
 import lexi.frontend.kotlin.phases.{Ir, LanguageAnalysis, SemanticAnalysis}
 import lexi.ir.nodes._
 
