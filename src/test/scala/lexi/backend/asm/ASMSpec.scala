@@ -8,7 +8,12 @@ class ASMSpec extends munit.FunSuite {
   test("generates JVM class from IrClass") {
     val irClass = IrClass(
       name = "GeneratedClass",
-      methods = Vector(IrFunction(name = "main", `type` = "String"))
+      methods = Vector(
+        IrFunction(
+          name = Some("main"),
+          `type` = Some("String")
+        )
+      )
     )
     val classFile = ASM(irClass)
     val classReader = new ClassReader(classFile)

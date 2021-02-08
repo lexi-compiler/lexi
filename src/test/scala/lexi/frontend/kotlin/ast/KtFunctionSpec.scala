@@ -7,22 +7,20 @@ class KtFunctionSpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
+      .get
       .head
       .declaration
+      .get
       .functionDeclaration
+      .get
 
   test("expression function without parameters") {
     val source = """fun hello(): String = "Hello Maki!""""
     val ast = SyntaxAnalysis(source)
     val ktFunction = node(ast)
     val expected = KtFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = KtFunctionBody(
-        expression = KtExpressionContext(
-          KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-        )
-      )
+      name = Some("hello"),
+      `type` = Some("String")
     )
     assertEquals(ktFunction, expected)
   }
@@ -32,13 +30,8 @@ class KtFunctionSpec extends munit.FunSuite {
     val ast = SyntaxAnalysis(source)
     val ktFunction = node(ast)
     val expected =  KtFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = KtFunctionBody(
-        expression = KtExpressionContext(
-          KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
-        )
-      )
+      name = Some("hello"),
+      `type` = Some("String")
     )
     assertEquals(ktFunction, expected)
   }
@@ -53,11 +46,8 @@ class KtFunctionSpec extends munit.FunSuite {
     val ast = SyntaxAnalysis(source)
     val ktFunction = node(ast)
     val expected =  KtFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = KtFunctionBody(
-        block = KtBlock()
-      )
+      name = Some("hello"),
+      `type` = Some("String")
     )
     assertEquals(ktFunction, expected)
   }

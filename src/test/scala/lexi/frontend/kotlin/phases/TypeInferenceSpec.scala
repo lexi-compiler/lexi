@@ -7,26 +7,32 @@ class TypeInferenceSpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
+      .get
       .head
       .declaration
+      .get
       .propertyDeclaration
+      .get
 
   private def functionNode(ast: ASTNode): KtFunction =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
+      .get
       .head
       .declaration
+      .get
       .functionDeclaration
+      .get
 
   test("infers integer value") {
     val source = "val x = 5"
     val ast = propertyNode(SyntaxAnalysis(source))
     val typeInferredAst = TypeInference(ast)
     val expected = KtProperty(
-      name = "x",
-      expression = "5",
-      dataType = "Int"
+      name = Some("x"),
+      expression = Some("5"),
+      dataType = Some("Int")
     )
     assertEquals(typeInferredAst, expected)
   }
@@ -36,9 +42,9 @@ class TypeInferenceSpec extends munit.FunSuite {
     val ast = propertyNode(SyntaxAnalysis(source))
     val typeInferredAst = TypeInference(ast)
     val expected = KtProperty(
-      name = "x",
-      expression = "\"5\"",
-      dataType = "String"
+      name = Some("x"),
+      expression = Some(""""5""""),
+      dataType = Some("String")
     )
     assertEquals(typeInferredAst, expected)
   }

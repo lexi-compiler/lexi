@@ -7,17 +7,15 @@ import lexi.ir.nodes._
 class IrFunctionSpec extends munit.FunSuite {
   test("expression function without parameters") {
     val ast = KtFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = KtFunctionBody(expression = KtExpressionContext())
+      name = Some("hello"),
+      `type` = Some("String"),
+      functionBody = None
     )
     val irFunction = Ir(ast)
     val expected = IrFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = IrFunctionBody(
-        expression = IrExpression()
-      )
+      name = Some("hello"),
+      `type` = Some("String"),
+      functionBody = None
     )
     assertEquals(irFunction, expected)
   }

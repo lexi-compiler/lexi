@@ -3,9 +3,10 @@ package lexi.frontend.kotlin.ast
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 import scala.jdk.CollectionConverters._
+import scala.util.Try
 
 case class KtDisjunction(
-  var conjunctions: Vector[KtConjunction] = Vector.empty
+  var conjunctions: Option[Vector[KtConjunction]] = None
 ) extends ASTNode
 
 object KtDisjunction extends KotlinParserBaseVisitor[KtDisjunction] {
@@ -13,12 +14,8 @@ object KtDisjunction extends KotlinParserBaseVisitor[KtDisjunction] {
     ctx: KotlinParser.DisjunctionContext
   ): KtDisjunction =
     new KtDisjunction {
-      context = ctx
-      conjunctions = ctx.conjunction.asScala.map { conjunctionContext =>
-        val conjunction = KtConjunction.visit(conjunctionContext)
-        conjunction.parent = this
-        conjunction
-      }.toVector
+      context = Some(ctx)
+      conjunctions = Try(ctx.conjunction.asScala.toVector.map(KtConjunction.visit(_))).toOption
     }
 
 }

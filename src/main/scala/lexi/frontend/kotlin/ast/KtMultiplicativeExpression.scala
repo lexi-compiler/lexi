@@ -5,12 +5,11 @@ import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 case class KtMultiplicativeExpression(
 ) extends ASTNode
 
-object KtMultiplicativeExpression
-  extends KotlinParserBaseVisitor[KtMultiplicativeExpression] {
+object KtMultiplicativeExpression extends KotlinParserBaseVisitor[KtMultiplicativeExpression] {
   override def visitMultiplicativeExpression(
     ctx: KotlinParser.MultiplicativeExpressionContext
   ): KtMultiplicativeExpression =
-    new KtMultiplicativeExpression() {
-      context = ctx
+    new KtMultiplicativeExpression {
+      context = Some(ctx)
     }
 }

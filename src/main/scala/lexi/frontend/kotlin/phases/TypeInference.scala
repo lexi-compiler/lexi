@@ -24,7 +24,7 @@ object TypeInference {
       case IntPattern()    => "Int"
       case StringPattern() => "String"
     }
-    property.copy(dataType = inferredType)
+    property.copy(dataType = Option(inferredType))
   }
 
   def function(function: KtFunction): KtFunction = {
@@ -36,7 +36,7 @@ object TypeInference {
       case IntPattern()    => "Int"
       case StringPattern() => "String"
     }
-    function.copy(`type` = inferredType)
+    function.copy(`type` = Option(inferredType))
     function
   }
 }

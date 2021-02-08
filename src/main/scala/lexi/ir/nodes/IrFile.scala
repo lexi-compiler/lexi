@@ -1,6 +1,6 @@
 package lexi.ir.nodes
 
 case class IrFile(
-  var name: String = null,
-  var topLevelObjects: Vector[IrTopLevelObject] = Vector.empty
+  var name: Option[String] = None,
+  var topLevelObjects: Option[Vector[IrTopLevelObject]] = None
 ) extends IrNode

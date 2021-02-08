@@ -7,15 +7,22 @@ class KtPropertySpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
+      .get
       .head
       .declaration
+      .get
       .propertyDeclaration
+      .get
 
   test("integer declaration") {
     val source = """val x: Int = 5"""
     val ast = SyntaxAnalysis(source)
     val ktProperty = node(ast)
-    val expected = KtProperty("x", "5", "Int")
+    val expected = KtProperty(
+      name = Some("x"),
+      expression = Some("5"),
+      dataType = Some("Int")
+    )
     assertEquals(ktProperty, expected)
   }
 
@@ -23,9 +30,9 @@ class KtPropertySpec extends munit.FunSuite {
     val ast = SyntaxAnalysis("""val firstName: String = "Matt"""")
     val ktProperty = node(ast)
     val expected = KtProperty(
-      name = "firstName",
-      expression = """"Matt"""",
-      dataType = "String"
+      name = Some("firstName"),
+      expression = Some(""""Matt""""),
+      dataType = Some("String")
     )
     assertEquals(ktProperty, expected)
   }
@@ -34,9 +41,9 @@ class KtPropertySpec extends munit.FunSuite {
     val ast = SyntaxAnalysis("""val firstName: String = """"")
     val ktProperty = node(ast)
     val expected = KtProperty(
-      name = "firstName",
-      expression = "\"\"",
-      dataType = "String"
+      name = Some("firstName"),
+      expression = Some("\"\""),
+      dataType = Some("String")
     )
     assertEquals(ktProperty, expected)
   }

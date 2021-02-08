@@ -8,7 +8,7 @@ object KtTopLevelObjectVisitor extends KtVisitor {
     (
       (topLevel: KtTopLevelObject) =>
         IrTopLevelObject(
-          declaration = KtDeclarationVisitor.visit(topLevel.declaration)
+          declaration = topLevel.declaration.map(KtDeclarationVisitor.visit(_))
         )
     )(ast.asInstanceOf[KtTopLevelObject])
 }
