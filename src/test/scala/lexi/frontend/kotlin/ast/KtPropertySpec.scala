@@ -3,7 +3,7 @@ package lexi.frontend.kotlin.ast
 import lexi.frontend.kotlin.phases.SyntaxAnalysis
 
 class KtPropertySpec extends munit.FunSuite {
-  private def node(ast: ASTNode): KtProperty =
+  private def ktProperty(ast: ASTNode): KtProperty =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
@@ -17,34 +17,34 @@ class KtPropertySpec extends munit.FunSuite {
   test("integer declaration") {
     val source = """val x: Int = 5"""
     val ast = SyntaxAnalysis(source)
-    val ktProperty = node(ast)
+    val property = ktProperty(ast)
     val expected = KtProperty(
       name = Some("x"),
       expression = Some("5"),
       dataType = Some("Int")
     )
-    assertEquals(ktProperty, expected)
+    assertEquals(property, expected)
   }
 
   test("string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = "Matt"""")
-    val ktProperty = node(ast)
+    val property = ktProperty(ast)
     val expected = KtProperty(
       name = Some("firstName"),
       expression = Some(""""Matt""""),
       dataType = Some("String")
     )
-    assertEquals(ktProperty, expected)
+    assertEquals(property, expected)
   }
 
   test("empty string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = """"")
-    val ktProperty = node(ast)
+    val property = ktProperty(ast)
     val expected = KtProperty(
       name = Some("firstName"),
       expression = Some("\"\""),
       dataType = Some("String")
     )
-    assertEquals(ktProperty, expected)
+    assertEquals(property, expected)
   }
 }
