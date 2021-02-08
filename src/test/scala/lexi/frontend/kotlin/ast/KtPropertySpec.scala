@@ -29,22 +29,18 @@ class KtPropertySpec extends munit.FunSuite {
   test("string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = "Matt"""")
     val property = ktProperty(ast)
-    val expected = KtProperty(
-      name = Some("firstName"),
-      expression = Some(""""Matt""""),
-      dataType = Some("String")
-    )
-    assertEquals(property, expected)
+    assert(property.isInstanceOf[KtProperty])
+    assertEquals(property.name, Some("firstName"))
+    assertEquals(property.expression, Some(""""Matt""""))
+    assertEquals(property.dataType, Some("String"))
   }
 
   test("empty string declaration") {
     val ast = SyntaxAnalysis("""val firstName: String = """"")
     val property = ktProperty(ast)
-    val expected = KtProperty(
-      name = Some("firstName"),
-      expression = Some("\"\""),
-      dataType = Some("String")
-    )
-    assertEquals(property, expected)
+    assert(property.isInstanceOf[KtProperty])
+    assertEquals(property.name, Some("firstName"))
+    assertEquals(property.expression, Some("\"\""))
+    assertEquals(property.dataType, Some("String"))
   }
 }

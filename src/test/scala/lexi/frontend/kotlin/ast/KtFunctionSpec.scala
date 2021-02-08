@@ -18,6 +18,7 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = """fun hello(): String = "Hello Maki!""""
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
+    assert(function.isInstanceOf[KtFunction])
     assertEquals(function.name, Some("hello"))
     assertEquals(function.`type`, Some("String"))
   }
