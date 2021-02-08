@@ -15,7 +15,7 @@ object KtDisjunction extends KotlinParserBaseVisitor[KtDisjunction] {
     new KtDisjunction {
       context = ctx
       conjunctions = ctx.conjunction.asScala.map { conjunctionContext =>
-        val conjunction = KtConjunction.visitConjunction(conjunctionContext)
+        val conjunction = KtConjunction.visit(conjunctionContext)
         conjunction.parent = this
         conjunction
       }.toVector

@@ -1,6 +1,6 @@
 package lexi.frontend.kotlin.phases
 
-import lexi.frontend.kotlin.ast.{ASTNode, KtExpression, KtFile, KtFunction, KtFunctionBody, KtProperty}
+import lexi.frontend.kotlin.ast.{ASTNode, KtExpressionContext, KtFile, KtFunction, KtFunctionBody, KtProperty}
 
 class TypeInferenceSpec extends munit.FunSuite {
   private def propertyNode(ast: ASTNode): KtProperty =

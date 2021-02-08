@@ -15,7 +15,7 @@ object KtConjunction extends KotlinParserBaseVisitor[KtConjunction] {
     new KtConjunction {
       context = ctx
       equalities = ctx.equality.asScala.map { item =>
-        val equality = KtEquality.visitEquality(item)
+        val equality = KtEquality.visit(item)
         equality.parent = this
         equality
       }.toVector

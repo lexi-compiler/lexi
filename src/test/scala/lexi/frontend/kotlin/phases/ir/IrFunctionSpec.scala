@@ -1,6 +1,6 @@
 package lexi.frontend.kotlin.phases.ir
 
-import lexi.frontend.kotlin.ast.{KtExpression, KtFunction, KtFunctionBody}
+import lexi.frontend.kotlin.ast.{KtExpressionContext, KtFunction, KtFunctionBody}
 import lexi.frontend.kotlin.phases.{Ir, LanguageAnalysis, SemanticAnalysis}
 import lexi.ir.nodes._
 
@@ -9,7 +9,7 @@ class IrFunctionSpec extends munit.FunSuite {
     val ast = KtFunction(
       name = "hello",
       `type` = "String",
-      functionBody = KtFunctionBody(expression = KtExpression())
+      functionBody = KtFunctionBody(expression = KtExpressionContext())
     )
     val irFunction = Ir(ast)
     val expected = IrFunction(

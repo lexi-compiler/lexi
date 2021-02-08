@@ -18,7 +18,7 @@ object KtFunction extends KotlinParserBaseVisitor[KtFunction] {
     new KtFunction(
       name = ctx.simpleIdentifier.getText,
       `type` = Optional.ofNullable(ctx.`type`).map(_.getText).orElse(""),
-      functionBody = KtFunctionBody.visitFunctionBody(ctx.functionBody)
+      functionBody = KtFunctionBody.visit(ctx.functionBody)
     ) {
       context = ctx
     }

@@ -6,7 +6,7 @@ import java.util.Optional
 
 case class KtFunctionBody(
   var block: KtBlock = null,
-  var expression: KtExpression = null
+  var expression: KtExpressionContext = null
 ) extends ASTNode
 
 object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
@@ -14,8 +14,8 @@ object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
     ctx: KotlinParser.FunctionBodyContext
   ): KtFunctionBody =
     new KtFunctionBody(
-      block = Optional.ofNullable(ctx.block).map(KtBlock.visitBlock(_)).orElse(null),
-      expression = Optional.ofNullable(ctx.expression).map(KtExpression.visitExpression(_)).orElse(null)
+      block = Optional.ofNullable(ctx.block).map(KtBlock.visit(_)).orElse(null),
+      expression = Optional.ofNullable(ctx.expression).map(KtExpressionContext.visit(_)).orElse(null)
     ) {
       context = ctx
     }

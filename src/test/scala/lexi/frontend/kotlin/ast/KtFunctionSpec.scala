@@ -19,7 +19,7 @@ class KtFunctionSpec extends munit.FunSuite {
       name = "hello",
       `type` = "String",
       functionBody = KtFunctionBody(
-        expression = KtExpression(
+        expression = KtExpressionContext(
           KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
         )
       )
@@ -35,7 +35,7 @@ class KtFunctionSpec extends munit.FunSuite {
       name = "hello",
       `type` = "String",
       functionBody = KtFunctionBody(
-        expression = KtExpression(
+        expression = KtExpressionContext(
           KtDisjunction(Vector(KtConjunction(Vector(KtEquality()))))
         )
       )

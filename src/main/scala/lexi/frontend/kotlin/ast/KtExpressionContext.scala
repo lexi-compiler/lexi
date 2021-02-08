@@ -2,18 +2,17 @@ package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
-case class KtExpression(
+case class KtExpressionContext(
   var disjunction: KtDisjunction = null
 ) extends ASTNode
 
-object KtExpression extends KotlinParserBaseVisitor[KtExpression] {
+object KtExpressionContext extends KotlinParserBaseVisitor[KtExpressionContext] {
   override def visitExpression(
     ctx: KotlinParser.ExpressionContext
-  ): KtExpression =
-    new KtExpression {
+  ): KtExpressionContext =
+    new KtExpressionContext(
+      disjunction = KtDisjunction.visit(ctx.disjunction)
+    ) {
       context = ctx
-      disjunction = KtDisjunction.visitDisjunction(ctx.disjunction)
-      disjunction.parent = this
     }
-
 }
