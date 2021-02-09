@@ -5,7 +5,7 @@ import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 import scala.util.Try
 
 case class KtGenericCallLikeComparison(
-  var infixOperationContext: Option[KtInfixOperation] = None
+  var infixOperation: Option[KtInfixOperation] = None
 ) extends ASTNode
 
 object KtGenericCallLikeComparison
@@ -15,6 +15,6 @@ object KtGenericCallLikeComparison
   ): KtGenericCallLikeComparison =
     new KtGenericCallLikeComparison {
       context = Some(ctx)
-      infixOperationContext = Try(KtInfixOperation.visit(ctx.infixOperation)).toOption
+      infixOperation = Try(KtInfixOperation.visit(ctx.infixOperation)).toOption
     }
 }
