@@ -7,10 +7,10 @@ object KtFunctionVisitor extends KtVisitor {
   override def visit(ast: ASTNode): IrFunction =
     (
       (function: KtFunction) =>
-        IrFunction(
-          name = function.name,
-          `type` = function.`type`,
-          functionBody = KtFunctionBodyVisitor.visit(function.functionBody)
-        )
+        new IrFunction {
+          name = function.name
+          `type` = function.`type`
+          functionBody = function.functionBody.map(KtFunctionBodyVisitor.visit(_))
+        }
     )(ast.asInstanceOf[KtFunction])
 }

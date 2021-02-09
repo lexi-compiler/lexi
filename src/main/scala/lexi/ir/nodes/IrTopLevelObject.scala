@@ -1,5 +1,5 @@
 package lexi.ir.nodes
 
 case class IrTopLevelObject(
-  var declaration: IrDeclaration = null
+  var declaration: Option[IrDeclaration] = None
 ) extends IrNode

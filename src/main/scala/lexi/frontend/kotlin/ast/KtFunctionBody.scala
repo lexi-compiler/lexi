@@ -2,21 +2,21 @@ package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
+import java.util.Optional
+import scala.util.Try
+
 case class KtFunctionBody(
-  var block: Vector[String] = null,
-  var expression: KtExpression = null
+  var block: Option[KtBlock] = None,
+  var expression: Option[KtExpressionContext] = None
 ) extends ASTNode
 
-object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
-  override def visitFunctionBody(
-    ctx: KotlinParser.FunctionBodyContext
-  ): KtFunctionBody =
-    new KtFunctionBody(
-      block = null,
-      expression = KtExpression.visitExpression(ctx.expression)
-    ) {
-      context = ctx
-      expression.parent = this
+object KtFunctionBody extends KotlinParserBaseVisitor[Option[ASTNode] => KtFunctionBody] {
+  override def visitFunctionBody(ctx: KotlinParser.FunctionBodyContext) = { parentNode =>
+    new KtFunctionBody {
+      parent = parentNode
+      context = Some(ctx)
+      block = Try(KtBlock.visit(ctx.block)(Some(this.asInstanceOf[KtFunctionBody]))).toOption
+      expression = Try(KtExpressionContext.visit(ctx.expression)(Some(this.asInstanceOf[KtFunctionBody]))).toOption
     }
-
+  }
 }

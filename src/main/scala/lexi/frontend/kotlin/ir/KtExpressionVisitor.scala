@@ -1,11 +1,13 @@
 package lexi.frontend.kotlin.ir
 
-import lexi.frontend.kotlin.ast.{ASTNode, KtExpression}
+import lexi.frontend.kotlin.ast.{ASTNode, KtExpressionContext}
 import lexi.ir.nodes.IrExpression
 
 object KtExpressionVisitor extends KtVisitor {
   override def visit(ast: ASTNode): IrExpression =
-    ((_: KtExpression) => new IrExpression {})(
-      ast.asInstanceOf[KtExpression]
+    ((_: KtExpressionContext) => IrExpression(
+      
+    ))(
+      ast.asInstanceOf[KtExpressionContext]
     )
 }

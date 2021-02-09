@@ -5,11 +5,8 @@ import org.antlr.v4.runtime.ParserRuleContext
 import scala.collection.mutable.ListBuffer
 
 trait ASTNode {
-  var parent: ASTNode = null
-  var prevSibling: ASTNode = null
-  var nextSibling: ASTNode = null
-  var children: ListBuffer[ASTNode] = ListBuffer.empty
-  var context: ParserRuleContext = null
+  var parent: Option[ASTNode] = None
+  var context: Option[ParserRuleContext] = None
 
   def accept(visitor: ASTVisitor): ASTNode =
     visitor.visit(this)

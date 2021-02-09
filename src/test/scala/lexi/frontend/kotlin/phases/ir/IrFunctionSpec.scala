@@ -1,22 +1,25 @@
 package lexi.frontend.kotlin.phases.ir
 
-import lexi.frontend.kotlin.phases.LanguageAnalysis
+import lexi.frontend.kotlin.ast.{
+  KtExpressionContext,
+  KtFunction,
+  KtFunctionBody
+}
+import lexi.frontend.kotlin.phases.{Ir, LanguageAnalysis, SemanticAnalysis}
 import lexi.ir.nodes._
 
 class IrFunctionSpec extends munit.FunSuite {
-  private def node(ir: IrNode): IrFunction =
-    ir.asInstanceOf[IrFile].topLevelObjects.head.declaration.functionDeclaration
-
   test("expression function without parameters") {
-    val source = """fun hello(): String = "Hello Maki!""""
-    val ir = LanguageAnalysis(source)
-    val irFunction = node(ir)
+    val ast = KtFunction(
+      name = Some("hello"),
+      `type` = Some("String"),
+      functionBody = None
+    )
+    val irFunction = Ir(ast)
     val expected = IrFunction(
-      name = "hello",
-      `type` = "String",
-      functionBody = IrFunctionBody(
-        expression = IrExpression()
-      )
+      name = Some("hello"),
+      `type` = Some("String"),
+      functionBody = None
     )
     assertEquals(irFunction, expected)
   }

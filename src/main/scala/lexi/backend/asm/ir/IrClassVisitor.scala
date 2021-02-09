@@ -10,13 +10,14 @@ object IrClassVisitor extends IrVisitor[ClassWriter] {
         writer.visit(
           Opcodes.V1_8,
           Opcodes.ACC_PUBLIC,
-          ir.asInstanceOf[IrClass].name,
+          ir.asInstanceOf[IrClass].name.get,
           null,
           "java/lang/Object",
           null
         )
         ir.asInstanceOf[IrClass]
           .methods
+          .get
           .foreach(IrMethodVisitor(writer).visit(_))
         writer.visitEnd()
         writer

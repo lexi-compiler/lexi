@@ -2,11 +2,22 @@ package lexi.frontend.kotlin.ast
 
 import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
-case class KtEquality() extends ASTNode
+import scala.jdk.CollectionConverters._
+import scala.util.Try
 
-object KtEquality extends KotlinParserBaseVisitor[KtEquality] {
-  override def visitEquality(ctx: KotlinParser.EqualityContext): KtEquality =
-    new KtEquality() {
-      context = ctx
+case class KtEquality(
+  var comparison: Option[Vector[KtComparison]] = None
+) extends ASTNode
+
+object KtEquality extends KotlinParserBaseVisitor[Option[ASTNode] => KtEquality] {
+  override def visitEquality(ctx: KotlinParser.EqualityContext) = parentNode =>
+    new KtEquality {
+      parent = parentNode
+      context = Some(ctx)
+      comparison = Try(
+        ctx.comparison.asScala.map(
+          KtComparison.visit(_)(Some(this.asInstanceOf[KtEquality]))
+        ).toVector
+      ).toOption
     }
 }

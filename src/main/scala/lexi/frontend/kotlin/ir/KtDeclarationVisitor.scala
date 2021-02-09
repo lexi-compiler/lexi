@@ -6,16 +6,10 @@ import lexi.ir.nodes.IrDeclaration
 object KtDeclarationVisitor extends KtVisitor {
   override def visit(ast: ASTNode): IrDeclaration =
     (
-      (declaration: KtDeclaration) =>
+      (ktDeclaration: KtDeclaration) =>
         new IrDeclaration {
-          propertyDeclaration =
-            if (null != declaration.propertyDeclaration)
-              KtPropertyVisitor.visit(declaration.propertyDeclaration)
-            else null
-          functionDeclaration =
-            if (null != declaration.functionDeclaration)
-              KtFunctionVisitor.visit(declaration.functionDeclaration)
-            else null
+          propertyDeclaration = ktDeclaration.propertyDeclaration.map(KtPropertyVisitor.visit(_))
+          functionDeclaration = ktDeclaration.functionDeclaration.map(KtFunctionVisitor.visit(_))
         }
     )(ast.asInstanceOf[KtDeclaration])
 }

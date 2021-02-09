@@ -1,7 +1,7 @@
 package lexi.ir.nodes
 
 case class IrProperty(
-  var name: String = null,
-  var expression: String = null,
-  var dataType: String = null
+  var name: Option[String] = None,
+  var expression: Option[String] = None,
+  var dataType: Option[String] = None
 ) extends IrNode
