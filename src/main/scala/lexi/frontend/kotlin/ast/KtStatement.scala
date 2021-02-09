@@ -4,13 +4,13 @@ import lexi.frontend.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 import scala.util.Try
 
-case class KtStatementContext(
+case class KtStatement(
   var expression: Option[KtExpressionContext] = None
 ) extends ASTNode
 
-object KtStatementContext extends KotlinParserBaseVisitor[KtStatementContext] {
-  override def visitStatement(ctx: KotlinParser.StatementContext): KtStatementContext =
-    new KtStatementContext {
+object KtStatement extends KotlinParserBaseVisitor[KtStatement] {
+  override def visitStatement(ctx: KotlinParser.StatementContext): KtStatement =
+    new KtStatement {
       context = Some(ctx)
       expression = Try(KtExpressionContext.visit(ctx.expression)).toOption
     }

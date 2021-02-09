@@ -13,8 +13,6 @@ object KtEquality extends KotlinParserBaseVisitor[KtEquality] {
   override def visitEquality(ctx: KotlinParser.EqualityContext): KtEquality =
     new KtEquality {
       context = Some(ctx)
-      comparison = Try {
-        ctx.comparison.asScala.map(KtComparison.visit(_)).toVector
-      }.toOption
+      comparison = Try(ctx.comparison.asScala.map(KtComparison.visit(_)).toVector).toOption
     }
 }

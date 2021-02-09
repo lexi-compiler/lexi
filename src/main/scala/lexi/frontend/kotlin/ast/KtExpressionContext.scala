@@ -14,8 +14,6 @@ object KtExpressionContext extends KotlinParserBaseVisitor[KtExpressionContext] 
   ): KtExpressionContext =
     new KtExpressionContext {
       context = Some(ctx)
-      disjunction = Try {
-        KtDisjunction.visit(ctx.disjunction)
-      }.toOption
+      disjunction = Try(KtDisjunction.visit(ctx.disjunction)).toOption
     }
 }

@@ -15,8 +15,8 @@ object KtComparison extends KotlinParserBaseVisitor[KtComparison] {
   ): KtComparison =
     new KtComparison {
       context = Some(ctx)
-      genericCallLikeComparisonContext = Try {
+      genericCallLikeComparisonContext = Try(
         ctx.genericCallLikeComparison.asScala.toVector.map(KtGenericCallLikeComparison.visit(_))
-      }.toOption
+      ).toOption
     }
 }

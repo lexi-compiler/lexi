@@ -6,15 +6,13 @@ import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 case class KtBlock(
-  var statementsContext: Option[KtStatementsContext] = None
+  var statements: Option[Vector[KtStatement]] = None
 ) extends ASTNode
 
 object KtBlock extends KotlinParserBaseVisitor[KtBlock] {
   override def visitBlock(ctx: KotlinParser.BlockContext): KtBlock =
     new KtBlock {
       context = Some(ctx)
-      statementsContext = Try {
-        KtStatementsContext.visit(ctx.statements)
-      }.toOption
+      statements = Try(ctx.statements.statement.asScala.toVector.map(KtStatement.visit(_))).toOption
     }
 }
