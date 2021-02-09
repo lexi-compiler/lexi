@@ -8,12 +8,13 @@ case class KtStringLiteral(
   var lineStringLiteral: Option[KtLineStringLiteral] = None
 ) extends ASTNode
 
-object KtStringLiteral extends KotlinParserBaseVisitor[KtStringLiteral] {
-  override def visitStringLiteral(
-    ctx: KotlinParser.StringLiteralContext
-  ): KtStringLiteral =
+object KtStringLiteral extends KotlinParserBaseVisitor[Option[ASTNode] => KtStringLiteral] {
+  override def visitStringLiteral(ctx: KotlinParser.StringLiteralContext) = parentNode =>
     new KtStringLiteral {
+      parent = parentNode
       context = Some(ctx)
-      lineStringLiteral = Try(KtLineStringLiteral.visit(ctx.lineStringLiteral)).toOption
+      lineStringLiteral = Try(
+        KtLineStringLiteral.visit(ctx.lineStringLiteral)(Some(this.asInstanceOf[KtStringLiteral]))
+      ).toOption
     }
 }

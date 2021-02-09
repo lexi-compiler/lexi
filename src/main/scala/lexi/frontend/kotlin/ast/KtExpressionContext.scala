@@ -8,12 +8,14 @@ case class KtExpressionContext(
   var disjunction: Option[KtDisjunction] = None
 ) extends ASTNode
 
-object KtExpressionContext extends KotlinParserBaseVisitor[KtExpressionContext] {
-  override def visitExpression(
-    ctx: KotlinParser.ExpressionContext
-  ): KtExpressionContext =
+object KtExpressionContext
+  extends KotlinParserBaseVisitor[Option[ASTNode] => KtExpressionContext] {
+  override def visitExpression(ctx: KotlinParser.ExpressionContext) = parentNode =>
     new KtExpressionContext {
+      parent = parentNode
       context = Some(ctx)
-      disjunction = Try(KtDisjunction.visit(ctx.disjunction)).toOption
+      disjunction = Try(
+        KtDisjunction.visit(ctx.disjunction)(Some(this.asInstanceOf[KtExpressionContext]))
+      ).toOption
     }
 }

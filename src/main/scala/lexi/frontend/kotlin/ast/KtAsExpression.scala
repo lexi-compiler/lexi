@@ -8,12 +8,15 @@ case class KtAsExpression(
   var prefixUnaryExpression: Option[KtPrefixUnaryExpression] = None
 ) extends ASTNode
 
-object KtAsExpression extends KotlinParserBaseVisitor[KtAsExpression] {
-  override def visitAsExpression(
-    ctx: KotlinParser.AsExpressionContext
-  ): KtAsExpression =
+object KtAsExpression extends KotlinParserBaseVisitor[Option[ASTNode] => KtAsExpression] {
+  override def visitAsExpression(ctx: KotlinParser.AsExpressionContext) = parentNode =>
     new KtAsExpression {
+      parent = parentNode
       context = Some(ctx)
-      prefixUnaryExpression = Try(KtPrefixUnaryExpression.visit(ctx.prefixUnaryExpression)).toOption
+      prefixUnaryExpression = Try(
+        KtPrefixUnaryExpression.visit(ctx.prefixUnaryExpression)(
+          Some(this.asInstanceOf[KtAsExpression])
+        )
+      ).toOption
     }
 }

@@ -8,13 +8,12 @@ case class KtPrimaryExpression(
   var stringLiteral: Option[KtStringLiteral] = None
 ) extends ASTNode
 
-object KtPrimaryExpression
-  extends KotlinParserBaseVisitor[KtPrimaryExpression] {
-  override def visitPrimaryExpression(
-    ctx: KotlinParser.PrimaryExpressionContext
-  ): KtPrimaryExpression =
+object KtPrimaryExpression extends KotlinParserBaseVisitor[Option[ASTNode] => KtPrimaryExpression] {
+  override def visitPrimaryExpression(ctx: KotlinParser.PrimaryExpressionContext) = { parentNode =>
     new KtPrimaryExpression {
+      parent = parentNode
       context = Some(ctx)
-      stringLiteral = Try(KtStringLiteral.visit(ctx.stringLiteral)).toOption
+      stringLiteral = Try(KtStringLiteral.visit(ctx.stringLiteral)(Some(this.asInstanceOf[KtPrimaryExpression]))).toOption
     }
+  }
 }

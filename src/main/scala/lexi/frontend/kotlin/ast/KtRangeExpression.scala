@@ -9,12 +9,15 @@ case class KtRangeExpression(
   var additiveExpressions: Option[Vector[KtAdditiveExpression]] = None
 ) extends ASTNode
 
-object KtRangeExpression extends KotlinParserBaseVisitor[KtRangeExpression] {
-  override def visitRangeExpression(ctx: KotlinParser.RangeExpressionContext): KtRangeExpression =
+object KtRangeExpression extends KotlinParserBaseVisitor[Option[ASTNode] => KtRangeExpression] {
+  override def visitRangeExpression(ctx: KotlinParser.RangeExpressionContext) = parentNode =>
     new KtRangeExpression {
+      parent = parentNode
       context = Some(ctx)
-      additiveExpressions = Try {
-        ctx.additiveExpression.asScala.toVector.map(KtAdditiveExpression.visit(_))
-      }.toOption
+      additiveExpressions = Try(
+        ctx.additiveExpression.asScala.toVector.map(
+          KtAdditiveExpression.visit(_)(Some(this.asInstanceOf[KtRangeExpression]))
+        )
+      ).toOption
     }
 }

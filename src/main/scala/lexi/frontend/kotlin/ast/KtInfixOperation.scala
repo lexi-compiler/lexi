@@ -9,10 +9,16 @@ case class KtInfixOperation(
   var elvisExpression: Option[Vector[KtElvisExpression]] = None
 ) extends ASTNode
 
-object KtInfixOperation extends KotlinParserBaseVisitor[KtInfixOperation] {
-  override def visitInfixOperation(ctx: KotlinParser.InfixOperationContext): KtInfixOperation =
+object KtInfixOperation extends KotlinParserBaseVisitor[Option[ASTNode] => KtInfixOperation] {
+  override def visitInfixOperation(ctx: KotlinParser.InfixOperationContext) = { parentNode =>
     new KtInfixOperation {
+      parent = parentNode
       context = Some(ctx)
-      elvisExpression = Try(ctx.elvisExpression.asScala.toVector.map(KtElvisExpression.visit(_))).toOption
+      elvisExpression = Try(
+        ctx.elvisExpression.asScala.toVector.map(
+          KtElvisExpression.visit(_)(Some(this.asInstanceOf[KtInfixOperation]))
+        )
+      ).toOption
     }
+  }
 }

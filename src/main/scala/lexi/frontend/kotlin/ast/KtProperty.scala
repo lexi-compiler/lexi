@@ -11,12 +11,14 @@ case class KtProperty(
   var dataType: Option[String] = None
 ) extends ASTNode
 
-object KtProperty extends KotlinParserBaseVisitor[KtProperty] {
-  override def visitPropertyDeclaration(ctx: KotlinParser.PropertyDeclarationContext): KtProperty =
+object KtProperty extends KotlinParserBaseVisitor[Option[ASTNode] => KtProperty] {
+  override def visitPropertyDeclaration(ctx: KotlinParser.PropertyDeclarationContext) = { parentNode =>
     new KtProperty {
+      parent = parentNode
       context = Some(ctx)
       name = Try(ctx.variableDeclaration.simpleIdentifier.getText).toOption
       expression = Try(ctx.expression.getText).toOption
       dataType = Try(ctx.variableDeclaration.`type`.getText).toOption
     }
+  }
 }

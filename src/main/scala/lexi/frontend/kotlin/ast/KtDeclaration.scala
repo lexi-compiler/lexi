@@ -10,13 +10,13 @@ case class KtDeclaration(
   var functionDeclaration: Option[KtFunction] = None
 ) extends ASTNode
 
-object KtDeclaration extends KotlinParserBaseVisitor[KtDeclaration] {
-  override def visitDeclaration(
-    ctx: DeclarationContext
-  ): KtDeclaration =
+object KtDeclaration extends KotlinParserBaseVisitor[Option[ASTNode] => KtDeclaration] {
+  override def visitDeclaration(ctx: DeclarationContext) = { parentNode =>
     new KtDeclaration {
+      parent = parentNode
       context = Some(ctx)
-      propertyDeclaration = Try(KtProperty.visit(ctx.propertyDeclaration)).toOption
-      functionDeclaration = Try(KtFunction.visit(ctx.functionDeclaration)).toOption
+      propertyDeclaration = Try(KtProperty.visit(ctx.propertyDeclaration)(Some(this.asInstanceOf[KtDeclaration]))).toOption
+      functionDeclaration = Try(KtFunction.visit(ctx.functionDeclaration)(Some(this.asInstanceOf[KtDeclaration]))).toOption
     }
+  }
 }

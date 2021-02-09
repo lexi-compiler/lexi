@@ -9,10 +9,12 @@ case class KtBlock(
   var statements: Option[Vector[KtStatement]] = None
 ) extends ASTNode
 
-object KtBlock extends KotlinParserBaseVisitor[KtBlock] {
-  override def visitBlock(ctx: KotlinParser.BlockContext): KtBlock =
+object KtBlock extends KotlinParserBaseVisitor[Option[ASTNode] => KtBlock] {
+  override def visitBlock(ctx: KotlinParser.BlockContext) = { parentNode =>
     new KtBlock {
+      parent = parentNode
       context = Some(ctx)
-      statements = Try(ctx.statements.statement.asScala.toVector.map(KtStatement.visit(_))).toOption
+      statements = Try(ctx.statements.statement.asScala.toVector.map(KtStatement.visit(_)(Some(this.asInstanceOf[KtBlock])))).toOption
     }
+  }
 }

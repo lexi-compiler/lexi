@@ -9,12 +9,15 @@ case class KtMultiplicativeExpression(
   var asExpression: Option[Vector[KtAsExpression]] = None
 ) extends ASTNode
 
-object KtMultiplicativeExpression extends KotlinParserBaseVisitor[KtMultiplicativeExpression] {
-  override def visitMultiplicativeExpression(
-    ctx: KotlinParser.MultiplicativeExpressionContext
-  ): KtMultiplicativeExpression =
+object KtMultiplicativeExpression extends KotlinParserBaseVisitor[Option[ASTNode] => KtMultiplicativeExpression] {
+  override def visitMultiplicativeExpression(ctx: KotlinParser.MultiplicativeExpressionContext) = parentNode =>
     new KtMultiplicativeExpression {
+      parent = parentNode
       context = Some(ctx)
-      asExpression = Try(ctx.asExpression.asScala.toVector.map(KtAsExpression.visit(_))).toOption
+      asExpression = Try(
+        ctx.asExpression.asScala.toVector.map(
+          KtAsExpression.visit(_)(Some(this.asInstanceOf[KtMultiplicativeExpression]))
+        )
+      ).toOption
     }
 }

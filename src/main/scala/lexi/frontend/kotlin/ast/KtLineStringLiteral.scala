@@ -9,10 +9,15 @@ case class KtLineStringLiteral(
   var lineStringContent: Option[Vector[KtLineStringContent]] = None
 ) extends ASTNode
 
-object KtLineStringLiteral extends KotlinParserBaseVisitor[KtLineStringLiteral] {
-  override def visitLineStringLiteral(ctx: KotlinParser.LineStringLiteralContext): KtLineStringLiteral =
+object KtLineStringLiteral extends KotlinParserBaseVisitor[Option[ASTNode] => KtLineStringLiteral] {
+  override def visitLineStringLiteral(ctx: KotlinParser.LineStringLiteralContext) = parentNode =>
     new KtLineStringLiteral {
+      parent = parentNode
       context = Some(ctx)
-      lineStringContent = Try(ctx.lineStringContent.asScala.toVector.map(KtLineStringContent.visit(_))).toOption
+      lineStringContent = Try(
+        ctx.lineStringContent.asScala.toVector.map(
+          KtLineStringContent.visit(_)(Some(this.asInstanceOf[KtLineStringLiteral]))
+        )
+      ).toOption
     }
 }

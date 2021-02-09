@@ -9,10 +9,15 @@ case class KtEquality(
   var comparison: Option[Vector[KtComparison]] = None
 ) extends ASTNode
 
-object KtEquality extends KotlinParserBaseVisitor[KtEquality] {
-  override def visitEquality(ctx: KotlinParser.EqualityContext): KtEquality =
+object KtEquality extends KotlinParserBaseVisitor[Option[ASTNode] => KtEquality] {
+  override def visitEquality(ctx: KotlinParser.EqualityContext) = parentNode =>
     new KtEquality {
+      parent = parentNode
       context = Some(ctx)
-      comparison = Try(ctx.comparison.asScala.map(KtComparison.visit(_)).toVector).toOption
+      comparison = Try(
+        ctx.comparison.asScala.map(
+          KtComparison.visit(_)(Some(this.asInstanceOf[KtEquality]))
+        ).toVector
+      ).toOption
     }
 }

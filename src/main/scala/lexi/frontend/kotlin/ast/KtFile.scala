@@ -14,12 +14,10 @@ object KtFile extends KotlinParserBaseVisitor[KtFile] {
   override def visitKotlinFile(ctx: KotlinFileContext): KtFile =
     new KtFile {
       context = Some(ctx)
-      topLevelObjects = Try {
-        ctx.topLevelObject.asScala.toVector.map { topLevelObject =>
-            val tlo = KtTopLevelObject.visit(topLevelObject)
-            tlo.parent = Some(this)
-            tlo
-        }
-      }.toOption
+      topLevelObjects = Try(
+        ctx.topLevelObject.asScala.toVector.map(
+          KtTopLevelObject.visit(_)(Some(this.asInstanceOf[KtFile]))
+        )
+      ).toOption
     }
 }

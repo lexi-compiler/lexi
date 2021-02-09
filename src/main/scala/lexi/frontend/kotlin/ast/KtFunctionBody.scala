@@ -10,13 +10,13 @@ case class KtFunctionBody(
   var expression: Option[KtExpressionContext] = None
 ) extends ASTNode
 
-object KtFunctionBody extends KotlinParserBaseVisitor[KtFunctionBody] {
-  override def visitFunctionBody(
-    ctx: KotlinParser.FunctionBodyContext
-  ): KtFunctionBody =
+object KtFunctionBody extends KotlinParserBaseVisitor[Option[ASTNode] => KtFunctionBody] {
+  override def visitFunctionBody(ctx: KotlinParser.FunctionBodyContext) = { parentNode =>
     new KtFunctionBody {
+      parent = parentNode
       context = Some(ctx)
-      block = Try(KtBlock.visit(ctx.block)).toOption
-      expression = Try(KtExpressionContext.visit(ctx.expression)).toOption
+      block = Try(KtBlock.visit(ctx.block)(Some(this.asInstanceOf[KtFunctionBody]))).toOption
+      expression = Try(KtExpressionContext.visit(ctx.expression)(Some(this.asInstanceOf[KtFunctionBody]))).toOption
     }
+  }
 }
