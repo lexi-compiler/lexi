@@ -2,4 +2,6 @@ package lexi.ir.nodes
 
 import scala.collection.mutable.ListBuffer
 
-trait IrNode
+trait IrNode {
+  var parent: Option[IrNode] = None
+}
