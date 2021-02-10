@@ -6,6 +6,7 @@ ThisBuild / organization := "io.lexi-compiler"
 ThisBuild / organizationName := "lexi"
 
 lazy val root = (project in file("."))
+  .enablePlugins(NativeImagePlugin)
   .settings(
     name := "lexi",
     libraryDependencies ++= Seq(
@@ -15,6 +16,7 @@ lazy val root = (project in file("."))
       tastyInspector,
       munit % Test
     ),
+    Compile / mainClass:= Some("lexi.CLI"),
     testFrameworks += new TestFramework("munit.Framework")
   )
 
