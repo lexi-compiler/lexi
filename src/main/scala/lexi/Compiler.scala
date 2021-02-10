@@ -1,7 +1,7 @@
 package lexi
 
-//import lexi.frontend.kotlin.phases.LanguageAnalysis
-import lexi.frontend.scala.phases.LanguageAnalysis
+import lexi.frontend.kotlin.phases.LanguageAnalysis
+//import lexi.frontend.scala.phases.LanguageAnalysis
 import lexi.ir.nodes.IrNode
 import lexi.ir.phases.IrAnalysis
 
