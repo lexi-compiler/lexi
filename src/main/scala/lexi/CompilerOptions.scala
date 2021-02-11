@@ -9,6 +9,6 @@ case class CompilerOptions(
 object CompilerOptions {
   def fromCLI(args: Array[String]) =
     new CompilerOptions(
-      language = Try(Language.valueOf(args(args.toVector.indexOf("-language") + 1).capitalize)).toOption
+      language = Try(Language.valueOf(args(args.toVector.indexOf("-lang") + 1).capitalize)).toOption
     )
 }
