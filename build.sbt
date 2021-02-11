@@ -6,7 +6,7 @@ ThisBuild / organization := "io.lexi-compiler"
 ThisBuild / organizationName := "lexi"
 
 lazy val root = (project in file("."))
-  .enablePlugins(NativeImagePlugin)
+  .enablePlugins(GraalVMNativeImagePlugin)
   .settings(
     name := "lexi",
     libraryDependencies ++= Seq(
