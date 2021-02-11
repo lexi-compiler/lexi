@@ -33,11 +33,11 @@ sbt graalvm-native-image:packageBin
 To test the compiler build was successful:
 
 ```shell
-$ java -jar target/scala-3.0.0-M3/lexi-assembly-0.1.0-SNAPSHOT.jar -language kotlin "val x: Int = 5"
+$ java -jar target/scala-3.0.0-M3/lexi-assembly-0.1.0-SNAPSHOT.jar -lang kotlin "val x: Int = 5"
 $ Some(IrFile(None,Some(Vector(IrTopLevelObject(Some(IrDeclaration(Some(IrProperty(Some(x),Some(5),Some(Int))),None)))))))
 ```
 
 ```shell
-$ target/graalvm-native-image/lexi -language kotlin "val x: Int = 5"
+$ target/graalvm-native-image/lexi -lang kotlin "val x: Int = 5"
 $ Some(IrFile(None,Some(Vector(IrTopLevelObject(Some(IrDeclaration(Some(IrProperty(Some(x),Some(5),Some(Int))),None)))))))
 ```
