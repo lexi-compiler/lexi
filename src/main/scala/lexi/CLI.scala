@@ -1,13 +1,19 @@
 package lexi
 
-import scala.util.Try
-
 object CLI {
   def main(args: Array[String]): Unit = {
-    val opts = CompilerOptions.fromCLI(args)
-    val compiler = new Compiler(opts)
-    val source = args.last
-    val result = compiler.run(source)
+    val sources = sourcesFromFiles(args.toVector)
+    val config = new CompilerConfiguration(sources)
+    val compiler = new Compiler(config)
+    val result = compiler.run
     println(result)
   }
+
+  private def sourcesFromFiles(args: Vector[String]): Vector[Source] =
+    args.map { arg =>
+      Source.fromFile(arg) match {
+        case Right(source) => source
+        case Left(exception) => throw exception
+      }
+    }
 }
