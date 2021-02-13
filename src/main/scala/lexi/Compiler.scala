@@ -4,8 +4,8 @@ import lexi.ir.nodes.IrNode
 import lexi.ir.phases.IrAnalysis
 
 case class Compiler(
-  val options: CompilerOptions
+  config: CompilerConfiguration
 ) {
-  def run(source: String) =
-    this.options.language.map(lang => Frontend(lang)(source))
+  def run: Vector[IrNode] =
+    config.sources.map(source => Frontend(source.language)(source.text))
 }
