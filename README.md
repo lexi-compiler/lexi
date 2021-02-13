@@ -2,6 +2,14 @@
 
 A multi-language and multi-target modular research compiler designed for easy modification with first-class plugin support.
 
+## Install Lexi
+
+### macOS
+
+`brew install lexi-compiler/tap/lexi`
+
+Or `brew tap lexi-compiler/tap` and then `brew install lexi`.
+
 ## Documentation
 
 Read all about Lexi at [lexi-compiler.io](https://lexi-compiler.io)
