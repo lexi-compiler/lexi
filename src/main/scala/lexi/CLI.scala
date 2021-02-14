@@ -12,7 +12,7 @@ object CLI {
   private def sourcesFromFiles(args: Vector[String]): Vector[Source] =
     args.map { arg =>
       Source.fromFile(arg) match {
-        case Right(source) => source
+        case Right(source)   => source
         case Left(exception) => throw exception
       }
     }

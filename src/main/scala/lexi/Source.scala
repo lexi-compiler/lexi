@@ -9,8 +9,7 @@ import scala.util.{Failure, Success, Try}
 case class Source(
   file: String,
   text: String,
-  language: Language,
-  ir: Option[IrNode] = None
+  language: Language
 )
 
 object Source {
@@ -18,7 +17,7 @@ object Source {
     Try(Files.readString(Path.of(file))).toEither match {
       case Right(content) =>
         Right(
-          new Source(
+          Source(
             file = file,
             text = content,
             language = languageFromFile(file)
