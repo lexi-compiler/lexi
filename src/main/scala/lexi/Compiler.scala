@@ -6,6 +6,8 @@ import lexi.ir.phases.IrAnalysis
 case class Compiler(
   config: CompilerConfiguration
 ) {
-  def run: Vector[IrNode] =
-    config.sources.map(source => Frontend(source.language)(source.text))
+  def run: Vector[Source] =
+    config.sources.map {
+      source => source.copy(ir = Option(Frontend(source.language)(source.text)))
+    }
 }

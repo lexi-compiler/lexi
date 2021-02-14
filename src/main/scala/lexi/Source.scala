@@ -1,6 +1,7 @@
 package lexi
 
 import lexi.Language
+import lexi.ir.nodes.IrNode
 
 import java.nio.file.{Files, Path}
 import scala.util.{Failure, Success, Try}
@@ -8,7 +9,8 @@ import scala.util.{Failure, Success, Try}
 case class Source(
   file: String,
   text: String,
-  language: Language
+  language: Language,
+  ir: Option[IrNode] = None
 )
 
 object Source {
