@@ -3,6 +3,8 @@ package lexi
 import lexi.ir.nodes.IrNode
 
 case class CompilationResult(
-  source: Source,
-  ir: IrNode
+  configuration: CompilerConfiguration,
+  sources: Vector[Source],
+  ir: Vector[Option[IrNode]] = Vector.empty,
+  jvm: Vector[Option[Array[Byte]]] = Vector.empty
 )

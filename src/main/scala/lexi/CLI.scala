@@ -2,11 +2,10 @@ package lexi
 
 object CLI {
   def main(args: Array[String]): Unit = {
+    val compiler = new Compiler
     val sources = sourcesFromFiles(args.toVector)
-    val config = new CompilerConfiguration(sources)
-    val compiler = new Compiler(config)
-    val result = compiler.run
-    println(result)
+    compiler.run(sources)
+    println(compiler.runs)
   }
 
   private def sourcesFromFiles(args: Vector[String]): Vector[Source] =
