@@ -3,17 +3,17 @@ package lexi.frontends.scala.phases
 import dotty.tools._
 import dotty.tools.dotc.core.Contexts._
 import dotty.tools.dotc.core._
-import lexi.Phase
+import lexi.{Phase, Source}
 import lexi.ir.nodes.IrNode
 
 import java.io.File
 
 object LanguageAnalysis extends Phase:
-  def apply(source: String): IrNode = {
+  def apply(source: Source): IrNode = {
     implicit var context: Context = initialCtx
     val compiler = new dotc.Compiler
     val run = compiler.newRun
-    run.compileFromStrings(List(source))
+    run.compileFromStrings(List(source.text))
     new IrNode {}
   }
 

@@ -7,6 +7,7 @@ import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 case class KtFile(
+  var name: Option[String] = None,
   var topLevelObjects: Option[Vector[KtTopLevelObject]] = None
 ) extends ASTNode
 

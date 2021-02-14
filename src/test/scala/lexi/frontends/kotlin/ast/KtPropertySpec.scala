@@ -1,5 +1,6 @@
 package lexi.frontends.kotlin.ast
 
+import lexi.{Language, Source}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtPropertySpec extends munit.FunSuite {
@@ -15,7 +16,8 @@ class KtPropertySpec extends munit.FunSuite {
       .get
 
   test("integer declaration") {
-    val source = """val x: Int = 5"""
+    val code = """val x: Int = 5"""
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = SyntaxAnalysis(source)
     val property = ktProperty(ast)
     val expected = KtProperty(
@@ -27,7 +29,9 @@ class KtPropertySpec extends munit.FunSuite {
   }
 
   test("string declaration") {
-    val ast = SyntaxAnalysis("""val firstName: String = "Matt"""")
+    val code = """val firstName: String = "Matt""""
+    val source = Source.fromString(source = code, Language.Kotlin)
+    val ast = SyntaxAnalysis(source)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
     assertEquals(property.name, Some("firstName"))
@@ -36,7 +40,9 @@ class KtPropertySpec extends munit.FunSuite {
   }
 
   test("empty string declaration") {
-    val ast = SyntaxAnalysis("""val firstName: String = """"")
+    val code = """val firstName: String = """""
+    val source = Source.fromString(source = code, Language.Kotlin)
+    val ast = SyntaxAnalysis(source)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
     assertEquals(property.name, Some("firstName"))

@@ -1,5 +1,6 @@
 package lexi.frontends.kotlin.ast
 
+import lexi.{Language, Source}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtFunctionSpec extends munit.FunSuite {
@@ -15,7 +16,8 @@ class KtFunctionSpec extends munit.FunSuite {
       .get
 
   test("expression function without parameters") {
-    val source = """fun hello(): String = "Hello Maki!""""
+    val code = """fun hello(): String = "Hello Maki!""""
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])
@@ -24,7 +26,8 @@ class KtFunctionSpec extends munit.FunSuite {
   }
 
   test("expression function with parameters") {
-    val source = """fun hello(name: String): String = "Hello ${name}""""
+    val code = """fun hello(name: String): String = "Hello ${name}""""
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])
@@ -33,12 +36,13 @@ class KtFunctionSpec extends munit.FunSuite {
   }
 
   test("block function with parameters") {
-    val source =
+    val code =
       """
         |fun hello(name: String): String {
         |  "Hello ${name}"
         |}
         |""".stripMargin
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])

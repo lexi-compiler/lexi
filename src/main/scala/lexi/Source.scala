@@ -25,6 +25,9 @@ object Source {
         )
       case Left(exception) => Left(exception)
     }
+    
+  def fromString(source: String, language: Language): Source =
+    new Source(file = null, text = source, language = language)
 
   def languageFromFile(file: String): Language =
     Language.withFileType(getFileExtension(file))

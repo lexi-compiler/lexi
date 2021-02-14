@@ -14,7 +14,7 @@ case class Compiler(
       CompilationResult(
         configuration = config,
         sources = sources,
-        ir = sources.map(source => Option(Frontend(source.language)(source.text)))
+        ir = sources.map(source => Frontend(source))
       )
     )
 }

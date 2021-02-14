@@ -1,5 +1,6 @@
 package lexi.frontends.kotlin.phases
 
+import lexi.{Language, Source}
 import lexi.frontends.kotlin.ast._
 
 class TypeInferenceSpec extends munit.FunSuite {
@@ -26,7 +27,8 @@ class TypeInferenceSpec extends munit.FunSuite {
       .get
 
   test("infers integer value") {
-    val source = "val x = 5"
+    val code = "val x = 5"
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = propertyNode(SyntaxAnalysis(source))
     val typeInferredAst = TypeInference(ast)
     val expected = KtProperty(
@@ -38,7 +40,8 @@ class TypeInferenceSpec extends munit.FunSuite {
   }
 
   test("infers string value") {
-    val source = """val x = "5""""
+    val code = """val x = "5""""
+    val source = Source.fromString(source = code, Language.Kotlin)
     val ast = propertyNode(SyntaxAnalysis(source))
     val typeInferredAst = TypeInference(ast)
     val expected = KtProperty(
