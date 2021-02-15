@@ -14,14 +14,14 @@ lazy val root = (project in file("."))
       asm,
       scala3Compiler,
       tastyInspector,
-      munit % Test,
+      munit % Test
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     Compile / mainClass := Some("lexi.CLI"),
     graalVMNativeImageOptions ++= Seq(
       "--no-fallback",
-      "--report-unsupported-elements-at-runtime",
-    ),
+      "--report-unsupported-elements-at-runtime"
+    )
   )
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
