@@ -8,6 +8,7 @@ object KtDeclarationVisitor extends KtVisitor {
     (
       (ktDeclaration: KtDeclaration) =>
         new IrDeclaration {
+          classDeclaration = ktDeclaration.classDeclaration.map(KtClassVisitor.visit(_))
           propertyDeclaration = ktDeclaration.propertyDeclaration.map(KtPropertyVisitor.visit(_))
           functionDeclaration = ktDeclaration.functionDeclaration.map(KtFunctionVisitor.visit(_))
         }

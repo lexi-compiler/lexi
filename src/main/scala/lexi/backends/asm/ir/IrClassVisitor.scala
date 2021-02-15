@@ -1,6 +1,6 @@
 package lexi.backends.asm.ir
 
-import lexi.ir.nodes.{IrClass, IrNode}
+import lexi.ir.nodes.{IrClass, IrFunction, IrNode}
 import org.objectweb.asm.{ClassWriter, Opcodes}
 
 object IrClassVisitor extends IrVisitor[ClassWriter] {
@@ -16,8 +16,13 @@ object IrClassVisitor extends IrVisitor[ClassWriter] {
           null
         )
         ir.asInstanceOf[IrClass]
-          .methods
+          .classBody
           .get
+          .declarations
+          .get
+          .map(_.functionDeclaration)
+          .filter(_ != None)
+          .map(_.get)
           .foreach(IrMethodVisitor(writer).visit(_))
         writer.visitEnd()
         writer
