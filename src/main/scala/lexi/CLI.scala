@@ -4,8 +4,8 @@ object CLI {
   def main(args: Array[String]): Unit = {
     val compiler = new Compiler
     val sources = sourcesFromFiles(args.toVector)
-    compiler.run(sources)
-    println(compiler.runs)
+    val result = compiler.run(sources)
+    println(result)
   }
 
   private def sourcesFromFiles(args: Vector[String]): Vector[Source] =
