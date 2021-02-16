@@ -4,13 +4,12 @@ import lexi.frontends.kotlin.ast.{ASTNode, KtDeclaration}
 import lexi.ir.nodes.IrDeclaration
 
 object KtDeclarationVisitor extends KtVisitor {
-  override def visit(ast: ASTNode): IrDeclaration =
-    (
-      (ktDeclaration: KtDeclaration) =>
-        new IrDeclaration {
-          classDeclaration = ktDeclaration.classDeclaration.map(KtClassVisitor.visit(_))
-          propertyDeclaration = ktDeclaration.propertyDeclaration.map(KtPropertyVisitor.visit(_))
-          functionDeclaration = ktDeclaration.functionDeclaration.map(KtFunctionVisitor.visit(_))
-        }
-    )(ast.asInstanceOf[KtDeclaration])
+  override def visit(ast: ASTNode): IrDeclaration = {
+    val ktDeclaration = ast.asInstanceOf[KtDeclaration]
+    new IrDeclaration(
+      classDeclaration = ktDeclaration.classDeclaration.map(KtClassVisitor.visit(_)),
+      propertyDeclaration = ktDeclaration.propertyDeclaration.map(KtPropertyVisitor.visit(_)),
+      functionDeclaration = ktDeclaration.functionDeclaration.map(KtFunctionVisitor.visit(_))
+    )
+  }
 }

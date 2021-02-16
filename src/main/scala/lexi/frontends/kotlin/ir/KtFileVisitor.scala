@@ -9,8 +9,9 @@ object KtFileVisitor extends KtVisitor {
   override def visit(ast: ASTNode): IrFile =
     (
       (ktFile: KtFile) =>
-        new IrFile {
+        new IrFile(
+          name = ktFile.name.get,
           topLevelObjects = ktFile.topLevelObjects.map(_.map(KtTopLevelObjectVisitor.visit(_)))
-        }
+        )
     )(ast.asInstanceOf[KtFile])
 }
