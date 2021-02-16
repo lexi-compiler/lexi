@@ -1,7 +1,7 @@
 package lexi.ir.nodes
 
 case class IrDeclaration(
-  var classDeclaration: Option[IrClass] = None,
-  var propertyDeclaration: Option[IrProperty] = None,
-  var functionDeclaration: Option[IrFunction] = None
+  classDeclaration: Option[IrClass] = None,
+  propertyDeclaration: Option[IrProperty] = None,
+  functionDeclaration: Option[IrFunction] = None
 ) extends IrNode
