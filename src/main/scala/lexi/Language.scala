@@ -7,7 +7,8 @@ enum Language(value: String) {
 
 object Language {
   def withFileType(fileType: String): Language =
-    fileType match
+    fileType match {
       case "kt" => Kotlin
       case "scala" => Scala
+    }
 }

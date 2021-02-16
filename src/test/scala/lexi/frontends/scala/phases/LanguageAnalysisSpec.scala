@@ -1,20 +1,16 @@
-//package lexi.frontend.scala.phases
-//
-//import lexi.frontend.scala.phases.LanguageAnalysis
-//import org.scalatest.funspec.AnyFunSpec
-//import org.scalatest.matchers.should.Matchers
-//
-//class LanguageAnalysisSpec extends AnyFunSpec with Matchers:
-//  describe("scala code") {
-//    val source =
-//      """
-//        |object HelloScala {
-//        |  def hello(): String = "Hello Scala"
-//        |}
-//        |""".stripMargin
-//    val ir = LanguageAnalysis(source)
-//
-//    it("compiles") {
-//      ir should not be null
-//    }
-//  }
+package lexi.frontends.scala.phases
+
+import lexi.{Language, Source}
+import lexi.frontends.scala.phases.LanguageAnalysis
+
+class LanguageAnalysisSpec extends munit.FunSuite:
+  test("scala code") {
+    val code =
+      """
+        |object HelloScala {
+        |  def hello(name: String): String = "Hello ${name}"
+        |}
+        |""".stripMargin
+    val source = Source.fromString(code, Language.Scala)
+    val ir = LanguageAnalysis(source)
+  }

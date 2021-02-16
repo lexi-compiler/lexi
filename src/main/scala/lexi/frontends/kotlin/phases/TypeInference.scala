@@ -8,11 +8,12 @@ object TypeInference extends Phase {
   private val IntPattern = "\\d+".r
   private val StringPattern = """^".*"$""".r
 
-  def apply(ast: ASTNode): ASTNode = ast match
+  def apply(ast: ASTNode): ASTNode = ast match {
     case file: KtFile => this.file(file)
     case property: KtProperty => this.property(property)
     case function: KtFunction => this.function(function)
     case _ => ast
+  }
 
   def file(file: KtFile): KtFile =
     file

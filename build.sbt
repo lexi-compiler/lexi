@@ -12,8 +12,9 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       antlr4,
       asm,
-      scala3Compiler,
-      tastyInspector,
+//      scala3Compiler,
+//      tastyInspector,
+      scalameta,
       munit % Test
     ),
     testFrameworks += new TestFramework("munit.Framework"),
