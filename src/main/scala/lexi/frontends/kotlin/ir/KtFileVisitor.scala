@@ -1,12 +1,12 @@
 package lexi.frontends.kotlin.ir
 
-import lexi.frontends.kotlin.ast.{ASTNode, KtFile}
+import lexi.frontends.kotlin.ast.{Tree, KtFile}
 import lexi.ir.nodes.IrFile
 
 import scala.util.Try
 
 object KtFileVisitor extends KtVisitor {
-  override def visit(ast: ASTNode): IrFile =
+  override def visit(ast: Tree): IrFile =
     (
       (ktFile: KtFile) =>
         new IrFile(

@@ -1,10 +1,10 @@
 package lexi.frontends.kotlin.ir
 
-import lexi.frontends.kotlin.ast.{ASTNode, KtFunction}
+import lexi.frontends.kotlin.ast.{Tree, KtFunction}
 import lexi.ir.nodes.IrFunction
 
 object KtFunctionVisitor extends KtVisitor {
-  override def visit(ast: ASTNode): IrFunction = {
+  override def visit(ast: Tree): IrFunction = {
     val function = ast.asInstanceOf[KtFunction]
     IrFunction(
       name = function.name,

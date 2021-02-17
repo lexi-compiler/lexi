@@ -13,4 +13,5 @@ class LanguageAnalysisSpec extends munit.FunSuite:
         |""".stripMargin
     val source = Source.fromString(code, Language.Scala)
     val ir = LanguageAnalysis(source)
+    println(ir)
   }

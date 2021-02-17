@@ -4,7 +4,7 @@ import lexi.{Language, Source}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtFunctionSpec extends munit.FunSuite {
-  private def ktFunction(ast: ASTNode): KtFunction =
+  private def ktFunction(ast: Tree): KtFunction =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects

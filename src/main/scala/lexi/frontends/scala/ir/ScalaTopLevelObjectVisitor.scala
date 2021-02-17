@@ -1,6 +1,5 @@
 package lexi.frontends.scala.ir
 
-import lexi.frontends.kotlin.ast.{ASTNode, KtTopLevelObject}
 import lexi.ir.nodes.IrTopLevelObject
 
 import scala.meta._

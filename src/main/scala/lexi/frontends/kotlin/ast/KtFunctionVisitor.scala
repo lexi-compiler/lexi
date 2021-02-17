@@ -1,0 +1,19 @@
+package lexi.frontends.kotlin.ast
+
+import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+
+import scala.util.Try
+
+object KtFunctionVisitor extends KotlinParserBaseVisitor[Option[Tree] => KtFunction] {
+  override def visitFunctionDeclaration(
+    ctx: KotlinParser.FunctionDeclarationContext
+  ) = { parentNode =>
+    new KtFunction {
+      parent = parentNode
+      context = Some(ctx)
+      name = Try(ctx.simpleIdentifier.getText).toOption
+      `type` = Try(ctx.`type`.getText).toOption
+      functionBody = Try(KtFunctionBodyVisitor.visit(ctx.functionBody)(Some(this.asInstanceOf[KtFunction]))).toOption
+    }
+  }
+}
