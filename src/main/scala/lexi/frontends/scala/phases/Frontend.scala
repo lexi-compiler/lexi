@@ -7,8 +7,8 @@ import lexi.{Phase, Source}
 import java.io.File
 import scala.meta._
 
-object LanguageAnalysis extends Phase {
-  def apply(source: Source): IrNode = {
+class Frontend extends Phase {
+  def parse(source: Source): IrNode = {
     val ast = source.text.parse[scala.meta.Source].get
     val ir = ScalaFileVisitor.visit(ast)
     ir

@@ -1,7 +1,7 @@
 package lexi.frontends.scala.phases
 
 import lexi.{Language, Source}
-import lexi.frontends.scala.phases.LanguageAnalysis
+import lexi.frontends.scala.phases.Frontend
 
 class LanguageAnalysisSpec extends munit.FunSuite {
   test("scala code") {
@@ -12,6 +12,6 @@ class LanguageAnalysisSpec extends munit.FunSuite {
         |}
         |""".stripMargin
     val source = Source.fromString(code, Language.Scala)
-    val ir = LanguageAnalysis(source)
+    val ir = Frontend(source)
   }
 }
