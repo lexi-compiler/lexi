@@ -1,4 +1,4 @@
-package lexi.frontends.kotlin.ir
+package lexi.frontends.kotlin.transformations.ir
 
 import lexi.frontends.kotlin.{AST, KtFunction}
 import lexi.ir.nodes.IrFunction

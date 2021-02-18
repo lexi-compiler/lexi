@@ -1,8 +1,8 @@
 package lexi.frontends.kotlin.phases
 
 import lexi.Phase
+import lexi.frontends.kotlin.transformations.ir.{KtClassVisitor, KtFileVisitor, KtFunctionVisitor, KtPropertyVisitor, KtVisitor}
 import lexi.frontends.kotlin.{AST, KtClass, KtFile, KtFunction, KtProperty}
-import lexi.frontends.kotlin.ir.{KtClassVisitor, KtFileVisitor, KtFunctionVisitor, KtPropertyVisitor, KtVisitor}
 import lexi.ir.nodes.IrNode
 
 object Ir extends Phase {
