@@ -8,8 +8,7 @@ object IrMethodVisitor {
     new IrMethodVisitor(classWriter)
 }
 
-class IrMethodVisitor(classWriter: ClassWriter)
-  extends IrVisitor[MethodVisitor] {
+class IrMethodVisitor(classWriter: ClassWriter) extends IrVisitor[MethodVisitor] {
   override def visit(ir: IrNode): MethodVisitor =
     (
       (function: IrFunction) => {

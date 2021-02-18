@@ -1,14 +1,20 @@
 package lexi.frontends.kotlin.ast
 
+import lexi.frontends.kotlin.{AST, KtClass, KtClassParameter, KtDeclaration, KtFile}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 import lexi.{Language, Source}
 
 class KtClassSpec extends munit.FunSuite {
-  private def ktClass(ast: Tree): KtClass =
+  private def ktClass(ast: AST): KtClass =
     ast
-      .asInstanceOf[KtFile].topLevelObjects.get.head
-      .declaration.get
-      .classDeclaration.get
+      .asInstanceOf[KtFile]
+      .topLevelObjects
+      .get
+      .head
+      .declaration
+      .get
+      .classDeclaration
+      .get
 
   private def classParameter(klass: KtClass, index: Int): KtClassParameter =
     klass.primaryConstructor.get.classParameters.get(index)
@@ -33,6 +39,9 @@ class KtClassSpec extends munit.FunSuite {
     assertEquals(classParameter(klass, 1).name, Some("lastName"))
     assertEquals(classParameter(klass, 1).`type`, Some("String"))
 
-    assertEquals(methodDeclaration(klass, 0).functionDeclaration.get.name, Some("greet"))
+    assertEquals(
+      methodDeclaration(klass, 0).functionDeclaration.get.name,
+      Some("greet")
+    )
   }
 }

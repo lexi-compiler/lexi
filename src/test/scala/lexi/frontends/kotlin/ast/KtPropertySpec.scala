@@ -1,10 +1,11 @@
 package lexi.frontends.kotlin.ast
 
+import lexi.frontends.kotlin.{AST, KtFile, KtProperty}
 import lexi.{Language, Source}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtPropertySpec extends munit.FunSuite {
-  private def ktProperty(ast: Tree): KtProperty =
+  private def ktProperty(ast: AST): KtProperty =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
