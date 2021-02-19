@@ -2,7 +2,8 @@ package lexi
 
 object CLI {
   def main(args: Array[String]): Unit = {
-    val compiler = new Compiler
+    val context = new Context
+    val compiler = new Compiler(context)
     val sources = sourcesFromFiles(args.toVector)
     val result = compiler.run(sources)
     println(result)
@@ -12,7 +13,7 @@ object CLI {
     args.map { arg =>
       Source.fromFile(arg) match {
         case Right(source)   => source
-        case Left(exception) => throw exception
+        case Left(exception) => throw Exception(s"Unable to load source file: ${arg}.")
       }
     }
 }

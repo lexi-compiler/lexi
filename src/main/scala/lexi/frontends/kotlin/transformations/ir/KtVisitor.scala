@@ -1,8 +1,8 @@
 package lexi.frontends.kotlin.transformations.ir
 
 import lexi.frontends.kotlin.AST
-import lexi.ir.nodes.IrNode
+import lexi.ir.nodes.IrTree
 
 trait KtVisitor {
-  def visit(ast: AST): IrNode
+  def visit(ast: AST): IrTree
 }

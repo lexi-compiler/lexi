@@ -1,7 +1,7 @@
 package lexi
 
 import lexi.Language
-import lexi.ir.nodes.IrNode
+import lexi.ir.nodes.IrTree
 
 import java.nio.file.{Files, Path}
 import scala.util.{Failure, Success, Try}

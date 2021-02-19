@@ -8,7 +8,7 @@ import java.io.File
 import scala.meta._
 
 object LanguageAnalysis extends Phase {
-  def apply(source: Source): IrNode = {
+  def apply(source: Source): IrTree = {
     val ast = source.text.parse[scala.meta.Source].get
     val ir = ScalaFileVisitor.visit(ast)
     ir

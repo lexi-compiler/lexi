@@ -1,7 +1,7 @@
 package lexi.backends.asm.ir
 
-import lexi.ir.nodes.IrNode
+import lexi.ir.nodes.IrTree
 
 trait IrVisitor[T] {
-  def visit(ir: IrNode): T
+  def visit(ir: IrTree): T
 }

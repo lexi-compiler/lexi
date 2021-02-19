@@ -1,15 +1,11 @@
 package lexi
 
-import lexi.ir.nodes.IrNode
+import lexi.ir.nodes.IrTree
 import lexi.ir.phases.IrAnalysis
 
 case class Compiler(
-  var config: CompilerConfiguration = new CompilerConfiguration
+  var context: Context = new Context
 ) {
-  def run(sources: Vector[Source]) =
-    CompilationResult(
-      configuration = config,
-      sources = sources,
-      ir = sources.map(source => Frontend(source))
-    )
+  def run(sources: Vector[Source]): Vector[CompilationUnit] =
+    sources.map(CompilationUnit(_))
 }

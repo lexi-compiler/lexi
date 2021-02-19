@@ -1,6 +1,6 @@
 package lexi.backends.asm.ir
 
-import lexi.ir.nodes.{IrFunction, IrNode}
+import lexi.ir.nodes.{IrFunction, IrTree}
 import org.objectweb.asm.{ClassWriter, MethodVisitor, Opcodes}
 
 object IrMethodVisitor {
@@ -9,7 +9,7 @@ object IrMethodVisitor {
 }
 
 class IrMethodVisitor(classWriter: ClassWriter) extends IrVisitor[MethodVisitor] {
-  override def visit(ir: IrNode): MethodVisitor =
+  override def visit(ir: IrTree): MethodVisitor =
     (
       (function: IrFunction) => {
         val method = classWriter.visitMethod(

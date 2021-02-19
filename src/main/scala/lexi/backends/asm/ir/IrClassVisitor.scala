@@ -1,10 +1,10 @@
 package lexi.backends.asm.ir
 
-import lexi.ir.nodes.{IrClass, IrFunction, IrNode}
+import lexi.ir.nodes.{IrClass, IrFunction, IrTree}
 import org.objectweb.asm.{ClassWriter, Opcodes}
 
 object IrClassVisitor extends IrVisitor[ClassWriter] {
-  override def visit(ir: IrNode): ClassWriter =
+  override def visit(ir: IrTree): ClassWriter =
     (((_: IrClass) => new ClassWriter(ClassWriter.COMPUTE_MAXS))
       andThen ((writer) => {
         writer.visit(
