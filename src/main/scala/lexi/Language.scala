@@ -6,9 +6,9 @@ enum Language(value: String) {
 }
 
 object Language {
-  def withFileType(fileType: String): Language =
-    fileType match {
-      case "kt" => Kotlin
-      case "scala" => Scala
-    }
+  def withFileType(fileType: String): Either[Throwable, Language] = fileType match {
+    case "kt" => Right(Kotlin)
+    case "scala" => Right(Scala)
+    case _ => Left(Exception("Unable to determine language for the file type."))
+  }
 }

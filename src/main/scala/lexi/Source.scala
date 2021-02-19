@@ -14,23 +14,23 @@ case class Source(
 
 object Source {
   def fromFile(file: String): Either[Throwable, Source] =
-    Try(Files.readString(Path.of(file))).toEither match {
-      case Right(content) =>
-        Right(
-          Source(
-            file = file,
-            text = content,
-            language = languageFromFile(file)
-          )
-        )
-      case Left(exception) => Left(exception)
-    }
+    for {
+      language <- fileLanguage(file)
+      content  <- readFile(file)
+    } yield Source(
+      file = file,
+      text = content,
+      language = language
+    )
 
   def fromString(source: String, language: Language): Source =
     new Source(file = null, text = source, language = language)
 
-  def languageFromFile(file: String): Language =
+  def fileLanguage(file: String): Either[Throwable, Language] =
     Language.withFileType(getFileExtension(file))
+
+  def readFile(file: String): Either[Throwable, String] =
+    Try(Files.readString(Path.of(file))).toEither
 
   private def getFileExtension(file: String): String =
     file.substring(file.lastIndexOf('.') + 1)
