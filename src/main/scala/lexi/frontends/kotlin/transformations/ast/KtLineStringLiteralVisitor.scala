@@ -16,11 +16,8 @@ object KtLineStringLiteralVisitor
       parent = parentNode
       context = Some(ctx)
       lineStringContent = Try(
-        ctx.lineStringContent.asScala.toVector.map(
-          KtLineStringContentVisitor.visit(_)(
-            Some(this.asInstanceOf[KtLineStringLiteral])
-          )
-        )
+        ctx.lineStringContent.asScala.toVector
+          .map(KtLineStringContentVisitor.visit(_)(Some(this)))
       ).toOption
     }
 }

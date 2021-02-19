@@ -14,9 +14,7 @@ object KtGenericCallLikeComparisonVisitor
       parent = parentNode
       context = Some(ctx)
       infixOperation = Try(
-        KtInfixOperationVisitor.visit(ctx.infixOperation)(
-          Some(this.asInstanceOf[KtGenericCallLikeComparison])
-        )
+        KtInfixOperationVisitor.visit(ctx.infixOperation)(Some(this))
       ).toOption
     }
   }

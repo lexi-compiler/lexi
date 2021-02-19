@@ -1,8 +1,8 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtDeclaration}
 import lexi.frontends.kotlin.antlr.KotlinParser.DeclarationContext
 import lexi.frontends.kotlin.antlr.KotlinParserBaseVisitor
+import lexi.frontends.kotlin.{AST, KtDeclaration}
 
 import scala.util.Try
 
@@ -12,19 +12,13 @@ object KtDeclarationVisitor extends KotlinParserBaseVisitor[Option[AST] => KtDec
       parent = parentNode
       context = Some(ctx)
       classDeclaration = Try(
-        KtClassVisitor.visit(ctx.classDeclaration)(
-          Some(this.asInstanceOf[KtDeclaration])
-        )
+        KtClassVisitor.visit(ctx.classDeclaration)(Some(this))
       ).toOption
       propertyDeclaration = Try(
-        KtPropertyVisitor.visit(ctx.propertyDeclaration)(
-          Some(this.asInstanceOf[KtDeclaration])
-        )
+        KtPropertyVisitor.visit(ctx.propertyDeclaration)(Some(this))
       ).toOption
       functionDeclaration = Try(
-        KtFunctionVisitor.visit(ctx.functionDeclaration)(
-          Some(this.asInstanceOf[KtDeclaration])
-        )
+        KtFunctionVisitor.visit(ctx.functionDeclaration)(Some(this))
       ).toOption
     }
   }

@@ -14,11 +14,8 @@ object KtAdditiveExpressionVisitor
         parent = parentNode
         context = Some(ctx)
         multiplicativeExpression = Try(
-          ctx.multiplicativeExpression.asScala.toVector.map(
-            KtMultiplicativeExpressionVisitor.visit(_)(
-              Some(this.asInstanceOf[KtAdditiveExpression])
-            )
-          )
+          ctx.multiplicativeExpression.asScala.toVector
+            .map(KtMultiplicativeExpressionVisitor.visit(_)(Some(this)))
         ).toOption
       }
 }

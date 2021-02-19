@@ -13,7 +13,7 @@ object KtBlockVisitor extends KotlinParserBaseVisitor[Option[AST] => KtBlock] {
       context = Some(ctx)
       statements = Try(
         ctx.statements.statement.asScala.toVector
-          .map(KtStatementVisitor.visit(_)(Some(this.asInstanceOf[KtBlock])))
+          .map(KtStatementVisitor.visit(_)(Some(this)))
       ).toOption
     }
   }

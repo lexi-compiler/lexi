@@ -15,11 +15,8 @@ object KtInfixFunctionCallVisitor
       parent = parentNode
       context = Some(ctx)
       rangeExpressions = Try(
-        ctx.rangeExpression.asScala.toVector.map(
-          KtRangeExpressionVisitor.visit(_)(
-            Some(this.asInstanceOf[KtInfixFunctionCall])
-          )
-        )
+        ctx.rangeExpression.asScala.toVector
+          .map(KtRangeExpressionVisitor.visit(_)(Some(this)))
       ).toOption
     }
   }

@@ -11,14 +11,10 @@ object KtFunctionBodyVisitor extends KotlinParserBaseVisitor[Option[AST] => KtFu
       parent = parentNode
       context = Some(ctx)
       block = Try(
-        KtBlockVisitor.visit(ctx.block)(
-          Some(this.asInstanceOf[KtFunctionBody])
-        )
+        KtBlockVisitor.visit(ctx.block)(Some(this))
       ).toOption
       expression = Try(
-        KtExpressionContextVisitor.visit(ctx.expression)(
-          Some(this.asInstanceOf[KtFunctionBody])
-        )
+        KtExpressionContextVisitor.visit(ctx.expression)(Some(this))
       ).toOption
     }
   }

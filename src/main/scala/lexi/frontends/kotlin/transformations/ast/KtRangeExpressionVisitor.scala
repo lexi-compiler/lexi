@@ -13,11 +13,8 @@ object KtRangeExpressionVisitor extends KotlinParserBaseVisitor[Option[AST] => K
         parent = parentNode
         context = Some(ctx)
         additiveExpressions = Try(
-          ctx.additiveExpression.asScala.toVector.map(
-            KtAdditiveExpressionVisitor.visit(_)(
-              Some(this.asInstanceOf[KtRangeExpression])
-            )
-          )
+          ctx.additiveExpression.asScala.toVector
+            .map(KtAdditiveExpressionVisitor.visit(_)(Some(this)))
         ).toOption
       }
 }

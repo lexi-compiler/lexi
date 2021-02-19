@@ -11,9 +11,7 @@ object KtStatementVisitor extends KotlinParserBaseVisitor[Option[AST] => KtState
       parent = parentNode
       context = Some(ctx)
       expression = Try(
-        KtExpressionContextVisitor.visit(ctx.expression)(
-          Some(this.asInstanceOf[KtStatement])
-        )
+        KtExpressionContextVisitor.visit(ctx.expression)(Some(this))
       ).toOption
     }
   }

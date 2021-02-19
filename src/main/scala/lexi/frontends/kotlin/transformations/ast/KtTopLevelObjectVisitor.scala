@@ -12,9 +12,7 @@ object KtTopLevelObjectVisitor extends KotlinParserBaseVisitor[Option[AST] => Kt
       parent = parentNode
       context = Some(ctx)
       declaration = Try(
-        KtDeclarationVisitor.visit(ctx.declaration)(
-          Some(this.asInstanceOf[KtTopLevelObject])
-        )
+        KtDeclarationVisitor.visit(ctx.declaration)(Some(this))
       ).toOption
     }
   }

@@ -12,10 +12,6 @@ object KtExpressionContextVisitor
       new KtExpressionContext {
         parent = parentNode
         context = Some(ctx)
-        disjunction = Try(
-          KtDisjunctionVisitor.visit(ctx.disjunction)(
-            Some(this.asInstanceOf[KtExpressionContext])
-          )
-        ).toOption
+        disjunction = Try(KtDisjunctionVisitor.visit(ctx.disjunction)(Some(this))).toOption
       }
 }

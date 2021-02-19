@@ -12,9 +12,7 @@ object KtAsExpressionVisitor extends KotlinParserBaseVisitor[Option[AST] => KtAs
         parent = parentNode
         context = Some(ctx)
         prefixUnaryExpression = Try(
-          KtPrefixUnaryExpressionVisitor.visit(ctx.prefixUnaryExpression)(
-            Some(this.asInstanceOf[KtAsExpression])
-          )
+          KtPrefixUnaryExpressionVisitor.visit(ctx.prefixUnaryExpression)(Some(this))
         ).toOption
       }
 }

@@ -13,9 +13,8 @@ object KtConjunctionVisitor extends KotlinParserBaseVisitor[Option[AST] => KtCon
         parent = parentNode
         context = Some(ctx)
         equalities = Try(
-          ctx.equality.asScala.toVector.map(
-            KtEqualityVisitor.visit(_)(Some(this.asInstanceOf[KtConjunction]))
-          )
+          ctx.equality.asScala.toVector
+            .map(KtEqualityVisitor.visit(_)(Some(this)))
         ).toOption
       }
 }

@@ -12,9 +12,8 @@ object KtFileVisitor extends KotlinParserBaseVisitor[KtFile] {
     new KtFile {
       context = Some(ctx)
       topLevelObjects = Try(
-        ctx.topLevelObject.asScala.toVector.map(
-          KtTopLevelObjectVisitor.visit(_)(Some(this.asInstanceOf[KtFile]))
-        )
+        ctx.topLevelObject.asScala.toVector
+          .map(KtTopLevelObjectVisitor.visit(_)(Some(this)))
       ).toOption
     }
 }

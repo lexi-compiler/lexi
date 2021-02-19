@@ -12,11 +12,8 @@ object KtEqualityVisitor extends KotlinParserBaseVisitor[Option[AST] => KtEquali
       parent = parentNode
       context = Some(ctx)
       comparison = Try(
-        ctx.comparison.asScala
-          .map(
-            KtComparisonVisitor.visit(_)(Some(this.asInstanceOf[KtEquality]))
-          )
-          .toVector
+        ctx.comparison.asScala.toVector
+          .map(KtComparisonVisitor.visit(_)(Some(this)))
       ).toOption
     }
 }

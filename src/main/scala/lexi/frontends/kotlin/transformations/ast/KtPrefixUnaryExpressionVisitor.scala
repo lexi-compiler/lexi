@@ -14,9 +14,7 @@ object KtPrefixUnaryExpressionVisitor
       parent = parentNode
       context = Some(ctx)
       postfixUnaryExpression = Try(
-        KtPostfixUnaryExpressionVisitor.visit(ctx.postfixUnaryExpression)(
-          Some(this.asInstanceOf[KtPrefixUnaryExpression])
-        )
+        KtPostfixUnaryExpressionVisitor.visit(ctx.postfixUnaryExpression)(Some(this))
       ).toOption
     }
   }

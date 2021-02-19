@@ -12,9 +12,7 @@ object KtStringLiteralVisitor extends KotlinParserBaseVisitor[Option[AST] => KtS
         parent = parentNode
         context = Some(ctx)
         lineStringLiteral = Try(
-          KtLineStringLiteralVisitor.visit(ctx.lineStringLiteral)(
-            Some(this.asInstanceOf[KtStringLiteral])
-          )
+          KtLineStringLiteralVisitor.visit(ctx.lineStringLiteral)(Some(this))
         ).toOption
       }
 }

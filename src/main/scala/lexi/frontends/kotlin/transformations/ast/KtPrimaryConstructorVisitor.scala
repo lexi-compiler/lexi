@@ -15,11 +15,8 @@ object KtPrimaryConstructorVisitor
       context = Some(ctx)
       parent = parentNode
       classParameters = Try {
-        ctx.classParameters.classParameter.asScala.toVector.map(
-          KtClassParameterVisitor.visit(_)(
-            Some(this.asInstanceOf[KtPrimaryConstructor])
-          )
-        )
+        ctx.classParameters.classParameter.asScala.toVector
+          .map(KtClassParameterVisitor.visit(_)(Some(this)))
       }.toOption
     }
   }

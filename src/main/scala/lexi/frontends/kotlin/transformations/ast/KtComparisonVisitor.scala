@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtComparison}
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtComparison}
 
 import scala.jdk.CollectionConverters._
 import scala.util.Try
@@ -13,11 +13,8 @@ object KtComparisonVisitor extends KotlinParserBaseVisitor[Option[AST] => KtComp
         parent = parentNode
         context = Some(ctx)
         genericCallLikeComparisonContext = Try(
-          ctx.genericCallLikeComparison.asScala.toVector.map(
-            KtGenericCallLikeComparisonVisitor.visit(_)(
-              Some(this.asInstanceOf[KtComparison])
-            )
-          )
+          ctx.genericCallLikeComparison.asScala.toVector
+            .map(KtGenericCallLikeComparisonVisitor.visit(_)(Some(this)))
         ).toOption
       }
 }

@@ -13,11 +13,7 @@ object KtClassBodyVisitor extends KotlinParserBaseVisitor[Option[AST] => KtClass
       parent = parentNode
       classMemberDeclarations = Try {
         ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
-          .map(
-            KtDeclarationVisitor.visit(_)(
-              Some(this.asInstanceOf[KtClassBody])
-            )
-          )
+          .map(KtDeclarationVisitor.visit(_)(Some(this)))
       }.toOption
     }
   }

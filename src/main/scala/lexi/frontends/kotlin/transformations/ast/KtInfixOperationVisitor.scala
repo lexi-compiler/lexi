@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtInfixOperation}
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtInfixOperation}
 
 import scala.jdk.CollectionConverters._
 import scala.util.Try
@@ -12,11 +12,8 @@ object KtInfixOperationVisitor extends KotlinParserBaseVisitor[Option[AST] => Kt
       parent = parentNode
       context = Some(ctx)
       elvisExpression = Try(
-        ctx.elvisExpression.asScala.toVector.map(
-          KtElvisExpressionVisitor.visit(_)(
-            Some(this.asInstanceOf[KtInfixOperation])
-          )
-        )
+        ctx.elvisExpression.asScala.toVector
+          .map(KtElvisExpressionVisitor.visit(_)(Some(this)))
       ).toOption
     }
   }

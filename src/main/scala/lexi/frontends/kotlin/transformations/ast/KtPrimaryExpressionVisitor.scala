@@ -14,9 +14,7 @@ object KtPrimaryExpressionVisitor
       parent = parentNode
       context = Some(ctx)
       stringLiteral = Try(
-        KtStringLiteralVisitor.visit(ctx.stringLiteral)(
-          Some(this.asInstanceOf[KtPrimaryExpression])
-        )
+        KtStringLiteralVisitor.visit(ctx.stringLiteral)(Some(this))
       ).toOption
     }
   }

@@ -13,16 +13,8 @@ object KtClassVisitor extends KotlinParserBaseVisitor[Option[AST] => KtClass] {
       context = Some(ctx)
       parent = parentNode
       name = Some(ctx.simpleIdentifier.getText)
-      primaryConstructor = Try {
-        KtPrimaryConstructorVisitor.visit(ctx.primaryConstructor)(
-          Some(this.asInstanceOf[KtClass])
-        )
-      }.toOption
-      classBody = Try {
-        KtClassBodyVisitor.visit(ctx.classBody)(
-          Some(this.asInstanceOf[KtClass])
-        )
-      }.toOption
+      primaryConstructor = Try(KtPrimaryConstructorVisitor.visit(ctx.primaryConstructor)(Some(this))).toOption
+      classBody = Try(KtClassBodyVisitor.visit(ctx.classBody)(Some(this))).toOption
     }
   }
 }

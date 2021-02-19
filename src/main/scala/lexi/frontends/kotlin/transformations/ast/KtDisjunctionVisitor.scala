@@ -13,11 +13,8 @@ object KtDisjunctionVisitor extends KotlinParserBaseVisitor[Option[AST] => KtDis
         parent = parentNode
         context = Some(ctx)
         conjunctions = Try(
-          ctx.conjunction.asScala.toVector.map(
-            KtConjunctionVisitor.visit(_)(
-              Some(this.asInstanceOf[KtDisjunction])
-            )
-          )
+          ctx.conjunction.asScala.toVector
+            .map(KtConjunctionVisitor.visit(_)(Some(this)))
         ).toOption
       }
 }
