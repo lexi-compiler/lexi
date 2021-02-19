@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ir
 
 import lexi.frontends.kotlin.{AST, KtProperty}
-import lexi.ir.nodes.IrProperty
+import lexi.ir.IrProperty
 
 object KtPropertyVisitor extends KtVisitor {
   override def visit(ast: AST): IrProperty = {

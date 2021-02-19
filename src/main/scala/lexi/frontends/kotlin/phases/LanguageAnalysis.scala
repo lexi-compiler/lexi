@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.phases
 
+import lexi.ir.IrTree
 import lexi.{Phase, Source}
-import lexi.ir.nodes.IrTree
 
 object LanguageAnalysis extends Phase {
   def apply(source: Source): IrTree =

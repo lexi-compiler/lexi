@@ -1,6 +1,6 @@
 package lexi.frontends.scala.ir
 
-import lexi.ir.nodes.IrTopLevelObject
+import lexi.ir.IrTopLevelObject
 
 import scala.meta._
 

@@ -1,7 +1,7 @@
 package lexi.backends.asm
 
 import lexi.backends.asm.phases.ASM
-import lexi.ir.nodes.{IrClass, IrClassBody, IrDeclaration, IrFunction}
+import lexi.ir.{IrClass, IrClassBody, IrDeclaration, IrFunction}
 import org.objectweb.asm.ClassReader
 
 class ASMSpec extends munit.FunSuite {

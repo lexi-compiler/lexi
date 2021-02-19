@@ -1,7 +1,7 @@
 package lexi
 
 import lexi.Phase
-import lexi.ir.nodes.IrTree
+import lexi.ir.IrTree
 
 import scala.util.Try
 

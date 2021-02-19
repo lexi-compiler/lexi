@@ -1,6 +1,6 @@
 package lexi
 
-import lexi.ir.nodes.IrTree
+import lexi.ir.IrTree
 import lexi.ir.phases.IrAnalysis
 
 case class Compiler(

@@ -2,7 +2,7 @@ package lexi.frontends.kotlin.transformations.ir
 
 import lexi.frontends.kotlin.{AST, KtBlock}
 import lexi.frontends.kotlin.transformations.ast.KtBlockVisitor
-import lexi.ir.nodes.IrTree
+import lexi.ir.IrTree
 
 object KtBlockVisitor extends KtVisitor {
   override def visit(ast: AST): IrTree = {

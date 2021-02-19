@@ -2,7 +2,7 @@ package lexi.frontends.kotlin.phases.ir
 
 import lexi.frontends.kotlin.KtFunction
 import lexi.frontends.kotlin.phases.{Ir, LanguageAnalysis, SemanticAnalysis}
-import lexi.ir.nodes._
+import lexi.ir.IrFunction
 
 class IrFunctionSpec extends munit.FunSuite {
   test("expression function without parameters") {

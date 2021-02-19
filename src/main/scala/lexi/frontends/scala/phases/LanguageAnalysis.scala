@@ -1,7 +1,7 @@
 package lexi.frontends.scala.phases
 
 import lexi.frontends.scala.ir.ScalaFileVisitor
-import lexi.ir.nodes._
+import lexi.ir.IrTree
 import lexi.{Phase, Source}
 
 import java.io.File

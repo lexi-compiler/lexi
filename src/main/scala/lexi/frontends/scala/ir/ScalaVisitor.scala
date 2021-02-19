@@ -1,6 +1,6 @@
 package lexi.frontends.scala.ir
 
-import lexi.ir.nodes.IrTree
+import lexi.ir.IrTree
 
 import scala.meta.Tree
 

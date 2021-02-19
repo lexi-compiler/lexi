@@ -1,6 +1,6 @@
 package lexi.frontends.scala.ir
 
-import lexi.ir.nodes.{IrDeclaration, IrFile, IrFunction, IrFunctionBody, IrTopLevelObject}
+import lexi.ir.{IrDeclaration, IrFile, IrFunction, IrFunctionBody, IrTopLevelObject}
 
 import scala.meta._
 

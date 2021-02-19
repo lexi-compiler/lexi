@@ -1,6 +1,6 @@
 package lexi.backends.asm.ir
 
-import lexi.ir.nodes.{IrFunction, IrTree}
+import lexi.ir.{IrFunction, IrTree}
 import org.objectweb.asm.{ClassWriter, MethodVisitor, Opcodes}
 
 object IrMethodVisitor {

@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ir
 
 import lexi.frontends.kotlin.{AST, KtFile}
-import lexi.ir.nodes.IrFile
+import lexi.ir.IrFile
 
 import scala.util.Try
 
