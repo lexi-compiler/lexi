@@ -1,6 +1,6 @@
 package lexi
 
-import lexi.Language
+import lexi.Language._
 import lexi.ir.IrTree
 
 import java.nio.file.{Files, Path}

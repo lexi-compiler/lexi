@@ -1,6 +1,6 @@
 import Dependencies._
 
-ThisBuild / scalaVersion := "3.0.0-M3"
+ThisBuild / scalaVersion := "2.13.4"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "io.lexi-compiler"
 ThisBuild / organizationName := "lexi"
@@ -12,8 +12,10 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       antlr4,
       asm,
-//      scala3Compiler,
-//      tastyInspector,
+      fastparse,
+      scalaparse,
+      // scala3Compiler,
+      // tastyInspector,
       scalameta,
       munit % Test
     ),

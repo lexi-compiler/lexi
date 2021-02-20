@@ -13,7 +13,7 @@ object CLI {
     args.map { arg =>
       Source.fromFile(arg) match {
         case Right(source)   => source
-        case Left(exception) => throw Exception(s"Unable to load source file: ${arg}.")
+        case Left(exception) => throw new Error(s"Unable to load source file: ${arg}.")
       }
     }
 }
