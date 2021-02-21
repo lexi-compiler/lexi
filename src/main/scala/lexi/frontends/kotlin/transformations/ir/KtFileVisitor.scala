@@ -6,7 +6,7 @@ import lexi.ir.IrFile
 
 import scala.util.Try
 
-object KtFileVisitor extends Visitor {
+object KtFileVisitor extends Visitor[IrFile] {
   override def visit(tree: Tree): IrFile = {
     val ktFile = tree.asInstanceOf[KtFile]
     new IrFile(

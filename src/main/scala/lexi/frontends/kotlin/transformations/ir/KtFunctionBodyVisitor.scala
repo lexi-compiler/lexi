@@ -6,7 +6,7 @@ import lexi.ir.IrFunctionBody
 
 import scala.util.Try
 
-object KtFunctionBodyVisitor extends Visitor {
+object KtFunctionBodyVisitor extends Visitor[IrFunctionBody] {
   override def visit(ast: Tree): IrFunctionBody = {
     val body = ast.asInstanceOf[KtFunctionBody]
     IrFunctionBody(

@@ -1,11 +1,12 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.{Tree, Visitor}
 import lexi.frontends.kotlin.KtBlock
+import lexi.ir.IrBlock
+import lexi.{Tree, Visitor}
 
-object KtBlockVisitor extends Visitor {
-  override def visit(ast: Tree): Tree = {
+object KtBlockVisitor extends Visitor[IrBlock] {
+  override def visit(ast: Tree): IrBlock = {
     val ktBlock = ast.asInstanceOf[KtBlock]
-    new lexi.ir.IrTree {}
+    new lexi.ir.IrBlock {}
   }
 }

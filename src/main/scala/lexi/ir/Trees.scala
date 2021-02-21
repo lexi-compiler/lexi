@@ -48,6 +48,14 @@ case class IrFunctionBody(
   expression: Option[IrExpression] = None
 ) extends IrTree
 
+case class IrBlock(
+  var statements: Option[Vector[IrStatement]] = None
+) extends IrTree
+
+case class IrStatement(
+  var expression: Option[IrExpression] = None
+) extends IrTree
+
 case class IrExpression() extends IrTree
 
 case class IrCall(

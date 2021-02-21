@@ -4,7 +4,7 @@ import lexi.{Tree, Visitor}
 import lexi.frontends.kotlin.KtTopLevelObject
 import lexi.ir.IrTopLevelObject
 
-object KtTopLevelObjectVisitor extends Visitor {
+object KtTopLevelObjectVisitor extends Visitor[IrTopLevelObject] {
   override def visit(ast: Tree): IrTopLevelObject = {
     val tlo = ast.asInstanceOf[KtTopLevelObject]
     IrTopLevelObject(
