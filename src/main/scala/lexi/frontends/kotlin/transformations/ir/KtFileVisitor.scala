@@ -1,17 +1,17 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.frontends.kotlin.{AST, KtFile}
+import lexi.{Tree, Visitor}
+import lexi.frontends.kotlin.KtFile
 import lexi.ir.IrFile
 
 import scala.util.Try
 
-object KtFileVisitor extends KtVisitor {
-  override def visit(ast: AST): IrFile =
-    (
-      (ktFile: KtFile) =>
-        new IrFile(
-          name = ktFile.name.get,
-          topLevelObjects = ktFile.topLevelObjects.map(_.map(KtTopLevelObjectVisitor.visit(_)))
-        )
-    )(ast.asInstanceOf[KtFile])
+object KtFileVisitor extends Visitor {
+  override def visit(tree: Tree): IrFile = {
+    val ktFile = tree.asInstanceOf[KtFile]
+    new IrFile(
+      name = ktFile.name.get,
+      topLevelObjects = ktFile.topLevelObjects.map(_.map(KtTopLevelObjectVisitor.visit(_)))
+    )
+  }
 }

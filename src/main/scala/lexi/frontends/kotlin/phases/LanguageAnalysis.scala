@@ -1,10 +1,9 @@
 package lexi.frontends.kotlin.phases
 
-import lexi.ir.IrTree
-import lexi.{Phase, Source}
+import lexi.{Phase, Source, Tree}
 
 object LanguageAnalysis extends Phase {
-  def apply(source: Source): IrTree =
+  def apply(source: Source): Tree =
     ((SyntaxAnalysis(_))
       andThen (SemanticAnalysis(_))
       andThen (Ir(_)))(source)

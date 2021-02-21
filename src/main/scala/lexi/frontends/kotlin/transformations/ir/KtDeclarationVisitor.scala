@@ -1,10 +1,11 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.frontends.kotlin.{AST, KtDeclaration}
+import lexi.{Tree, Visitor}
+import lexi.frontends.kotlin.KtDeclaration
 import lexi.ir.IrDeclaration
 
-object KtDeclarationVisitor extends KtVisitor {
-  override def visit(ast: AST): IrDeclaration = {
+object KtDeclarationVisitor extends Visitor {
+  override def visit(ast: Tree): IrDeclaration = {
     val ktDeclaration = ast.asInstanceOf[KtDeclaration]
     new IrDeclaration(
       classDeclaration = ktDeclaration.classDeclaration.map(KtClassVisitor.visit(_)),

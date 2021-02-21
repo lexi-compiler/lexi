@@ -1,12 +1,13 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.frontends.kotlin.{AST, KtClass}
+import lexi.{Tree, Visitor}
+import lexi.frontends.kotlin.KtClass
 import lexi.ir.IrClass
 
 import scala.util.Try
 
-object KtClassVisitor extends KtVisitor {
-  override def visit(ast: AST): IrClass = {
+object KtClassVisitor extends Visitor {
+  override def visit(ast: Tree): IrClass = {
     val ktClass = ast.asInstanceOf[KtClass]
     new IrClass(
       name = ktClass.name,

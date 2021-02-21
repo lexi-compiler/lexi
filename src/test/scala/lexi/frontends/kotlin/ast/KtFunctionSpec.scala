@@ -1,11 +1,11 @@
 package lexi.frontends.kotlin.ast
 
-import lexi.frontends.kotlin.{AST, KtFile, KtFunction}
-import lexi.{Language, Source}
+import lexi.frontends.kotlin.{KtFile, KtFunction}
+import lexi.{Language, Source, Tree}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtFunctionSpec extends munit.FunSuite {
-  private def ktFunction(ast: AST): KtFunction =
+  private def ktFunction(ast: Tree): KtFunction =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects

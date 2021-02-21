@@ -1,10 +1,8 @@
 package lexi
 
-import lexi.ir.IrTree
-
 case class CompilationUnit(
   source: Source,
-  ir: Option[IrTree] = None,
+  ir: Option[Tree] = None,
   jvm: Option[Array[Byte]] = None
 )
 

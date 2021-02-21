@@ -1,15 +1,15 @@
 package lexi.frontends.kotlin.phases
 
-import lexi.Phase
-import lexi.frontends.kotlin.transformations.ir.{KtClassVisitor, KtFileVisitor, KtFunctionVisitor, KtPropertyVisitor, KtVisitor}
+import lexi.{Phase, Tree, Visitor}
+import lexi.frontends.kotlin.transformations.ir.{KtClassVisitor, KtFileVisitor, KtFunctionVisitor, KtPropertyVisitor}
 import lexi.frontends.kotlin.{AST, KtClass, KtFile, KtFunction, KtProperty}
 import lexi.ir.IrTree
 
 object Ir extends Phase {
-  def apply(ast: AST): IrTree =
-    visitorType(ast).visit(ast)
+  def apply(tree: Tree): Tree =
+    visitorType(tree).visit(tree)
 
-  private def visitorType(ast: AST): KtVisitor = ast match {
+  private def visitorType(tree: Tree): Visitor = tree match {
     case _: KtFile     => KtFileVisitor
     case _: KtClass    => KtClassVisitor
     case _: KtFunction => KtFunctionVisitor

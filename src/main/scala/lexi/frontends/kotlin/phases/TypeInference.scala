@@ -1,6 +1,6 @@
 package lexi.frontends.kotlin.phases
 
-import lexi.Phase
+import lexi.{Phase, Tree}
 import lexi.frontends.kotlin.{AST, KtFile, KtFunction, KtProperty}
 import lexi.frontends.kotlin.antlr.KotlinParser.{FunctionDeclarationContext, PropertyDeclarationContext}
 
@@ -8,7 +8,7 @@ object TypeInference extends Phase {
   private val IntPattern = "\\d+".r
   private val StringPattern = """^".*"$""".r
 
-  def apply(ast: AST): AST = ast match {
+  def apply(ast: Tree): Tree = ast match {
     case file: KtFile         => this.file(file)
     case property: KtProperty => this.property(property)
     case function: KtFunction => this.function(function)

@@ -1,10 +1,11 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.frontends.kotlin.{AST, KtProperty}
+import lexi.{Tree, Visitor}
+import lexi.frontends.kotlin.KtProperty
 import lexi.ir.IrProperty
 
-object KtPropertyVisitor extends KtVisitor {
-  override def visit(ast: AST): IrProperty = {
+object KtPropertyVisitor extends Visitor {
+  override def visit(ast: Tree): IrProperty = {
     val property = ast.asInstanceOf[KtProperty]
     IrProperty(
       name = property.name,

@@ -1,14 +1,14 @@
 package lexi.frontends.kotlin.transformations.ir
 
-import lexi.frontends.kotlin.{AST, KtTopLevelObject}
+import lexi.{Tree, Visitor}
+import lexi.frontends.kotlin.KtTopLevelObject
 import lexi.ir.IrTopLevelObject
 
-object KtTopLevelObjectVisitor extends KtVisitor {
-  override def visit(ast: AST): IrTopLevelObject =
-    (
-      (topLevel: KtTopLevelObject) =>
-        IrTopLevelObject(
-          declaration = topLevel.declaration.map(KtDeclarationVisitor.visit(_))
-        )
-    )(ast.asInstanceOf[KtTopLevelObject])
+object KtTopLevelObjectVisitor extends Visitor {
+  override def visit(ast: Tree): IrTopLevelObject = {
+    val tlo = ast.asInstanceOf[KtTopLevelObject]
+    IrTopLevelObject(
+      declaration = tlo.declaration.map(KtDeclarationVisitor.visit(_))
+    )
+  }
 }

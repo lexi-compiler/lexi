@@ -9,10 +9,6 @@ trait AST extends Tree {
   var context: Option[ParserRuleContext] = None
 }
 
-trait ASTVisitor {
-  def visit(ast: AST): AST
-}
-
 case class KtFile(
   var name: Option[String] = None,
   var topLevelObjects: Option[Vector[KtTopLevelObject]] = None
