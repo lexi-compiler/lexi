@@ -4,7 +4,7 @@ import lexi.backends.transformations.Interpreter
 import lexi.frontends.kotlin.phases.LanguageAnalysis
 
 object Repl {
-  def run: Unit = {
+  def apply(language: Language): Unit = {
     print("@ ")
     Iterator
       .continually(io.StdIn.readLine)

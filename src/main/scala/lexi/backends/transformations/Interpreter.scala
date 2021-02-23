@@ -9,7 +9,7 @@ object Interpreter {
     case "" => ""
     case expr if expr.trim.startsWith("val") =>
       s"${apply(LanguageAnalysis(Source.fromString(expr.trim, Language.Kotlin)))}"
-    case expr => s"Expression could not be parsed: ${expr}"
+    case expr => s"Expression failed to parse: ${expr}"
   }
 
   def apply(ir: IrTree): String = {

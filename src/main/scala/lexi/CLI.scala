@@ -2,8 +2,11 @@ package lexi
 
 object CLI {
   def main(args: Array[String]): Unit = {
-    if (args.head == "-kotlin") {
-      Repl.run
+    if (args.head == "-lang") {
+      Language.withLangParam(args(args.indexOf("-lang") + 1)) match {
+        case Right(lang) => Repl(lang)
+        case Left(e) => throw Exception(s"Invalid language: ${args.head}")
+      }
     } else {
       val context = new Context
       val compiler = new Compiler(context)
