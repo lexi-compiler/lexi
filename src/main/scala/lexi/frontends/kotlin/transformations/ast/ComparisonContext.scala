@@ -1,0 +1,20 @@
+package lexi.frontends.kotlin.transformations.ast
+
+import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtComparison}
+
+import scala.jdk.CollectionConverters._
+import scala.util.Try
+
+object ComparisonContext extends KotlinParserBaseVisitor[Option[AST] => KtComparison] {
+  override def visitComparison(ctx: KotlinParser.ComparisonContext) =
+    parentNode =>
+      new KtComparison {
+        parent = parentNode
+        context = Some(ctx)
+        genericCallLikeComparisonContext = Try(
+          ctx.genericCallLikeComparison.asScala.toVector
+            .map(GenericCallLikeComparisonContext.visit(_)(Some(this)))
+        ).toOption
+      }
+}
