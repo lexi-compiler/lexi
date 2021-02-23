@@ -2,11 +2,15 @@ package lexi
 
 object CLI {
   def main(args: Array[String]): Unit = {
-    val context = new Context
-    val compiler = new Compiler(context)
-    val sources = sourcesFromFiles(args.toVector)
-    val result = compiler.run(sources)
-    println(result)
+    if (args.head == "-kotlin") {
+      Repl.run
+    } else {
+      val context = new Context
+      val compiler = new Compiler(context)
+      val sources = sourcesFromFiles(args.toVector)
+      val result = compiler.run(sources)
+      println(result)
+    }
   }
 
   private def sourcesFromFiles(args: Vector[String]): Vector[Source] =

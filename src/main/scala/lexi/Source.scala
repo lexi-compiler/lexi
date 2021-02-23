@@ -16,7 +16,7 @@ object Source {
   def fromFile(file: String): Either[Throwable, Source] =
     for {
       language <- fileLanguage(file)
-      content  <- readFile(file)
+      content <- readFile(file)
     } yield Source(
       file = file,
       text = content,
