@@ -1,9 +1,9 @@
 package lexi.frontends.kotlin.phases
 
 import lexi.frontends.kotlin.AST
+import lexi.frontends.kotlin.transformations.AST._
 import lexi.{Phase, Source}
 import lexi.frontends.kotlin.antlr.{KotlinLexer, KotlinParser}
-import lexi.frontends.kotlin.transformations.ast.KotlinFileContext
 import org.antlr.v4.runtime.{CharStreams, CommonTokenStream}
 
 object SyntaxAnalysis extends Phase {
