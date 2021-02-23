@@ -3,7 +3,7 @@ package lexi.frontends.kotlin.phases
 import lexi.frontends.kotlin._
 import lexi.frontends.kotlin.transformations.IR.{irClass, irFile, irFunction, irProperty}
 import lexi.ir.IrTree
-import lexi.{Phase, Tree, Visitor}
+import lexi.Phase
 
 object Ir extends Phase {
   def apply(ast: AST): IrTree = ast match {

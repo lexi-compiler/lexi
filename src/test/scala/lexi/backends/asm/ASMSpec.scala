@@ -1,6 +1,6 @@
 package lexi.backends.asm
 
-import lexi.backends.asm.phases.ASM
+import lexi.backends.transformations.ASM
 import lexi.ir.{IrClass, IrClassBody, IrDeclaration, IrFunction}
 import org.objectweb.asm.ClassReader
 
