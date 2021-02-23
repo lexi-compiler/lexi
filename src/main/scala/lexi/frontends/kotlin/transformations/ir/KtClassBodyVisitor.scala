@@ -6,11 +6,10 @@ import lexi.ir.IrClassBody
 
 import scala.util.Try
 
-object KtClassBodyVisitor extends Visitor[IrClassBody] {
-  override def visit(ast: Tree): IrClassBody = {
-    val ktClassBody = ast.asInstanceOf[KtClassBody]
+object KtClassBodyVisitor extends Visitor[KtClassBody, IrClassBody] {
+  override def visit(ast: KtClassBody): IrClassBody = {
     new IrClassBody(
-      declarations = ktClassBody.classMemberDeclarations.map(
+      declarations = ast.classMemberDeclarations.map(
         _.map(KtDeclarationVisitor.visit(_))
       )
     )

@@ -1,7 +1,7 @@
 package lexi.backends.asm.ir
 
 import lexi.{Tree, Visitor}
-import lexi.ir.IrFunction
+import lexi.ir.{IrClass, IrFunction}
 import org.objectweb.asm.{ClassWriter, MethodVisitor, Opcodes}
 
 object IrMethodVisitor {
@@ -9,13 +9,12 @@ object IrMethodVisitor {
     new IrMethodVisitor(classWriter)
 }
 
-class IrMethodVisitor(classWriter: ClassWriter) extends Visitor[MethodVisitor] {
-  override def visit(ir: Tree): MethodVisitor = {
-    val irFunction = ir.asInstanceOf[IrFunction]
+class IrMethodVisitor(classWriter: ClassWriter) extends Visitor[IrFunction, MethodVisitor] {
+  override def visit(ir: IrFunction): MethodVisitor = {
     val method = classWriter.visitMethod(
       Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
-      irFunction.name.get,
-      s"([Ljava/lang/${irFunction.`type`};)V",
+      ir.name.get,
+      s"([Ljava/lang/${ir.`type`};)V",
       null,
       null
     )

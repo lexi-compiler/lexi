@@ -4,13 +4,12 @@ import lexi.{Tree, Visitor}
 import lexi.frontends.kotlin.KtProperty
 import lexi.ir.IrProperty
 
-object KtPropertyVisitor extends Visitor[IrProperty] {
-  override def visit(ast: Tree): IrProperty = {
-    val property = ast.asInstanceOf[KtProperty]
+object KtPropertyVisitor extends Visitor[KtProperty, IrProperty] {
+  override def visit(tree: KtProperty): IrProperty = {
     IrProperty(
-      name = property.name,
-      expression = property.expression,
-      dataType = property.dataType
+      name = tree.name,
+      expression = tree.expression,
+      dataType = tree.dataType
     )
   }
 }

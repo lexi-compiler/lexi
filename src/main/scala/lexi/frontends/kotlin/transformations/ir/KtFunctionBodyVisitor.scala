@@ -6,12 +6,11 @@ import lexi.ir.IrFunctionBody
 
 import scala.util.Try
 
-object KtFunctionBodyVisitor extends Visitor[IrFunctionBody] {
-  override def visit(ast: Tree): IrFunctionBody = {
-    val body = ast.asInstanceOf[KtFunctionBody]
+object KtFunctionBodyVisitor extends Visitor[KtFunctionBody, IrFunctionBody] {
+  override def visit(ast: KtFunctionBody): IrFunctionBody = {
     IrFunctionBody(
       block = None,
-      expression = body.expression.map(KtExpressionVisitor.visit(_))
+      expression = ast.expression.map(KtExpressionVisitor.visit(_))
     )
   }
 }

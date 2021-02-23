@@ -11,10 +11,10 @@ import lexi.frontends.kotlin.{AST, KtClass, KtFile, KtFunction, KtProperty}
 import lexi.ir.IrTree
 
 object Ir extends Phase {
-  def apply(tree: Tree): Tree = tree.match {
-    case _: KtFile     => KtFileVisitor
-    case _: KtClass    => KtClassVisitor
-    case _: KtFunction => KtFunctionVisitor
-    case _: KtProperty => KtPropertyVisitor
-  }.visit(tree)
+  def apply(ast: AST): IrTree = ast match {
+    case n: KtFile     => KtFileVisitor.visit(n)
+    case n: KtClass    => KtClassVisitor.visit(n)
+    case n: KtFunction => KtFunctionVisitor.visit(n)
+    case n: KtProperty => KtPropertyVisitor.visit(n)
+  }
 }

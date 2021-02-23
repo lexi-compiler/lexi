@@ -1,14 +1,13 @@
 package lexi.frontends.kotlin.transformations.ast
 
 import lexi.frontends.kotlin.KtFile
-import lexi.frontends.kotlin.antlr.KotlinParser.KotlinFileContext
-import lexi.frontends.kotlin.antlr.KotlinParserBaseVisitor
+import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 object KtFileVisitor extends KotlinParserBaseVisitor[KtFile] {
-  override def visitKotlinFile(ctx: KotlinFileContext): KtFile =
+  override def visitKotlinFile(ctx: KotlinParser.KotlinFileContext) =
     new KtFile {
       context = Some(ctx)
       topLevelObjects = Try(

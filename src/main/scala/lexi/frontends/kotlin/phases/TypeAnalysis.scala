@@ -1,8 +1,9 @@
 package lexi.frontends.kotlin.phases
 
-import lexi.{Phase, Tree}
+import lexi.frontends.kotlin.AST
+import lexi.Phase
 
 object TypeAnalysis extends Phase {
-  def apply(tree: Tree): Tree =
-    (TypeInference.apply _)(tree)
+  def apply(ast: AST): AST =
+    TypeInference(ast)
 }

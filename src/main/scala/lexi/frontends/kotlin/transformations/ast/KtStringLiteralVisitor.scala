@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtStringLiteral}
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtStringLiteral}
 
 import scala.util.Try
 

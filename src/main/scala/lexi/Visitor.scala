@@ -1,5 +1,5 @@
 package lexi
 
-trait Visitor[T] {
-  def visit(tree: Tree): T
+trait Visitor[A, B] {
+  def visit(tree: A): B
 }

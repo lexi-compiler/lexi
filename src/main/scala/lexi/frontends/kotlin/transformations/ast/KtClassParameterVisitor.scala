@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtClassParameter}
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtClassParameter}
 
 object KtClassParameterVisitor extends KotlinParserBaseVisitor[Option[AST] => KtClassParameter] {
   override def visitClassParameter(ctx: KotlinParser.ClassParameterContext) = { parentNode =>

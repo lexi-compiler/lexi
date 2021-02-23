@@ -1,13 +1,12 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.antlr.KotlinParser.DeclarationContext
-import lexi.frontends.kotlin.antlr.KotlinParserBaseVisitor
+import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 import lexi.frontends.kotlin.{AST, KtDeclaration}
 
 import scala.util.Try
 
 object KtDeclarationVisitor extends KotlinParserBaseVisitor[Option[AST] => KtDeclaration] {
-  override def visitDeclaration(ctx: DeclarationContext) = { parentNode =>
+  override def visitDeclaration(ctx: KotlinParser.DeclarationContext) = { parentNode =>
     new KtDeclaration {
       parent = parentNode
       context = Some(ctx)

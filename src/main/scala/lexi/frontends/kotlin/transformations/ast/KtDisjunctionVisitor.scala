@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.transformations.ast
 
-import lexi.frontends.kotlin.{AST, KtDisjunction}
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
+import lexi.frontends.kotlin.{AST, KtDisjunction}
 
 import scala.jdk.CollectionConverters._
 import scala.util.Try

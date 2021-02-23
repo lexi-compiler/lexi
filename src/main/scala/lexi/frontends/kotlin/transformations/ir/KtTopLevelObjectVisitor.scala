@@ -4,11 +4,10 @@ import lexi.{Tree, Visitor}
 import lexi.frontends.kotlin.KtTopLevelObject
 import lexi.ir.IrTopLevelObject
 
-object KtTopLevelObjectVisitor extends Visitor[IrTopLevelObject] {
-  override def visit(ast: Tree): IrTopLevelObject = {
-    val tlo = ast.asInstanceOf[KtTopLevelObject]
+object KtTopLevelObjectVisitor extends Visitor[KtTopLevelObject, IrTopLevelObject] {
+  override def visit(ast: KtTopLevelObject): IrTopLevelObject = {
     IrTopLevelObject(
-      declaration = tlo.declaration.map(KtDeclarationVisitor.visit(_))
+      declaration = ast.declaration.map(KtDeclarationVisitor.visit(_))
     )
   }
 }
