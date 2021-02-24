@@ -42,7 +42,7 @@ object AST {
         declarations = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
           .map(DeclarationContext.visit(_)(Some(this)))
         functions = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
-          .filter(_.isInstanceOf[FunctionDeclarationContext])
+          .map(_.declaration.functionDeclaration)
           .map(FunctionDeclarationContext.visit(_)(Some(this)))
       }
     }
