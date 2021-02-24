@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.ast
 
 import lexi.frontends.kotlin.{KtFile, KtFunction}
-import lexi.{Language, Source, Tree}
+import lexi.{Language, Source, TestUtils, Tree}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtFunctionSpec extends munit.FunSuite {
@@ -16,9 +16,12 @@ class KtFunctionSpec extends munit.FunSuite {
       .functionDeclaration
       .get
 
+  private def kotlinSource(code: String): Source =
+    Source.fromString(code, Language.Kotlin)
+
   test("expression function without parameters") {
     val code = """fun hello(): String = "Hello Maki!""""
-    val source = Source.fromString(source = code, Language.Kotlin)
+    val source = kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])
@@ -28,7 +31,7 @@ class KtFunctionSpec extends munit.FunSuite {
 
   test("expression function with parameters") {
     val code = """fun hello(name: String): String = "Hello ${name}""""
-    val source = Source.fromString(source = code, Language.Kotlin)
+    val source = TestUtils.kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])
@@ -43,7 +46,7 @@ class KtFunctionSpec extends munit.FunSuite {
         |  "Hello ${name}"
         |}
         |""".stripMargin
-    val source = Source.fromString(source = code, Language.Kotlin)
+    val source = TestUtils.kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtFunction])

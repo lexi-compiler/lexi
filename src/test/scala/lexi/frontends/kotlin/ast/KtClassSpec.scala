@@ -2,7 +2,7 @@ package lexi.frontends.kotlin.ast
 
 import lexi.frontends.kotlin.{KtClass, KtClassParameter, KtDeclaration, KtFile}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
-import lexi.{Language, Source, Tree}
+import lexi.{Language, Source, TestUtils, Tree}
 
 class KtClassSpec extends munit.FunSuite {
   private def ktClass(ast: Tree): KtClass =
@@ -16,6 +16,7 @@ class KtClassSpec extends munit.FunSuite {
       .classDeclaration
       .get
 
+
   private def classParameter(klass: KtClass, index: Int): KtClassParameter =
     klass.primaryConstructor.get.classParameters.get(index)
 
@@ -28,7 +29,7 @@ class KtClassSpec extends munit.FunSuite {
         |  fun greet() = "Hello, ${firstName}, ${lastName}"
         |}
         |""".stripMargin
-    val source = Source.fromString(source = code, Language.Kotlin)
+    val source = TestUtils.kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val klass = ktClass(ast)
     assertEquals(klass.name, Some("Person"))
