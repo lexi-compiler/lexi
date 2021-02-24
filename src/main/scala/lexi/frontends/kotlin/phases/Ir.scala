@@ -9,7 +9,7 @@ object Ir extends Phase {
   def apply(ast: AST): IrTree = ast match {
     case node: KtFile     => irFile(node)
     case node: KtClass    => irClass(node)
-    case node: KtFunction => irFunction(node)
+    case node: KtNamedFunction => irFunction(node)
     case node: KtProperty => irProperty(node)
   }
 }

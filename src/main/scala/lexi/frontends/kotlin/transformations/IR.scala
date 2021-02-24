@@ -4,15 +4,9 @@ import lexi.frontends.kotlin._
 import lexi.ir._
 
 object IR {
-  def irBlock(ast: KtBlock): IrBlock = {
-    new lexi.ir.IrBlock {}
-  }
-
   def irClassBody(ast: KtClassBody): IrClassBody = {
     new IrClassBody(
-      declarations = ast.classMemberDeclarations.map(
-        _.map(irDeclaration(_))
-      )
+      declarations = ast.declarations.map(irDeclaration(_))
     )
   }
 
@@ -31,7 +25,7 @@ object IR {
     )
   }
 
-  def irExpression(ast: KtExpressionContext): IrExpression = {
+  def irExpression(ast: KtExpression): IrExpression = {
     IrExpression()
   }
 
@@ -42,18 +36,19 @@ object IR {
     )
   }
 
-  def irFunctionBody(ast: KtFunctionBody): IrFunctionBody = {
-    IrFunctionBody(
+  def irBlockExpression(ast: KtBlockExpression): IrBlockExpression = {
+    IrBlockExpression(
       block = None,
-      expression = ast.expression.map(irExpression(_))
+      expression = ast.statements.map(irExpression(_))
     )
   }
 
-  def irFunction(ast: KtFunction): IrFunction = {
+  def irFunction(ast: KtNamedFunction): IrFunction = {
     IrFunction(
       name = ast.name,
       `type` = ast.`type`,
-      functionBody = ast.functionBody.map(irFunctionBody(_))
+      bodyExpression = ast.bodyExpression.map(irExpression(_)),
+      bodyBlockExpression = ast.bodyBlockExpression.map(irBlockExpression(_))
     )
   }
 

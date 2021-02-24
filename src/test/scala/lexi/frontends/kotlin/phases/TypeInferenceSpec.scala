@@ -1,6 +1,6 @@
 package lexi.frontends.kotlin.phases
 
-import lexi.frontends.kotlin.{KtFile, KtFunction, KtProperty}
+import lexi.frontends.kotlin.{KtFile, KtNamedFunction, KtProperty}
 import lexi.{Language, Source, Tree}
 import lexi.frontends.kotlin.ast._
 
@@ -16,7 +16,7 @@ class TypeInferenceSpec extends munit.FunSuite {
       .propertyDeclaration
       .get
 
-  private def functionNode(ast: Tree): KtFunction =
+  private def functionNode(ast: Tree): KtNamedFunction =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects

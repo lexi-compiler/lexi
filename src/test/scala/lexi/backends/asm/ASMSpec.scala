@@ -10,14 +10,12 @@ class ASMSpec extends munit.FunSuite {
       name = Some("GeneratedClass"),
       classBody = Some(
         IrClassBody(
-          declarations = Some(
-            Vector(
-              IrDeclaration(
-                functionDeclaration = Some(
-                  IrFunction(
-                    name = Some("main"),
-                    `type` = Some("String")
-                  )
+          declarations = Vector(
+            IrDeclaration(
+              functionDeclaration = Some(
+                IrFunction(
+                  name = Some("main"),
+                  `type` = Some("String")
                 )
               )
             )

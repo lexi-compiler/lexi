@@ -21,7 +21,7 @@ class KtClassSpec extends munit.FunSuite {
     klass.primaryConstructor.get.classParameters.get(index)
 
   private def methodDeclaration(klass: KtClass, index: Int): KtDeclaration =
-    klass.classBody.get.classMemberDeclarations.get(index)
+    klass.classBody.get.declarations(index)
 
   test("class parses") {
     val code =

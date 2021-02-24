@@ -55,7 +55,7 @@ object ASM extends Phase {
 
     ir match {
       case c: IrClass =>
-        c.classBody.get.declarations.get
+        c.classBody.get.declarations
           .map(_.functionDeclaration)
           .filter(_ != None)
           .map(_.get)

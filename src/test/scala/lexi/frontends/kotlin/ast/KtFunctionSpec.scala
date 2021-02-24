@@ -1,11 +1,11 @@
 package lexi.frontends.kotlin.ast
 
-import lexi.frontends.kotlin.{KtFile, KtFunction}
+import lexi.frontends.kotlin.{KtFile, KtNamedFunction}
 import lexi.{Language, Source, TestUtils, Tree}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtFunctionSpec extends munit.FunSuite {
-  private def ktFunction(ast: Tree): KtFunction =
+  private def ktFunction(ast: Tree): KtNamedFunction =
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
@@ -24,7 +24,7 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    assert(function.isInstanceOf[KtFunction])
+    assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))
     assertEquals(function.`type`, Some("String"))
   }
@@ -34,7 +34,7 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = TestUtils.kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    assert(function.isInstanceOf[KtFunction])
+    assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))
     assertEquals(function.`type`, Some("String"))
   }
@@ -49,7 +49,7 @@ class KtFunctionSpec extends munit.FunSuite {
     val source = TestUtils.kotlinSource(code)
     val ast = SyntaxAnalysis(source)
     val function = ktFunction(ast)
-    assert(function.isInstanceOf[KtFunction])
+    assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))
     assertEquals(function.`type`, Some("String"))
   }

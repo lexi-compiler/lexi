@@ -1,7 +1,7 @@
 package lexi.frontends.kotlin.phases
 
 import lexi.{Phase, Tree}
-import lexi.frontends.kotlin.{AST, KtFile, KtFunction, KtProperty}
+import lexi.frontends.kotlin.{AST, KtFile, KtNamedFunction, KtProperty}
 import lexi.frontends.kotlin.antlr.KotlinParser.{FunctionDeclarationContext, PropertyDeclarationContext}
 
 object TypeInference extends Phase {
@@ -11,7 +11,7 @@ object TypeInference extends Phase {
   def apply(ast: AST): AST = ast match {
     case file: KtFile         => this.file(file)
     case property: KtProperty => this.property(property)
-    case function: KtFunction => this.function(function)
+    case function: KtNamedFunction => this.function(function)
     case _                    => ast
   }
 
@@ -29,7 +29,7 @@ object TypeInference extends Phase {
     property.copy(dataType = inferredType)
   }
 
-  def function(function: KtFunction): KtFunction = {
+  def function(function: KtNamedFunction): KtNamedFunction = {
     val inferredType = function.context.flatMap { ctx =>
       ctx.asInstanceOf[FunctionDeclarationContext].`type`.getText match {
         case IntPattern()    => Some("Int")

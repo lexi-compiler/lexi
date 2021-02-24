@@ -25,7 +25,8 @@ case class KtClass(
 ) extends AST
 
 case class KtClassBody(
-  var classMemberDeclarations: Option[Vector[KtDeclaration]] = None
+  var declarations: Vector[KtDeclaration] = Vector.empty,
+  var functions: Vector[KtNamedFunction] = Vector.empty
 ) extends AST
 
 case class KtClassParameter(
@@ -51,18 +52,12 @@ case class KtAsExpression(
   var prefixUnaryExpression: Option[KtPrefixUnaryExpression] = None
 ) extends AST
 
-case class KtBlock(
-  var statements: Option[Vector[KtStatement]] = None
-) extends AST
-
 case class KtCall(
-  var function: Option[KtFunction] = None
+  var function: Option[KtNamedFunction] = None
 ) extends AST
 
 case class KtComparison(
-  var genericCallLikeComparisonContext: Option[
-    Vector[KtGenericCallLikeComparison]
-  ] = None
+  var genericCallLikeComparisonContext: Option[Vector[KtGenericCallLikeComparison]] = None
 ) extends AST
 
 case class KtConjunction(
@@ -76,7 +71,7 @@ case class KtDisjunction(
 case class KtDeclaration(
   var classDeclaration: Option[KtClass] = None,
   var propertyDeclaration: Option[KtProperty] = None,
-  var functionDeclaration: Option[KtFunction] = None
+  var functionDeclaration: Option[KtNamedFunction] = None
 ) extends AST
 
 case class KtElvisExpression(
@@ -87,19 +82,19 @@ case class KtEquality(
   var comparison: Option[Vector[KtComparison]] = None
 ) extends AST
 
-case class KtExpressionContext(
+case class KtExpression(
   var disjunction: Option[KtDisjunction] = None
 ) extends AST
 
-case class KtFunction(
+case class KtNamedFunction(
   var name: Option[String] = None,
   var `type`: Option[String] = None,
-  var functionBody: Option[KtFunctionBody] = None
+  var bodyExpression: Option[KtExpression] = None,
+  var bodyBlockExpression: Option[KtBlockExpression] = None
 ) extends AST
 
-case class KtFunctionBody(
-  var block: Option[KtBlock] = None,
-  var expression: Option[KtExpressionContext] = None
+case class KtBlockExpression(
+  var statements: Vector[KtExpression] = Vector.empty
 ) extends AST
 
 case class KtGenericCallLikeComparison(
@@ -142,7 +137,7 @@ case class KtRangeExpression(
 ) extends AST
 
 case class KtStatement(
-  var expression: Option[KtExpressionContext] = None
+  var expression: Option[KtExpression] = None
 ) extends AST
 
 case class KtStringLiteral(

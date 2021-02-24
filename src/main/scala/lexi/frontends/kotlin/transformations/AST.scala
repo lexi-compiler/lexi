@@ -1,6 +1,7 @@
 package lexi.frontends.kotlin.transformations
 
 import lexi.frontends.kotlin._
+import lexi.frontends.kotlin.antlr.KotlinParser.FunctionDeclarationContext
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
 
 import scala.jdk.CollectionConverters._
@@ -33,28 +34,16 @@ object AST {
         }
   }
 
-  object BlockContext extends KotlinParserBaseVisitor[Option[AST] => KtBlock] {
-    override def visitBlock(ctx: KotlinParser.BlockContext) = { parentNode =>
-      new KtBlock {
-        parent = parentNode
-        context = Some(ctx)
-        statements = Try(
-          ctx.statements.statement.asScala.toVector
-            .map(StatementContext.visit(_)(Some(this)))
-        ).toOption
-      }
-    }
-  }
-
   object ClassBodyContext extends KotlinParserBaseVisitor[Option[AST] => KtClassBody] {
     override def visitClassBody(ctx: KotlinParser.ClassBodyContext) = { parentNode =>
       new KtClassBody {
         context = Some(ctx)
         parent = parentNode
-        classMemberDeclarations = Try {
-          ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
-            .map(DeclarationContext.visit(_)(Some(this)))
-        }.toOption
+        declarations = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
+          .map(DeclarationContext.visit(_)(Some(this)))
+        functions = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
+          .filter(_.isInstanceOf[FunctionDeclarationContext])
+          .map(FunctionDeclarationContext.visit(_)(Some(this)))
       }
     }
   }
@@ -166,41 +155,39 @@ object AST {
       }
   }
 
-  object ExpressionContext extends KotlinParserBaseVisitor[Option[AST] => KtExpressionContext] {
+  object ExpressionContext extends KotlinParserBaseVisitor[Option[AST] => KtExpression] {
     override def visitExpression(ctx: KotlinParser.ExpressionContext) =
       parentNode =>
-        new KtExpressionContext {
+        new KtExpression {
           parent = parentNode
           context = Some(ctx)
           disjunction = Try(DisjunctionContext.visit(ctx.disjunction)(Some(this))).toOption
         }
   }
 
-  object FunctionBodyContext extends KotlinParserBaseVisitor[Option[AST] => KtFunctionBody] {
-    override def visitFunctionBody(ctx: KotlinParser.FunctionBodyContext) = { parentNode =>
-      new KtFunctionBody {
-        parent = parentNode
-        context = Some(ctx)
-        block = Try(
-          BlockContext.visit(ctx.block)(Some(this))
-        ).toOption
-        expression = Try(
-          ExpressionContext.visit(ctx.expression)(Some(this))
-        ).toOption
+  object BlockExpressionContext extends KotlinParserBaseVisitor[Option[AST] => KtBlockExpression] {
+    override def visitBlock(ctx: KotlinParser.BlockContext) = { parentNode =>
+      new KtBlockExpression {
+        statements = ctx.statements.statement.asScala.toVector
+          .map(ExpressionContext.visit(_)(Some(this)))
       }
     }
   }
 
-  object FunctionDeclarationContext extends KotlinParserBaseVisitor[Option[AST] => KtFunction] {
+  object FunctionDeclarationContext
+    extends KotlinParserBaseVisitor[Option[AST] => KtNamedFunction] {
     override def visitFunctionDeclaration(ctx: KotlinParser.FunctionDeclarationContext) = {
       parentNode =>
-        new KtFunction {
+        new KtNamedFunction {
           parent = parentNode
           context = Some(ctx)
           name = Try(ctx.simpleIdentifier.getText).toOption
           `type` = Try(ctx.`type`.getText).toOption
-          functionBody = Try(
-            FunctionBodyContext.visit(ctx.functionBody)(Some(this))
+          bodyExpression = Try(
+            ExpressionContext.visit(ctx.functionBody.expression)(Some(this))
+          ).toOption
+          bodyBlockExpression = Try(
+            BlockExpressionContext.visit(ctx.functionBody.block)(Some(this))
           ).toOption
         }
     }

@@ -22,7 +22,7 @@ case class IrClass(
 ) extends IrTree
 
 case class IrClassBody(
-  declarations: Option[Vector[IrDeclaration]] = None
+  declarations: Vector[IrDeclaration] = Vector.empty
 ) extends IrTree
 
 case class IrDeclaration(
@@ -40,16 +40,13 @@ case class IrProperty(
 case class IrFunction(
   name: Option[String] = None,
   `type`: Option[String] = None,
-  functionBody: Option[IrFunctionBody] = None
+  bodyExpression: Option[IrExpression] = None,
+  bodyBlockExpression: Option[IrBlockExpression] = None
 ) extends IrTree
 
-case class IrFunctionBody(
+case class IrBlockExpression(
   block: Option[Vector[String]] = None,
-  expression: Option[IrExpression] = None
-) extends IrTree
-
-case class IrBlock(
-  var statements: Option[Vector[IrStatement]] = None
+  expression: Vector[IrExpression] = Vector.empty
 ) extends IrTree
 
 case class IrStatement(

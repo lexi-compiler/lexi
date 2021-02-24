@@ -1,6 +1,6 @@
 package lexi.frontends.scala.ir
 
-import lexi.ir.{IrDeclaration, IrFile, IrFunction, IrFunctionBody, IrTopLevelObject}
+import lexi.ir.{IrBlockExpression, IrDeclaration, IrFile, IrFunction, IrTopLevelObject}
 
 import scala.meta._
 
@@ -31,8 +31,8 @@ object ScalaFileVisitor extends ScalaVisitor {
                         .name
                         .value
                     ),
-                    functionBody = Some(
-                      IrFunctionBody(
+                    bodyBlockExpression = Some(
+                      IrBlockExpression(
 //                        block = Some(
 //                          tree
 //                            .children(0)
