@@ -35,42 +35,42 @@ object AST {
   }
 
   object ClassBodyContext extends KotlinParserBaseVisitor[Option[AST] => KtClassBody] {
-    override def visitClassBody(ctx: KotlinParser.ClassBodyContext) = { parentNode =>
-      new KtClassBody {
-        context = Some(ctx)
-        parent = parentNode
-        declarations = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
-          .map(DeclarationContext.visit(_)(Some(this)))
-        functions = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
-          .map(_.declaration.functionDeclaration)
-          .map(FunctionDeclarationContext.visit(_)(Some(this)))
-      }
-    }
+    override def visitClassBody(ctx: KotlinParser.ClassBodyContext) =
+      parentNode =>
+        new KtClassBody {
+          context = Some(ctx)
+          parent = parentNode
+          declarations = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
+            .map(DeclarationContext.visit(_)(Some(this)))
+          functions = ctx.classMemberDeclarations.classMemberDeclaration.asScala.toVector
+            .map(_.declaration.functionDeclaration)
+            .map(FunctionDeclarationContext.visit(_)(Some(this)))
+        }
   }
 
   object ClassDeclarationContext extends KotlinParserBaseVisitor[Option[AST] => KtClass] {
-    override def visitClassDeclaration(ctx: KotlinParser.ClassDeclarationContext) = { parentNode =>
-      new KtClass {
-        context = Some(ctx)
-        parent = parentNode
-        name = Some(ctx.simpleIdentifier.getText)
-        primaryConstructor = Try(
-          PrimaryConstructorContext.visit(ctx.primaryConstructor)(Some(this))
-        ).toOption
-        classBody = Try(ClassBodyContext.visit(ctx.classBody)(Some(this))).toOption
-      }
-    }
+    override def visitClassDeclaration(ctx: KotlinParser.ClassDeclarationContext) =
+      parentNode =>
+        new KtClass {
+          context = Some(ctx)
+          parent = parentNode
+          name = Some(ctx.simpleIdentifier.getText)
+          primaryConstructor = Try(
+            PrimaryConstructorContext.visit(ctx.primaryConstructor)(Some(this))
+          ).toOption
+          classBody = Try(ClassBodyContext.visit(ctx.classBody)(Some(this))).toOption
+        }
   }
 
   object ClassParameterContext extends KotlinParserBaseVisitor[Option[AST] => KtClassParameter] {
-    override def visitClassParameter(ctx: KotlinParser.ClassParameterContext) = { parentNode =>
-      new KtClassParameter {
-        context = Some(ctx)
-        parent = parentNode
-        name = Some(ctx.simpleIdentifier.getText)
-        `type` = Some(ctx.`type`.getText)
-      }
-    }
+    override def visitClassParameter(ctx: KotlinParser.ClassParameterContext) =
+      parentNode =>
+        new KtClassParameter {
+          context = Some(ctx)
+          parent = parentNode
+          name = Some(ctx.simpleIdentifier.getText)
+          `type` = Some(ctx.`type`.getText)
+        }
   }
 
   object ComparisonContext extends KotlinParserBaseVisitor[Option[AST] => KtComparison] {
@@ -100,21 +100,21 @@ object AST {
   }
 
   object DeclarationContext extends KotlinParserBaseVisitor[Option[AST] => KtDeclaration] {
-    override def visitDeclaration(ctx: KotlinParser.DeclarationContext) = { parentNode =>
-      new KtDeclaration {
-        parent = parentNode
-        context = Some(ctx)
-        classDeclaration = Try(
-          ClassDeclarationContext.visit(ctx.classDeclaration)(Some(this))
-        ).toOption
-        propertyDeclaration = Try(
-          PropertyDeclarationContext.visit(ctx.propertyDeclaration)(Some(this))
-        ).toOption
-        functionDeclaration = Try(
-          FunctionDeclarationContext.visit(ctx.functionDeclaration)(Some(this))
-        ).toOption
-      }
-    }
+    override def visitDeclaration(ctx: KotlinParser.DeclarationContext) =
+      parentNode =>
+        new KtDeclaration {
+          parent = parentNode
+          context = Some(ctx)
+          classDeclaration = Try(
+            ClassDeclarationContext.visit(ctx.classDeclaration)(Some(this))
+          ).toOption
+          propertyDeclaration = Try(
+            PropertyDeclarationContext.visit(ctx.propertyDeclaration)(Some(this))
+          ).toOption
+          functionDeclaration = Try(
+            FunctionDeclarationContext.visit(ctx.functionDeclaration)(Some(this))
+          ).toOption
+        }
   }
 
   object DisjunctionContext extends KotlinParserBaseVisitor[Option[AST] => KtDisjunction] {
