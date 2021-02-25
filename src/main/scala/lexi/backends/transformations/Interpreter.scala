@@ -1,15 +1,31 @@
 package lexi.backends.transformations
 
 import lexi.frontends.kotlin.phases.LanguageAnalysis
-import lexi.{Language, Source}
+import lexi.{CompilationUnit, Context, Frontend, Language, Source}
 import lexi.ir.{IrFile, IrProperty, IrTree}
 
 object Interpreter {
-  def apply(source: String): String = source match {
-    case "" => ""
-    case expr if expr.trim.startsWith("val") =>
-      s"${apply(LanguageAnalysis(Source.fromString(expr.trim, Language.Kotlin)))}"
-    case expr => s"Expression failed to parse: ${expr}"
+  def apply(line: String, language: Language): String = {
+    val context = new Context {
+      phases = List(
+        Frontend(language)
+      )
+      compilationUnits = List(
+        new CompilationUnit(
+          source = Source.fromString(line.trim, Language.Kotlin)
+        )
+      )
+    }
+    line match {
+      case "" => ""
+      case expr if expr.trim.startsWith("val") =>
+        Frontend(language).run(context)
+        context.compilationUnits.head.ir match {
+          case Some(ir) => ir.toString
+          case None => s"Expression failed to parse: ${expr}"
+        }
+      case expr => s"Expression failed to parse: ${expr}"
+    }
   }
 
   def apply(ir: IrTree): String = {

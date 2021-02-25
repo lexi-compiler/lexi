@@ -1,7 +1,8 @@
 package lexi.frontends.kotlin.ast
 
+import lexi.KotlinTestUtils.TestCompiler
 import lexi.frontends.kotlin.{KtFile, KtProperty}
-import lexi.{Language, Source, TestUtils, Tree}
+import lexi.{Language, Source, KotlinTestUtils, Tree}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtPropertySpec extends munit.FunSuite {
@@ -18,21 +19,17 @@ class KtPropertySpec extends munit.FunSuite {
 
   test("integer declaration") {
     val code = """val x: Int = 5"""
-    val source = Source.fromString(source = code, Language.Kotlin)
-    val ast = SyntaxAnalysis(source)
+    val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
-    val expected = KtProperty(
-      name = Some("x"),
-      expression = Some("5"),
-      dataType = Some("Int")
-    )
-    assertEquals(property, expected)
+    assert(property.isInstanceOf[KtProperty])
+    assertEquals(property.name, Some("x"))
+    assertEquals(property.expression, Some("5"))
+    assertEquals(property.dataType, Some("Int"))
   }
 
   test("string declaration") {
     val code = """val firstName: String = "Matt""""
-    val source = TestUtils.kotlinSource(code)
-    val ast = SyntaxAnalysis(source)
+    val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
     assertEquals(property.name, Some("firstName"))
@@ -42,8 +39,7 @@ class KtPropertySpec extends munit.FunSuite {
 
   test("empty string declaration") {
     val code = """val firstName: String = """""
-    val source = TestUtils.kotlinSource(code)
-    val ast = SyntaxAnalysis(source)
+    val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
     assertEquals(property.name, Some("firstName"))

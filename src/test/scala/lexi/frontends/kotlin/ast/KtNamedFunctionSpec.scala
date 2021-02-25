@@ -1,10 +1,11 @@
 package lexi.frontends.kotlin.ast
 
-import lexi.frontends.kotlin.{KtFile, KtNamedFunction}
-import lexi.{Language, Source, TestUtils, Tree}
+import lexi.KotlinTestUtils.TestCompiler
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
+import lexi.frontends.kotlin.{KtFile, KtNamedFunction}
+import lexi.{KotlinTestUtils, Language, Source, Tree}
 
-class KtFunctionSpec extends munit.FunSuite {
+class KtNamedFunctionSpec extends munit.FunSuite {
   private def ktFunction(ast: Tree): KtNamedFunction =
     ast
       .asInstanceOf[KtFile]
@@ -20,9 +21,11 @@ class KtFunctionSpec extends munit.FunSuite {
     Source.fromString(code, Language.Kotlin)
 
   test("expression function without parameters") {
-    val code = """fun hello(): String = "Hello Maki!""""
-    val source = kotlinSource(code)
-    val ast = SyntaxAnalysis(source)
+    val code =
+      """
+      fun hello(): String = "Hello Maki!"
+      """.stripMargin
+    val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))
@@ -30,9 +33,11 @@ class KtFunctionSpec extends munit.FunSuite {
   }
 
   test("expression function with parameters") {
-    val code = """fun hello(name: String): String = "Hello ${name}""""
-    val source = TestUtils.kotlinSource(code)
-    val ast = SyntaxAnalysis(source)
+    val code =
+      """
+      fun hello(name: String): String = "Hello ${name}"
+      """.stripMargin
+    val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))
@@ -40,14 +45,12 @@ class KtFunctionSpec extends munit.FunSuite {
   }
 
   test("block function with parameters") {
-    val code =
-      """
-        |fun hello(name: String): String {
-        |  "Hello ${name}"
-        |}
-        |""".stripMargin
-    val source = TestUtils.kotlinSource(code)
-    val ast = SyntaxAnalysis(source)
+    val code = """
+      fun hello(name: String): String {
+        "Hello ${name}"
+      }
+      """.stripMargin
+    val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
     assertEquals(function.name, Some("hello"))

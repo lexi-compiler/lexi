@@ -1,9 +1,11 @@
 package lexi.frontends.kotlin.phases
 
 import lexi.frontends.kotlin.AST
-import lexi.Phase
+import lexi.{CompilationUnit, Context, Phase}
 
-object SemanticAnalysis extends Phase {
-  def apply(ast: AST): AST =
-    TypeAnalysis(ast)
+class SemanticAnalysis extends Phase {
+  def run(context: Context): Unit = {
+    val typeAnalysis = new TypeAnalysis
+    typeAnalysis.run(context)
+  }
 }

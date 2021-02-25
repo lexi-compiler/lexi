@@ -1,3 +1,5 @@
 package lexi
 
-trait Phase
+abstract class Phase {
+  def run(context: Context): Unit
+}

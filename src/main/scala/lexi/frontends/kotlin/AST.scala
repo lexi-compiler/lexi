@@ -1,9 +1,8 @@
 package lexi.frontends.kotlin
 
-import lexi.Tree
 import org.antlr.v4.runtime.ParserRuleContext
 
-trait AST extends Tree {
+trait AST extends lexi.frontends.AST {
   var parent: Option[AST] = None
   var children: List[AST] = List.empty
   var context: Option[ParserRuleContext] = None
