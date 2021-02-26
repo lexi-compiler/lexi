@@ -9,7 +9,7 @@ lazy val root = (project in file("."))
   .enablePlugins(GraalVMNativeImagePlugin)
   .settings(
     name := "lexi",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= Vector(
       antlr4,
       asm,
 //      scala3Compiler,
@@ -19,7 +19,7 @@ lazy val root = (project in file("."))
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     Compile / mainClass := Some("lexi.CLI"),
-    graalVMNativeImageOptions ++= Seq(
+    graalVMNativeImageOptions ++= Vector(
       "--no-fallback",
     )
   )
