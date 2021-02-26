@@ -11,7 +11,7 @@ class SyntaxAnalysis extends Phase {
     context.compilationUnits.foreach { unit =>
       val lexer = new KotlinLexer(CharStreams.fromString(unit.source.text))
       val parser = new KotlinParser(new CommonTokenStream(lexer))
-      val ast = KotlinFileContext.visit(parser.kotlinFile).copy(name = Some(unit.source.file))
+      val ast = KotlinFileContext.visitKotlinFile(parser.kotlinFile)
       unit.ast = Some(ast)
     }
   }

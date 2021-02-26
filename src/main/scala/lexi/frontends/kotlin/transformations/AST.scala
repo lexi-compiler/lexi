@@ -225,7 +225,7 @@ object AST {
     override def visitKotlinFile(ctx: KotlinParser.KotlinFileContext) =
       new KtFile {
         context = Some(ctx)
-        topLevelObjects = ctx.topLevelObject.asScala.toVector
+        children = ctx.topLevelObject.asScala.toVector
           .map(TopLevelObjectContext.visit(_)(Some(this)))
       }
   }
@@ -374,9 +374,7 @@ object AST {
       new KtTopLevelObject {
         parent = parentNode
         context = Some(ctx)
-        declaration = Try(
-          DeclarationContext.visit(ctx.declaration)(Some(this))
-        ).toOption
+        children = Vector(DeclarationContext.visit(ctx.declaration)(Some(this)))
       }
     }
   }

@@ -9,13 +9,16 @@ trait AST extends lexi.frontends.AST {
 }
 
 case class KtFile(
-  var name: Option[String] = None,
-  var topLevelObjects: Vector[KtTopLevelObject] = Vector.empty
-) extends AST
+  var name: Option[String] = None
+) extends AST {
+  def topLevelObjects: Vector[KtTopLevelObject] =
+    children.collect { case node: KtTopLevelObject => node }
+}
 
-case class KtTopLevelObject(
-  var declaration: Option[KtDeclaration] = None
-) extends AST
+case class KtTopLevelObject() extends AST {
+  def declaration: Option[KtDeclaration] =
+    children.collectFirst { case node: KtDeclaration => node }
+}
 
 case class KtClass(
   var name: Option[String] = None,
