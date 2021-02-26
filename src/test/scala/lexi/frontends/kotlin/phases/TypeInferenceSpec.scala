@@ -10,7 +10,6 @@ class TypeInferenceSpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
-      .get
       .head
       .declaration
       .get
@@ -21,7 +20,6 @@ class TypeInferenceSpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
-      .get
       .head
       .declaration
       .get

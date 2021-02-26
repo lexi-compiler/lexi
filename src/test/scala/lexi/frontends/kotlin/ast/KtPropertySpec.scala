@@ -10,7 +10,6 @@ class KtPropertySpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
-      .get
       .head
       .declaration
       .get

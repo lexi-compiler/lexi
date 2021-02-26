@@ -13,26 +13,25 @@ object ScalaFileVisitor extends ScalaVisitor {
 
     new IrFile(
       name = "",
-      topLevelObjects = Some(
-        Vector(
-          IrTopLevelObject(
-            declaration = Some(
-              IrDeclaration(
-                functionDeclaration = Some(
-                  IrFunction(
-                    name = Some(
-                      tree
-                        .children(0)
-                        .asInstanceOf[Defn.Object]
-                        .children(1)
-                        .asInstanceOf[Template]
-                        .children(1)
-                        .asInstanceOf[Defn.Def]
-                        .name
-                        .value
-                    ),
-                    bodyBlockExpression = Some(
-                      IrBlockExpression(
+      topLevelObjects = Vector(
+        IrTopLevelObject(
+          declaration = Some(
+            IrDeclaration(
+              functionDeclaration = Some(
+                IrFunction(
+                  name = Some(
+                    tree
+                      .children(0)
+                      .asInstanceOf[Defn.Object]
+                      .children(1)
+                      .asInstanceOf[Template]
+                      .children(1)
+                      .asInstanceOf[Defn.Def]
+                      .name
+                      .value
+                  ),
+                  bodyBlockExpression = Some(
+                    IrBlockExpression(
 //                        block = Some(
 //                          tree
 //                            .children(0)
@@ -44,7 +43,6 @@ object ScalaFileVisitor extends ScalaVisitor {
 //                            .body
 //                            .value
 //                        )
-                      )
                     )
                   )
                 )

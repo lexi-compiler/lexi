@@ -31,7 +31,7 @@ object Interpreter {
   def apply(ir: IrTree): String = {
     ir match {
       case file: IrFile =>
-        apply(file.topLevelObjects.get.head.declaration.get.propertyDeclaration.get)
+        apply(file.topLevelObjects.head.declaration.get.propertyDeclaration.get)
       case expr: IrProperty => s"Found expression: ${expr.toString}"
     }
   }

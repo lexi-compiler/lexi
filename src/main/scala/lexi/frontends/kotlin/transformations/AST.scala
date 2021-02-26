@@ -15,10 +15,8 @@ object AST {
         new KtAdditiveExpression {
           parent = parentNode
           context = Some(ctx)
-          multiplicativeExpression = Try(
-            ctx.multiplicativeExpression.asScala.toVector
-              .map(MultiplicativeExpressionContext.visit(_)(Some(this)))
-          ).toOption
+          multiplicativeExpression = ctx.multiplicativeExpression.asScala.toVector
+            .map(MultiplicativeExpressionContext.visit(_)(Some(this)))
         }
   }
 
@@ -79,10 +77,8 @@ object AST {
         new KtComparison {
           parent = parentNode
           context = Some(ctx)
-          genericCallLikeComparisonContext = Try(
-            ctx.genericCallLikeComparison.asScala.toVector
-              .map(GenericCallLikeComparisonContext.visit(_)(Some(this)))
-          ).toOption
+          genericCallLikeComparisonContext = ctx.genericCallLikeComparison.asScala.toVector
+            .map(GenericCallLikeComparisonContext.visit(_)(Some(this)))
         }
   }
 
@@ -92,10 +88,8 @@ object AST {
         new KtConjunction {
           parent = parentNode
           context = Some(ctx)
-          equalities = Try(
-            ctx.equality.asScala.toVector
-              .map(EqualityContext.visit(_)(Some(this)))
-          ).toOption
+          equalities = ctx.equality.asScala.toVector
+            .map(EqualityContext.visit(_)(Some(this)))
         }
   }
 
@@ -123,10 +117,8 @@ object AST {
         new KtDisjunction {
           parent = parentNode
           context = Some(ctx)
-          conjunctions = Try(
-            ctx.conjunction.asScala.toVector
-              .map(ConjunctionContext.visit(_)(Some(this)))
-          ).toOption
+          conjunctions = ctx.conjunction.asScala.toVector
+            .map(ConjunctionContext.visit(_)(Some(this)))
         }
   }
 
@@ -135,10 +127,8 @@ object AST {
       new KtElvisExpression {
         parent = parentNode
         context = Some(ctx)
-        infixFunctionCalls = Try(
-          ctx.infixFunctionCall.asScala.toVector
-            .map(InfixFunctionCallContext.visit(_)(Some(this)))
-        ).toOption
+        infixFunctionCalls = ctx.infixFunctionCall.asScala.toVector
+          .map(InfixFunctionCallContext.visit(_)(Some(this)))
       }
     }
   }
@@ -148,10 +138,8 @@ object AST {
       new KtEquality {
         parent = parentNode
         context = Some(ctx)
-        comparison = Try(
-          ctx.comparison.asScala.toVector
-            .map(ComparisonContext.visit(_)(Some(this)))
-        ).toOption
+        comparison = ctx.comparison.asScala.toVector
+          .map(ComparisonContext.visit(_)(Some(this)))
       }
   }
 
@@ -216,10 +204,8 @@ object AST {
       new KtInfixFunctionCall {
         parent = parentNode
         context = Some(ctx)
-        rangeExpressions = Try(
-          ctx.rangeExpression.asScala.toVector
-            .map(RangeExpressionContext.visit(_)(Some(this)))
-        ).toOption
+        rangeExpressions = ctx.rangeExpression.asScala.toVector
+          .map(RangeExpressionContext.visit(_)(Some(this)))
       }
     }
   }
@@ -229,10 +215,8 @@ object AST {
       new KtInfixOperation {
         parent = parentNode
         context = Some(ctx)
-        elvisExpression = Try(
-          ctx.elvisExpression.asScala.toVector
-            .map(ElvisExpressionContext.visit(_)(Some(this)))
-        ).toOption
+        elvisExpression = ctx.elvisExpression.asScala.toVector
+          .map(ElvisExpressionContext.visit(_)(Some(this)))
       }
     }
   }
@@ -241,10 +225,8 @@ object AST {
     override def visitKotlinFile(ctx: KotlinParser.KotlinFileContext) =
       new KtFile {
         context = Some(ctx)
-        topLevelObjects = Try(
-          ctx.topLevelObject.asScala.toVector
-            .map(TopLevelObjectContext.visit(_)(Some(this)))
-        ).toOption
+        topLevelObjects = ctx.topLevelObject.asScala.toVector
+          .map(TopLevelObjectContext.visit(_)(Some(this)))
       }
   }
 
@@ -264,10 +246,8 @@ object AST {
       new KtLineStringLiteral {
         parent = parentNode
         context = Some(ctx)
-        lineStringContent = Try(
-          ctx.lineStringContent.asScala.toVector
-            .map(LineStringContentContext.visit(_)(Some(this)))
-        ).toOption
+        lineStringContent = ctx.lineStringContent.asScala.toVector
+          .map(LineStringContentContext.visit(_)(Some(this)))
       }
   }
 
@@ -279,10 +259,8 @@ object AST {
       new KtMultiplicativeExpression {
         parent = parentNode
         context = Some(ctx)
-        asExpression = Try(
-          ctx.asExpression.asScala.toVector
-            .map(AsExpressionContext.visit(_)(Some(this)))
-        ).toOption
+        asExpression = ctx.asExpression.asScala.toVector
+          .map(AsExpressionContext.visit(_)(Some(this)))
       }
   }
 
@@ -321,10 +299,8 @@ object AST {
       new KtPrimaryConstructor {
         context = Some(ctx)
         parent = parentNode
-        classParameters = Try {
-          ctx.classParameters.classParameter.asScala.toVector
-            .map(ClassParameterContext.visit(_)(Some(this)))
-        }.toOption
+        classParameters = ctx.classParameters.classParameter.asScala.toVector
+          .map(ClassParameterContext.visit(_)(Some(this)))
       }
     }
   }
@@ -364,10 +340,8 @@ object AST {
         new KtRangeExpression {
           parent = parentNode
           context = Some(ctx)
-          additiveExpressions = Try(
-            ctx.additiveExpression.asScala.toVector
-              .map(AdditiveExpressionContext.visit(_)(Some(this)))
-          ).toOption
+          additiveExpressions = ctx.additiveExpression.asScala.toVector
+            .map(AdditiveExpressionContext.visit(_)(Some(this)))
         }
   }
 

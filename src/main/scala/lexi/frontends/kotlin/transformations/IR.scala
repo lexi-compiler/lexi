@@ -32,13 +32,13 @@ object IR {
   def irFile(ast: KtFile): IrFile = {
     new IrFile(
       name = ast.name.get,
-      topLevelObjects = ast.topLevelObjects.map(_.map(irTopLevelObject(_)))
+      topLevelObjects = ast.topLevelObjects.map(irTopLevelObject(_))
     )
   }
 
   def irBlockExpression(ast: KtBlockExpression): IrBlockExpression = {
     IrBlockExpression(
-      block = None,
+      block = Vector.empty,
       expression = ast.statements.map(irExpression(_))
     )
   }

@@ -7,7 +7,7 @@ import lexi.ir.{IrExpression, IrFile, IrFunction, IrTree}
 
 class IrFunctionSpec extends munit.FunSuite {
   private def irFunction(file: IrTree) =
-    file.asInstanceOf[IrFile].topLevelObjects.get.head.declaration.get.functionDeclaration.get
+    file.asInstanceOf[IrFile].topLevelObjects.head.declaration.get.functionDeclaration.get
 
   test("expression function without parameters") {
     val code = """fun hello(): String = "Hello World""""

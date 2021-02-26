@@ -10,7 +10,6 @@ class KtClassSpec extends munit.FunSuite {
     ast
       .asInstanceOf[KtFile]
       .topLevelObjects
-      .get
       .head
       .declaration
       .get
@@ -18,7 +17,7 @@ class KtClassSpec extends munit.FunSuite {
       .get
 
   private def classParameter(klass: KtClass, index: Int): KtClassParameter =
-    klass.primaryConstructor.get.classParameters.get(index)
+    klass.primaryConstructor.get.classParameters(index)
 
   private def methodDeclaration(klass: KtClass, index: Int): KtDeclaration =
     klass.classBody.get.declarations(index)

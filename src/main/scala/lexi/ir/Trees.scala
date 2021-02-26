@@ -9,7 +9,7 @@ trait IrTree extends Tree {
 
 case class IrFile(
   name: String,
-  topLevelObjects: Option[Vector[IrTopLevelObject]] = None
+  topLevelObjects: Vector[IrTopLevelObject] = Vector.empty
 ) extends IrTree
 
 case class IrTopLevelObject(
@@ -45,7 +45,7 @@ case class IrFunction(
 ) extends IrTree
 
 case class IrBlockExpression(
-  block: Option[Vector[String]] = None,
+  block: Vector[String] = Vector.empty,
   expression: Vector[IrExpression] = Vector.empty
 ) extends IrTree
 

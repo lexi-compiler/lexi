@@ -10,7 +10,7 @@ trait AST extends lexi.frontends.AST {
 
 case class KtFile(
   var name: Option[String] = None,
-  var topLevelObjects: Option[Vector[KtTopLevelObject]] = None
+  var topLevelObjects: Vector[KtTopLevelObject] = Vector.empty
 ) extends AST
 
 case class KtTopLevelObject(
@@ -34,7 +34,7 @@ case class KtClassParameter(
 ) extends AST
 
 case class KtPrimaryConstructor(
-  var classParameters: Option[Vector[KtClassParameter]] = None
+  var classParameters: Vector[KtClassParameter] = Vector.empty
 ) extends AST
 
 case class KtProperty(
@@ -44,7 +44,7 @@ case class KtProperty(
 ) extends AST
 
 case class KtAdditiveExpression(
-  var multiplicativeExpression: Option[Vector[KtMultiplicativeExpression]] = None
+  var multiplicativeExpression: Vector[KtMultiplicativeExpression] = Vector.empty
 ) extends AST
 
 case class KtAsExpression(
@@ -56,15 +56,15 @@ case class KtCall(
 ) extends AST
 
 case class KtComparison(
-  var genericCallLikeComparisonContext: Option[Vector[KtGenericCallLikeComparison]] = None
+  var genericCallLikeComparisonContext: Vector[KtGenericCallLikeComparison] = Vector.empty
 ) extends AST
 
 case class KtConjunction(
-  var equalities: Option[Vector[KtEquality]] = None
+  var equalities: Vector[KtEquality] = Vector.empty
 ) extends AST
 
 case class KtDisjunction(
-  var conjunctions: Option[Vector[KtConjunction]] = None
+  var conjunctions: Vector[KtConjunction] = Vector.empty
 ) extends AST
 
 case class KtDeclaration(
@@ -74,11 +74,11 @@ case class KtDeclaration(
 ) extends AST
 
 case class KtElvisExpression(
-  var infixFunctionCalls: Option[Vector[KtInfixFunctionCall]] = None
+  var infixFunctionCalls: Vector[KtInfixFunctionCall] = Vector.empty
 ) extends AST
 
 case class KtEquality(
-  var comparison: Option[Vector[KtComparison]] = None
+  var comparison: Vector[KtComparison] = Vector.empty
 ) extends AST
 
 case class KtExpression(
@@ -101,11 +101,11 @@ case class KtGenericCallLikeComparison(
 ) extends AST
 
 case class KtInfixFunctionCall(
-  var rangeExpressions: Option[Vector[KtRangeExpression]] = None
+  var rangeExpressions: Vector[KtRangeExpression] = Vector.empty
 ) extends AST
 
 case class KtInfixOperation(
-  var elvisExpression: Option[Vector[KtElvisExpression]] = None
+  var elvisExpression: Vector[KtElvisExpression] = Vector.empty
 ) extends AST
 
 case class KtLineStringContent(
@@ -113,11 +113,11 @@ case class KtLineStringContent(
 ) extends AST
 
 case class KtLineStringLiteral(
-  var lineStringContent: Option[Vector[KtLineStringContent]] = None
+  var lineStringContent: Vector[KtLineStringContent] = Vector.empty
 ) extends AST
 
 case class KtMultiplicativeExpression(
-  var asExpression: Option[Vector[KtAsExpression]] = None
+  var asExpression: Vector[KtAsExpression] = Vector.empty
 ) extends AST
 
 case class KtPostfixUnaryExpression(
@@ -132,7 +132,7 @@ case class KtPrimaryExpression(
 ) extends AST
 
 case class KtRangeExpression(
-  var additiveExpressions: Option[Vector[KtAdditiveExpression]] = None
+  var additiveExpressions: Vector[KtAdditiveExpression] = Vector.empty
 ) extends AST
 
 case class KtStatement(
