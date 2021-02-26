@@ -21,7 +21,6 @@ lazy val root = (project in file("."))
     Compile / mainClass := Some("lexi.CLI"),
     graalVMNativeImageOptions ++= Seq(
       "--no-fallback",
-      "--report-unsupported-elements-at-runtime"
     )
   )
 

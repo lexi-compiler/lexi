@@ -11,7 +11,7 @@ object CLI {
       }
     } else {
       val context = new Context {
-        compilationUnits = compilationUnitsFromFiles(args.toList)
+        compilationUnits = compilationUnitsFromFiles(args.toVector)
       }
       val compiler = new Compiler
       compiler.run(context)
@@ -19,7 +19,7 @@ object CLI {
     }
   }
 
-  private def compilationUnitsFromFiles(args: List[String]): List[CompilationUnit] =
+  private def compilationUnitsFromFiles(args: Vector[String]): Vector[CompilationUnit] =
     args.map { arg =>
       new CompilationUnit(
         source = Source.fromFile(arg) match {

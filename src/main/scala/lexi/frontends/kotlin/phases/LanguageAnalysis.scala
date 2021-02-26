@@ -4,7 +4,7 @@ import lexi.ir.IrTree
 import lexi.{CompilationUnit, Context, Phase, Source}
 
 class LanguageAnalysis extends Phase {
-  def phases: List[Phase] = List(
+  def phases: Vector[Phase] = Vector(
     new SyntaxAnalysis,
     new SemanticAnalysis,
     new Ir

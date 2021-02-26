@@ -1,6 +1,6 @@
 package lexi
 
 class Context {
-  var phases: List[Phase] = List.empty
-  var compilationUnits: List[CompilationUnit] = List.empty
+  var phases: Vector[Phase] = Vector.empty
+  var compilationUnits: Vector[CompilationUnit] = Vector.empty
 }

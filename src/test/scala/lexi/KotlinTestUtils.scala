@@ -10,7 +10,7 @@ object KotlinTestUtils {
       val compiler = new Compiler
       val context = new Context {
         phases = compiler.frontendPhases
-        compilationUnits = List(CompilationUnit(source = source))
+        compilationUnits = Vector(CompilationUnit(source = source))
       }
       compiler.run(context)
       context

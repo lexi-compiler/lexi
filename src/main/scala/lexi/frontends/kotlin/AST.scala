@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.ParserRuleContext
 
 trait AST extends lexi.frontends.AST {
   var parent: Option[AST] = None
-  var children: List[AST] = List.empty
+  var children: Vector[AST] = Vector.empty
   var context: Option[ParserRuleContext] = None
 }
 

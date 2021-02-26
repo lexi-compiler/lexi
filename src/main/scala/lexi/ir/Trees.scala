@@ -4,7 +4,7 @@ import lexi.Tree
 
 trait IrTree extends Tree {
   var parent: Option[IrTree] = None
-  var children: List[IrTree] = List.empty
+  var children: Vector[IrTree] = Vector.empty
 }
 
 case class IrFile(

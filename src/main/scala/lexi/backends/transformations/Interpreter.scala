@@ -7,10 +7,10 @@ import lexi.ir.{IrFile, IrProperty, IrTree}
 object Interpreter {
   def apply(line: String, language: Language): String = {
     val context = new Context {
-      phases = List(
+      phases = Vector(
         Frontend(language)
       )
-      compilationUnits = List(
+      compilationUnits = Vector(
         new CompilationUnit(
           source = Source.fromString(line.trim, Language.Kotlin)
         )

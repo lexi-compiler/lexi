@@ -5,11 +5,11 @@ import lexi.ir.IrTree
 import lexi.ir.phases.IrAnalysis
 
 class Compiler {
-  def phases: List[Phase] =
-    frontendPhases ::: Nil
+  def phases: Vector[Phase] =
+    frontendPhases
 
-  def frontendPhases: List[Phase] =
-    new LanguageAnalysis :: Nil
+  def frontendPhases: Vector[Phase] =
+    Vector(new LanguageAnalysis)
 
   def run(context: Context): Unit = {
     phases.foreach { phase =>
