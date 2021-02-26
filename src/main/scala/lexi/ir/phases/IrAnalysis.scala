@@ -1,9 +1,11 @@
 package lexi.ir.phases
 
-import lexi.Phase
+import lexi.{Context, Phase}
 import lexi.ir.IrTree
 
-object IrAnalysis extends Phase {
-  def apply(ir: IrTree): IrTree =
-    Proofs(ir)
+class IrAnalysis extends Phase {
+  def run(context: Context): Unit = {
+    val proofs = new Proofs
+    proofs.run(context)
+  }
 }

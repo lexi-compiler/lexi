@@ -1,5 +1,6 @@
 package lexi.frontends.kotlin.phases
 
+import lexi.KotlinTestUtils.TestCompiler
 import lexi.frontends.kotlin.{KtFile, KtNamedFunction, KtProperty}
 import lexi.{Language, Source, Tree}
 import lexi.frontends.kotlin.ast._
@@ -27,33 +28,26 @@ class TypeInferenceSpec extends munit.FunSuite {
       .functionDeclaration
       .get
 
-  test("infers integer value") {
-    val code = "val x = 5"
-    val source = Source.fromString(source = code, Language.Kotlin)
-    val ast = propertyNode(SyntaxAnalysis(source))
-    val typeInferredAst = TypeInference(ast)
-    val expected = KtProperty(
-      name = Some("x"),
-      expression = Some("5"),
-      dataType = Some("Int")
-    )
-    assertEquals(typeInferredAst, expected)
-  }
+  // TODO: Write algorithm for type inference.
 
-  test("infers string value") {
-    val code = """val x = "5""""
-    val source = Source.fromString(source = code, Language.Kotlin)
-    val ast = propertyNode(SyntaxAnalysis(source))
-    val typeInferredAst = TypeInference(ast)
-    val expected = KtProperty(
-      name = Some("x"),
-      expression = Some(""""5""""),
-      dataType = Some("String")
-    )
-    assertEquals(typeInferredAst, expected)
-  }
+//  test("infers integer value") {
+//    val code = "val x = 5"
+//    val ast = propertyNode(TestCompiler.ast(code))
+//    assert(ast.isInstanceOf[KtProperty])
+//    assertEquals(ast.name, Some("x"))
+//    assertEquals(ast.expression, Some("5"))
+//    assertEquals(ast.dataType, Some("Int"))
+//  }
 
-  // TODO: Write algorithm for detecting function type.
+//  test("infers string value") {
+//    val code = """val x = "5""""
+//    val ast = propertyNode(TestCompiler.ast(code))
+//    assert(ast.isInstanceOf[KtProperty])
+//    assertEquals(ast.name, Some("x"))
+//    assertEquals(ast.expression, Some("\"5\""))
+//    assertEquals(ast.dataType, Some("String"))
+//  }
+
 //  test("infers string function") {
 //    val source = """fun hello() = "Hello World""""
 //    val ast = functionNode(SyntaxAnalysis(source))

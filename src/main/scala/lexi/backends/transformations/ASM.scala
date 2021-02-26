@@ -4,7 +4,7 @@ import lexi.Phase
 import lexi.ir.{IrClass, IrFunction}
 import org.objectweb.asm.{ClassWriter, MethodVisitor, Opcodes}
 
-object ASM extends Phase {
+object ASM {
   def apply(ir: IrClass): Array[Byte] =
     asmClass(ir).toByteArray
 
@@ -23,7 +23,9 @@ object ASM extends Phase {
     }
   }
 
-  def asmMethod(classWriter: ClassWriter)(ir: IrFunction | IrClass): MethodVisitor | Vector[MethodVisitor] = {
+  def asmMethod(
+    classWriter: ClassWriter
+  )(ir: IrFunction | IrClass): MethodVisitor | Vector[MethodVisitor] = {
     val transformation: IrFunction => MethodVisitor = { ir =>
       val method = classWriter.visitMethod(
         Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,

@@ -2,15 +2,16 @@ package lexi.frontends.scala.phases
 
 import lexi.frontends.scala.ir.ScalaFileVisitor
 import lexi.ir.IrTree
-import lexi.{Phase, Source}
+import lexi.{Context, Phase, Source}
 
 import java.io.File
 import scala.meta._
 
-object LanguageAnalysis extends Phase {
-  def apply(source: Source): IrTree = {
-    val ast = source.text.parse[scala.meta.Source].get
-    val ir = ScalaFileVisitor.visit(ast)
-    ir
+class LanguageAnalysis extends Phase {
+  def run(context: Context): Unit = {
+    context.compilationUnits.foreach { unit =>
+//      unit.ast = unit.source.text.parse[scala.meta.Source].get
+//      unit.ir = ScalaFileVisitor.visit(unit.ast)
+    }
   }
 }

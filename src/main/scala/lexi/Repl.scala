@@ -10,7 +10,7 @@ object Repl {
       .continually(io.StdIn.readLine)
       .takeWhile(command => command != "quit" && command != null)
       .foreach { line =>
-        val result = Interpreter(line)
+        val result = Interpreter(line, language)
         print(
           if (result.trim.length == 0) "@ "
           else s"$result\n@ "
