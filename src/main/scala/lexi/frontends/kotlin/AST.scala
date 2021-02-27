@@ -8,9 +8,9 @@ trait AST extends lexi.frontends.AST {
   var context: Option[ParserRuleContext] = None
 }
 
-case class KtFile(
-  var name: Option[String] = None
-) extends AST {
+case class KtFile() extends AST {
+  def name: Option[KtSimpleIdentifier] =
+    children.collectFirst { case node: KtSimpleIdentifier => node }
   def topLevelObjects: Vector[KtTopLevelObject] =
     children.collect { case node: KtTopLevelObject => node }
 }
@@ -20,61 +20,88 @@ case class KtTopLevelObject() extends AST {
     children.collectFirst { case node: KtDeclaration => node }
 }
 
-case class KtClass(
-  var name: Option[String] = None,
-  var primaryConstructor: Option[KtPrimaryConstructor] = None,
-  var classBody: Option[KtClassBody] = None
+case class KtSimpleIdentifier(
+  var name: String
 ) extends AST
 
-case class KtClassBody(
-  var declarations: Vector[KtDeclaration] = Vector.empty,
-  var functions: Vector[KtNamedFunction] = Vector.empty
-) extends AST
+case class KtClass() extends AST {
+  def simpleIdentifier: Option[KtSimpleIdentifier] =
+    children.collectFirst { case node: KtSimpleIdentifier => node }
+  def primaryConstructor: Option[KtPrimaryConstructor] =
+    children.collectFirst { case node: KtPrimaryConstructor => node }
+  def classBody: Option[KtClassBody] =
+    children.collectFirst { case node: KtClassBody => node }
+}
+
+case class KtClassBody() extends AST {
+  def declarations: Vector[KtDeclaration] =
+    children.collect { case node: KtDeclaration => node }
+  def functions: Vector[KtNamedFunction] =
+    children.collect { case node: KtNamedFunction => node }
+}
 
 case class KtClassParameter(
-  var name: Option[String] = None,
-  var `type`: Option[String] = None
-) extends AST
+) extends AST {
+  def name: Option[KtSimpleIdentifier] =
+    children.collectFirst { case node: KtSimpleIdentifier => node }
+  def `type`: Option[KtType] =
+    children.collectFirst { case node: KtType => node }
+}
 
-case class KtPrimaryConstructor(
-  var classParameters: Vector[KtClassParameter] = Vector.empty
-) extends AST
+case class KtPrimaryConstructor() extends AST {
+  def classParameters: Vector[KtClassParameter] =
+    children.collect { case node: KtClassParameter => node }
+}
 
-case class KtProperty(
-  var name: Option[String] = None,
-  var expression: Option[String] = None,
-  var dataType: Option[String] = None
-) extends AST
+case class KtProperty() extends AST {
+  def name: Option[KtSimpleIdentifier] =
+    children.collectFirst { case node: KtSimpleIdentifier => node }
+  def expression: Option[KtExpression] =
+    children.collectFirst { case node: KtExpression => node }
+  def `type`: Option[KtType] =
+    children.collectFirst { case node: KtType => node }
+}
 
-case class KtAdditiveExpression(
-  var multiplicativeExpression: Vector[KtMultiplicativeExpression] = Vector.empty
-) extends AST
+case class KtAdditiveExpression() extends AST {
+  def multiplicativeExpression: Vector[KtMultiplicativeExpression] =
+    children.collect { case node: KtMultiplicativeExpression => node }
+}
 
-case class KtAsExpression(
-  var prefixUnaryExpression: Option[KtPrefixUnaryExpression] = None
-) extends AST
+case class KtAsExpression() extends AST {
+  def prefixUnaryExpression: Option[KtPrefixUnaryExpression] =
+    children.collectFirst { case node: KtPrefixUnaryExpression => node }
+}
 
-case class KtCall(
-  var function: Option[KtNamedFunction] = None
-) extends AST
+case class KtCall() extends AST {
+  def function: Option[KtNamedFunction] =
+    children.collectFirst { case node: KtNamedFunction => node }
+}
 
-case class KtComparison(
-  var genericCallLikeComparisonContext: Vector[KtGenericCallLikeComparison] = Vector.empty
-) extends AST
+case class KtComparison() extends AST {
+  def genericCallLikeComparisonContext: Vector[KtGenericCallLikeComparison] =
+    children.collect { case node: KtGenericCallLikeComparison => node }
+}
 
 case class KtConjunction(
-  var equalities: Vector[KtEquality] = Vector.empty
-) extends AST
+) extends AST {
+  def equalities: Vector[KtEquality] =
+    children.collect { case node: KtEquality => node }
+}
 
 case class KtDisjunction(
-  var conjunctions: Vector[KtConjunction] = Vector.empty
-) extends AST
+) extends AST {
+  def conjunctions: Vector[KtConjunction] =
+    children.collect { case node: KtConjunction => node }
+}
 
-case class KtDeclaration(
-  var classDeclaration: Option[KtClass] = None,
-  var propertyDeclaration: Option[KtProperty] = None,
-  var functionDeclaration: Option[KtNamedFunction] = None
-) extends AST
+case class KtDeclaration() extends AST {
+  def classDeclaration: Option[KtClass] =
+    children.collectFirst { case node: KtClass => node }
+  def propertyDeclaration: Option[KtProperty] =
+    children.collectFirst { case node: KtProperty => node }
+  def functionDeclaration: Option[KtNamedFunction] =
+    children.collectFirst { case node: KtNamedFunction => node }
+}
 
 case class KtElvisExpression(
   var infixFunctionCalls: Vector[KtInfixFunctionCall] = Vector.empty
@@ -89,59 +116,78 @@ case class KtExpression(
 ) extends AST
 
 case class KtNamedFunction(
-  var name: Option[String] = None,
-  var `type`: Option[String] = None,
-  var bodyExpression: Option[KtExpression] = None,
-  var bodyBlockExpression: Option[KtBlockExpression] = None
-) extends AST
+  var `type`: Option[String] = None
+) extends AST {
+  def name: Option[KtSimpleIdentifier] =
+    children.collectFirst { case node: KtSimpleIdentifier => node }
+  def bodyExpression: Option[KtExpression] =
+    children.collectFirst { case node: KtExpression => node }
+  def bodyBlockExpression: Option[KtBlockExpression] =
+    children.collectFirst { case node: KtBlockExpression => node }
+}
 
-case class KtBlockExpression(
-  var statements: Vector[KtExpression] = Vector.empty
-) extends AST
+case class KtBlockExpression() extends AST {
+  def statements: Vector[KtExpression] = Vector.empty
+}
 
-case class KtGenericCallLikeComparison(
-  var infixOperation: Option[KtInfixOperation] = None
-) extends AST
+case class KtGenericCallLikeComparison() extends AST {
+  def infixOperation: Option[KtInfixOperation] =
+    children.collectFirst { case node: KtInfixOperation => node }
+}
 
-case class KtInfixFunctionCall(
-  var rangeExpressions: Vector[KtRangeExpression] = Vector.empty
-) extends AST
+case class KtInfixFunctionCall() extends AST {
+  def rangeExpressions: Vector[KtRangeExpression] =
+    children.collect { case node: KtRangeExpression => node }
+}
 
 case class KtInfixOperation(
-  var elvisExpression: Vector[KtElvisExpression] = Vector.empty
-) extends AST
+) extends AST {
+  def elvisExpression: Vector[KtElvisExpression] =
+    children.collect { case node: KtElvisExpression => node }
+}
 
 case class KtLineStringContent(
   var lineStrText: Option[String] = None
 ) extends AST
 
-case class KtLineStringLiteral(
-  var lineStringContent: Vector[KtLineStringContent] = Vector.empty
-) extends AST
+case class KtLineStringLiteral() extends AST {
+  def lineStringContent: Vector[KtLineStringContent] =
+    children.collect { case node: KtLineStringContent => node }
+}
 
-case class KtMultiplicativeExpression(
-  var asExpression: Vector[KtAsExpression] = Vector.empty
-) extends AST
+case class KtMultiplicativeExpression() extends AST {
+  def asExpression: Vector[KtAsExpression] =
+    children.collect { case node: KtAsExpression => node }
+}
 
-case class KtPostfixUnaryExpression(
-) extends AST
+case class KtPostfixUnaryExpression() extends AST
 
-case class KtPrefixUnaryExpression(
-  var postfixUnaryExpression: Option[KtPostfixUnaryExpression] = None
-) extends AST
+case class KtPrefixUnaryExpression() extends AST {
+  def postfixUnaryExpression: Option[KtPostfixUnaryExpression] =
+    children.collectFirst { case node: KtPostfixUnaryExpression => node }
+}
 
 case class KtPrimaryExpression(
-  var stringLiteral: Option[KtStringLiteral] = None
-) extends AST
+) extends AST {
+  def stringLiteral: Option[KtStringLiteral] =
+    children.collectFirst { case node: KtStringLiteral => node }
+}
 
-case class KtRangeExpression(
-  var additiveExpressions: Vector[KtAdditiveExpression] = Vector.empty
-) extends AST
+case class KtRangeExpression() extends AST {
+  def additiveExpressions: Vector[KtAdditiveExpression] =
+    children.collect { case node: KtAdditiveExpression => node }
+}
 
-case class KtStatement(
-  var expression: Option[KtExpression] = None
-) extends AST
+case class KtStatement() extends AST {
+  def expression: Option[KtExpression] =
+    children.collectFirst { case node: KtExpression => node }
+}
 
-case class KtStringLiteral(
-  var lineStringLiteral: Option[KtLineStringLiteral] = None
+case class KtStringLiteral() extends AST {
+  def lineStringLiteral: Option[KtLineStringLiteral] =
+    children.collectFirst { case node: KtLineStringLiteral => node }
+}
+
+case class KtType(
+  var name: String
 ) extends AST

@@ -12,7 +12,7 @@ object IR {
 
   def irClass(ast: KtClass): IrClass = {
     new IrClass(
-      name = ast.name,
+      name = ast.simpleIdentifier.map(_.name),
       classBody = ast.classBody.map(irClassBody(_))
     )
   }
@@ -31,7 +31,6 @@ object IR {
 
   def irFile(ast: KtFile): IrFile = {
     new IrFile(
-      name = ast.name.get,
       topLevelObjects = ast.topLevelObjects.map(irTopLevelObject(_))
     )
   }
@@ -45,7 +44,7 @@ object IR {
 
   def irFunction(ast: KtNamedFunction): IrFunction = {
     IrFunction(
-      name = ast.name,
+      name = ast.name.map(_.name),
       `type` = ast.`type`,
       bodyExpression = ast.bodyExpression.map(irExpression(_)),
       bodyBlockExpression = ast.bodyBlockExpression.map(irBlockExpression(_))
@@ -54,9 +53,9 @@ object IR {
 
   def irProperty(tree: KtProperty): IrProperty = {
     IrProperty(
-      name = tree.name,
-      expression = tree.expression,
-      dataType = tree.dataType
+      name = tree.name.map(_.name),
+      expression = Option(tree.expression.toString),
+      dataType = tree.`type`.map(_.name)
     )
   }
 

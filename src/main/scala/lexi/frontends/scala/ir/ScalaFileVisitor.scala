@@ -12,7 +12,6 @@ object ScalaFileVisitor extends ScalaVisitor {
 //    )
 
     new IrFile(
-      name = "",
       topLevelObjects = Vector(
         IrTopLevelObject(
           declaration = Some(

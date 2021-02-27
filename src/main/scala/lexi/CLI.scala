@@ -15,7 +15,7 @@ object CLI {
       }
       val compiler = new Compiler
       compiler.run(context)
-      println(context.compilationUnits.map(_.ast))
+      println(context.compilationUnits)
     }
   }
 

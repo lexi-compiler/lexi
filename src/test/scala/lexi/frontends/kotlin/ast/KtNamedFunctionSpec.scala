@@ -2,7 +2,7 @@ package lexi.frontends.kotlin.ast
 
 import lexi.KotlinTestUtils.TestCompiler
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
-import lexi.frontends.kotlin.{KtFile, KtNamedFunction}
+import lexi.frontends.kotlin.{KtFile, KtNamedFunction, KtSimpleIdentifier}
 import lexi.{KotlinTestUtils, Language, Source, Tree}
 
 class KtNamedFunctionSpec extends munit.FunSuite {
@@ -27,7 +27,7 @@ class KtNamedFunctionSpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
-    assertEquals(function.name, Some("hello"))
+    assertEquals(function.name, Some(KtSimpleIdentifier("hello")))
     assertEquals(function.`type`, Some("String"))
   }
 
@@ -39,7 +39,7 @@ class KtNamedFunctionSpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
-    assertEquals(function.name, Some("hello"))
+    assertEquals(function.name, Some(KtSimpleIdentifier("hello")))
     assertEquals(function.`type`, Some("String"))
   }
 
@@ -52,7 +52,7 @@ class KtNamedFunctionSpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val function = ktFunction(ast)
     assert(function.isInstanceOf[KtNamedFunction])
-    assertEquals(function.name, Some("hello"))
+    assertEquals(function.name, Some(KtSimpleIdentifier("hello")))
     assertEquals(function.`type`, Some("String"))
   }
 }

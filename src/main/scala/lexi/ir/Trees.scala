@@ -8,7 +8,6 @@ trait IrTree extends Tree {
 }
 
 case class IrFile(
-  name: String,
   topLevelObjects: Vector[IrTopLevelObject] = Vector.empty
 ) extends IrTree
 

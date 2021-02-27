@@ -1,8 +1,8 @@
 package lexi.frontends.kotlin.ast
 
 import lexi.KotlinTestUtils.TestCompiler
-import lexi.frontends.kotlin.{KtFile, KtProperty}
-import lexi.{Language, Source, KotlinTestUtils, Tree}
+import lexi.frontends.kotlin.{KtExpression, KtFile, KtProperty, KtSimpleIdentifier, KtType}
+import lexi.{Language, Source, Tree}
 import lexi.frontends.kotlin.phases.SyntaxAnalysis
 
 class KtPropertySpec extends munit.FunSuite {
@@ -21,9 +21,8 @@ class KtPropertySpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
-    assertEquals(property.name, Some("x"))
-    assertEquals(property.expression, Some("5"))
-    assertEquals(property.dataType, Some("Int"))
+    assertEquals(property.name, Some(KtSimpleIdentifier("x")))
+    assertEquals(property.`type`, Some(KtType("Int")))
   }
 
   test("string declaration") {
@@ -31,9 +30,8 @@ class KtPropertySpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
-    assertEquals(property.name, Some("firstName"))
-    assertEquals(property.expression, Some(""""Matt""""))
-    assertEquals(property.dataType, Some("String"))
+    assertEquals(property.name, Some(KtSimpleIdentifier("firstName")))
+    assertEquals(property.`type`, Some(KtType("String")))
   }
 
   test("empty string declaration") {
@@ -41,8 +39,7 @@ class KtPropertySpec extends munit.FunSuite {
     val ast = TestCompiler.ast(code)
     val property = ktProperty(ast)
     assert(property.isInstanceOf[KtProperty])
-    assertEquals(property.name, Some("firstName"))
-    assertEquals(property.expression, Some("\"\""))
-    assertEquals(property.dataType, Some("String"))
+    assertEquals(property.name, Some(KtSimpleIdentifier("firstName")))
+    assertEquals(property.`type`, Some(KtType("String")))
   }
 }
