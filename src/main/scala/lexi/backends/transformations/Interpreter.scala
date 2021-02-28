@@ -15,16 +15,16 @@ object Interpreter {
           source = Source.fromString(line.trim, Language.Kotlin)
         )
       )
+      adaptiveLL = true
     }
     line match {
       case "" => ""
-      case expr if expr.trim.startsWith("val") =>
+      case expr =>
         Frontend(language).run(context)
-        context.compilationUnits.head.ir match {
-          case Some(ir) => ir.toString
+        context.compilationUnits.head.ast match {
+          case Some(tree) => tree.toString
           case None => s"Expression failed to parse: ${expr}"
         }
-      case expr => s"Expression failed to parse: ${expr}"
     }
   }
 

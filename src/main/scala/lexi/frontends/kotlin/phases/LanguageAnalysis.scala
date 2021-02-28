@@ -6,7 +6,7 @@ import lexi.{CompilationUnit, Context, Phase, Source}
 class LanguageAnalysis extends Phase {
   def phases: Vector[Phase] = Vector(
     new SyntaxAnalysis,
-    new SemanticAnalysis,
+//    new SemanticAnalysis,
     new Ir
   )
 
