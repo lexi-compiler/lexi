@@ -103,23 +103,26 @@ case class KtDeclaration() extends AST {
     children.collectFirst { case node: KtNamedFunction => node }
 }
 
-case class KtElvisExpression(
-  var infixFunctionCalls: Vector[KtInfixFunctionCall] = Vector.empty
-) extends AST
+case class KtElvisExpression() extends AST {
+  def infixFunctionCalls: Vector[KtInfixFunctionCall] =
+    children.collect { case node: KtInfixFunctionCall => node }
+}
 
-case class KtEquality(
-  var comparison: Vector[KtComparison] = Vector.empty
-) extends AST
+case class KtEquality() extends AST {
+  def comparison: Vector[KtComparison] =
+    children.collect { case node: KtComparison => node }
+}
 
-case class KtExpression(
-  var disjunction: Option[KtDisjunction] = None
-) extends AST
+case class KtExpression() extends AST {
+  def disjunction: Option[KtDisjunction] =
+    children.collectFirst { case node: KtDisjunction => node }
+}
 
-case class KtNamedFunction(
-  var `type`: Option[String] = None
-) extends AST {
+case class KtNamedFunction() extends AST {
   def name: Option[KtSimpleIdentifier] =
     children.collectFirst { case node: KtSimpleIdentifier => node }
+  def `type`: Option[KtType] =
+    children.collectFirst { case node: KtType => node }
   def bodyExpression: Option[KtExpression] =
     children.collectFirst { case node: KtExpression => node }
   def bodyBlockExpression: Option[KtBlockExpression] =

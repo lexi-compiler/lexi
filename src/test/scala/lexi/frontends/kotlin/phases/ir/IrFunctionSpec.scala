@@ -11,7 +11,8 @@ class IrFunctionSpec extends munit.FunSuite {
 
   test("expression function without parameters") {
     val code = """fun hello(): String = "Hello World""""
-    val function = irFunction(TestCompiler.ir(code))
+    val ir = TestCompiler.ir(code)
+    val function = irFunction(ir)
     assert(function.isInstanceOf[IrFunction])
     assertEquals(function.name, Some("hello"))
     assertEquals(function.`type`, Some("String"))

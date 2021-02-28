@@ -22,24 +22,23 @@ class TypeInference extends Phase {
   def file(file: KtFile): KtFile =
     file
 
-  def property(property: KtProperty): KtProperty = {
-    property.context.map { ctx =>
+  def property(node: KtProperty): KtProperty = {
+    node.context.map { ctx =>
       ctx.asInstanceOf[PropertyDeclarationContext].expression.getText match {
-        case IntPattern()    => property.children = property.children :+ KtType("Int")
-        case StringPattern() => property.children = property.children :+ KtType("String")
+        case IntPattern()    => node.children = node.children :+ KtType("Int")
+        case StringPattern() => node.children = node.children :+ KtType("String")
       }
     }
-    property
+    node
   }
 
-  def function(function: KtNamedFunction): KtNamedFunction = {
-    val inferredType = function.context.flatMap { ctx =>
+  def function(node: KtNamedFunction): KtNamedFunction = {
+    node.context.map { ctx =>
       ctx.asInstanceOf[FunctionDeclarationContext].`type`.getText match {
-        case IntPattern()    => Some("Int")
-        case StringPattern() => Some("String")
-        case _               => None
+        case IntPattern()    => node.children = node.children :+ KtType("Int")
+        case StringPattern() => node.children = node.children :+ KtType("String")
       }
     }
-    function.copy(`type` = inferredType)
+    node
   }
 }

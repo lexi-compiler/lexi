@@ -45,7 +45,7 @@ object IR {
   def irFunction(ast: KtNamedFunction): IrFunction = {
     IrFunction(
       name = ast.name.map(_.name),
-      `type` = ast.`type`,
+      `type` = ast.`type`.map(_.name),
       bodyExpression = ast.bodyExpression.map(irExpression(_)),
       bodyBlockExpression = ast.bodyBlockExpression.map(irBlockExpression(_))
     )

@@ -25,7 +25,7 @@ class KtClassSpec extends munit.FunSuite {
   test("class parses") {
     val code =
       """class Person(val firstName: String, val lastName: String) {
-        |  fun greet() = "Hello, ${firstName}, ${lastName}"
+        |  fun greet(): String = "Hello, ${firstName}, ${lastName}"
         |}
         |""".stripMargin
     val ast = TestCompiler.ast(code)
