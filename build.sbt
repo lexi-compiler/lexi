@@ -6,7 +6,8 @@ ThisBuild / organization := "io.lexi-compiler"
 ThisBuild / organizationName := "lexi"
 
 lazy val root = (project in file("."))
-  .enablePlugins(GraalVMNativeImagePlugin)
+//  .enablePlugins(GraalVMNativeImagePlugin)
+  .enablePlugins(NativeImagePlugin)
   .settings(
     name := "lexi",
     libraryDependencies ++= Vector(
@@ -19,20 +20,24 @@ lazy val root = (project in file("."))
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     Compile / mainClass := Some("lexi.CLI"),
-    graalVMNativeImageOptions ++= Vector(
-      "-H:+ReportUnsupportedElementsAtRuntime",
-      "-Dscalafmt.native-image=true",
-      "--initialize-at-build-time",
-      "--no-server",
-      "--enable-http",
-      "--enable-https",
-      "-H:EnableURLProtocols=http,https",
-      "--enable-all-security-services",
-      "--no-fallback",
-//      s"-H:ReflectionConfigurationFiles=$reflectionFile",
-      "--allow-incomplete-classpath",
-      "-H:+ReportExceptionStackTraces"
-    )
+//    graalVMNativeImageOptions ++= {
+//      val reflectionFile = Keys.sourceDirectory.in(Compile).value./("graal")./("reflection.json")
+//      assert(reflectionFile.exists, "no such file: " + reflectionFile)
+//      Vector(
+//        "-H:+ReportUnsupportedElementsAtRuntime",
+//        "-Dscalafmt.native-image=true",
+//        "--initialize-at-build-time",
+//        "--no-server",
+//        "--enable-http",
+//        "--enable-https",
+//        "-H:EnableURLProtocols=http,https",
+//        "--enable-all-security-services",
+//        "--no-fallback",
+//        s"-H:ReflectionConfigurationFiles=$reflectionFile",
+//        "--allow-incomplete-classpath",
+//        "-H:+ReportExceptionStackTraces"
+//      )
+//    }
   )
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
