@@ -20,7 +20,18 @@ lazy val root = (project in file("."))
     testFrameworks += new TestFramework("munit.Framework"),
     Compile / mainClass := Some("lexi.CLI"),
     graalVMNativeImageOptions ++= Vector(
+      "-H:+ReportUnsupportedElementsAtRuntime",
+      "-Dscalafmt.native-image=true",
+      "--initialize-at-build-time",
+      "--no-server",
+      "--enable-http",
+      "--enable-https",
+      "-H:EnableURLProtocols=http,https",
+      "--enable-all-security-services",
       "--no-fallback",
+//      s"-H:ReflectionConfigurationFiles=$reflectionFile",
+      "--allow-incomplete-classpath",
+      "-H:+ReportExceptionStackTraces"
     )
   )
 

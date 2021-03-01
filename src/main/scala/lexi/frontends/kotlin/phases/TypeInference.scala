@@ -23,12 +23,12 @@ class TypeInference extends Phase {
     file
 
   def property(node: KtProperty): KtProperty = {
-    node.context.map { ctx =>
-      ctx.asInstanceOf[PropertyDeclarationContext].expression.getText match {
-        case IntPattern()    => node.children = node.children :+ KtType("Int")
-        case StringPattern() => node.children = node.children :+ KtType("String")
-      }
-    }
+//    node.context.map { ctx =>
+//      ctx.asInstanceOf[PropertyDeclarationContext].expression.getText match {
+//        case IntPattern()    => node.children = node.children :+ KtType("Int")
+//        case StringPattern() => node.children = node.children :+ KtType("String")
+//      }
+//    }
     node
   }
 
