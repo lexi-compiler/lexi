@@ -2,13 +2,15 @@ package lexi.ir
 
 import lexi.Tree
 
-trait IrTree extends Tree {
+import scala.collection.mutable.ListBuffer
+
+class IrTree extends Tree {
   var parent: Option[IrTree] = None
-  var children: Vector[IrTree] = Vector.empty
+  var children: ListBuffer[IrTree] = ListBuffer.empty
 }
 
 case class IrFile(
-  topLevelObjects: Vector[IrTopLevelObject] = Vector.empty
+  topLevelObjects: ListBuffer[IrTopLevelObject] = ListBuffer.empty
 ) extends IrTree
 
 case class IrTopLevelObject(
@@ -21,7 +23,7 @@ case class IrClass(
 ) extends IrTree
 
 case class IrClassBody(
-  declarations: Vector[IrDeclaration] = Vector.empty
+  declarations: ListBuffer[IrDeclaration] = ListBuffer.empty
 ) extends IrTree
 
 case class IrDeclaration(
@@ -44,8 +46,8 @@ case class IrFunction(
 ) extends IrTree
 
 case class IrBlockExpression(
-  block: Vector[String] = Vector.empty,
-  expression: Vector[IrExpression] = Vector.empty
+  block: ListBuffer[String] = ListBuffer.empty,
+  expression: ListBuffer[IrExpression] = ListBuffer.empty
 ) extends IrTree
 
 case class IrStatement(

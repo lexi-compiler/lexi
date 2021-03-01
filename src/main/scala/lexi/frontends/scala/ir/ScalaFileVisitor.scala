@@ -2,6 +2,7 @@ package lexi.frontends.scala.ir
 
 import lexi.ir.{IrBlockExpression, IrDeclaration, IrFile, IrFunction, IrTopLevelObject}
 
+import scala.collection.mutable.ListBuffer
 import scala.meta._
 
 object ScalaFileVisitor extends ScalaVisitor {
@@ -12,7 +13,7 @@ object ScalaFileVisitor extends ScalaVisitor {
 //    )
 
     new IrFile(
-      topLevelObjects = Vector(
+      topLevelObjects = ListBuffer(
         IrTopLevelObject(
           declaration = Some(
             IrDeclaration(

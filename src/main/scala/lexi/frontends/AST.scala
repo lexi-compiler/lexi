@@ -1,5 +1,3 @@
 package lexi.frontends
 
-import lexi.Tree
-
-trait AST extends Tree
+trait AST extends lexi.Tree

@@ -4,6 +4,8 @@ import lexi.Phase
 import lexi.ir.{IrClass, IrFunction}
 import org.objectweb.asm.{ClassWriter, MethodVisitor, Opcodes}
 
+import scala.collection.mutable.ListBuffer
+
 object ASM {
   def apply(ir: IrClass): Array[Byte] =
     asmClass(ir).toByteArray
@@ -25,7 +27,7 @@ object ASM {
 
   def asmMethod(
     classWriter: ClassWriter
-  )(ir: IrFunction | IrClass): MethodVisitor | Vector[MethodVisitor] = {
+  )(ir: IrFunction | IrClass): MethodVisitor | ListBuffer[MethodVisitor] = {
     val transformation: IrFunction => MethodVisitor = { ir =>
       val method = classWriter.visitMethod(
         Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,

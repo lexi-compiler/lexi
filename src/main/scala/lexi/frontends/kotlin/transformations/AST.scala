@@ -1,10 +1,9 @@
 package lexi.frontends.kotlin.transformations
 
 import lexi.frontends.kotlin._
-import lexi.frontends.kotlin.antlr.KotlinParser.FunctionDeclarationContext
 import lexi.frontends.kotlin.antlr.{KotlinParser, KotlinParserBaseVisitor}
-import lexi.frontends.kotlin.transformations.AST.{FunctionDeclarationContext, PropertyDeclarationContext}
 
+import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
@@ -15,8 +14,11 @@ object AST {
         new KtAdditiveExpression {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.multiplicativeExpression.asScala.toVector
-            .flatMap(MultiplicativeExpressionContext.visit(_)(Some(this)))
+          ctx.multiplicativeExpression.forEach(
+            MultiplicativeExpressionContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -27,9 +29,9 @@ object AST {
         new KtAsExpression {
           parent = parentNode
           context = Some(ctx)
-          PrefixUnaryExpressionContext.visit(ctx.prefixUnaryExpression)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          PrefixUnaryExpressionContext
+            .visit(ctx.prefixUnaryExpression)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -111,8 +113,11 @@ object AST {
         new KtComparison {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.genericCallLikeComparison.asScala.toVector
-            .flatMap(GenericCallLikeComparisonContext.visit(_)(Some(this)))
+          ctx.genericCallLikeComparison.forEach(ctx =>
+            GenericCallLikeComparisonContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -123,8 +128,11 @@ object AST {
         new KtConjunction {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.equality.asScala.toVector
-            .flatMap(EqualityContext.visit(_)(Some(this)))
+          ctx.equality.forEach(ctx =>
+            EqualityContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -136,17 +144,17 @@ object AST {
           parent = parentNode
           context = Some(ctx)
           if (ctx.classDeclaration != null)
-            ClassDeclarationContext.visit(ctx.classDeclaration)(Some(this)).map { node =>
-              children = children :+ node
-            }
+            ClassDeclarationContext
+              .visit(ctx.classDeclaration)(Some(this))
+              .map(children addOne _)
           if (ctx.propertyDeclaration != null)
-            PropertyDeclarationContext.visit(ctx.propertyDeclaration)(Some(this)).map { node =>
-              children = children :+ node
-            }
+            PropertyDeclarationContext
+              .visit(ctx.propertyDeclaration)(Some(this))
+              .map(children addOne _)
           if (ctx.functionDeclaration != null)
-            FunctionDeclarationContext.visit(ctx.functionDeclaration)(Some(this)).map { node =>
-              children = children :+ node
-            }
+            FunctionDeclarationContext
+              .visit(ctx.functionDeclaration)(Some(this))
+              .map(children addOne _)
         }
       }.toOption
   }
@@ -157,8 +165,11 @@ object AST {
         new KtDisjunction {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.conjunction.asScala.toVector
-            .flatMap(ConjunctionContext.visit(_)(Some(this)))
+          ctx.conjunction.forEach(ctx =>
+            ConjunctionContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -169,8 +180,11 @@ object AST {
         new KtElvisExpression {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.infixFunctionCall.asScala.toVector
-            .flatMap(InfixFunctionCallContext.visit(_)(Some(this)))
+          ctx.infixFunctionCall.forEach(ctx =>
+            InfixFunctionCallContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
     }
@@ -182,8 +196,11 @@ object AST {
         new KtEquality {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.comparison.asScala.toVector
-            .flatMap(ComparisonContext.visit(_)(Some(this)))
+          ctx.comparison.forEach(ctx =>
+            ComparisonContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -194,9 +211,9 @@ object AST {
         new KtExpression {
           parent = parentNode
           context = Some(ctx)
-          DisjunctionContext.visit(ctx.disjunction)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          DisjunctionContext
+            .visit(ctx.disjunction)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -205,8 +222,11 @@ object AST {
     override def visitBlock(ctx: KotlinParser.BlockContext) = parentNode =>
       Try {
         new KtBlockExpression {
-          children = ctx.statements.statement.asScala.toVector
-            .flatMap(ExpressionContext.visit(_)(Some(this)))
+          ctx.statements.statement.forEach(ctx =>
+            ExpressionContext
+              .visit(ctx)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -243,9 +263,9 @@ object AST {
         new KtGenericCallLikeComparison {
           parent = parentNode
           context = Some(ctx)
-          InfixOperationContext.visit(ctx.infixOperation)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          InfixOperationContext
+            .visit(ctx.infixOperation)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -256,8 +276,11 @@ object AST {
         new KtInfixFunctionCall {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.rangeExpression.asScala.toVector
-            .flatMap(RangeExpressionContext.visit(_)(Some(this)))
+          ctx.rangeExpression.forEach(
+            RangeExpressionContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -268,8 +291,11 @@ object AST {
         new KtInfixOperation {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.elvisExpression.asScala.toVector
-            .flatMap(ElvisExpressionContext.visit(_)(Some(this)))
+          ctx.elvisExpression.forEach(
+            ElvisExpressionContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -279,8 +305,11 @@ object AST {
       Try {
         new KtFile {
           context = Some(ctx)
-          children = ctx.topLevelObject.asScala.toVector
-            .flatMap(TopLevelObjectContext.visit(_)(Some(this)))
+          ctx.topLevelObject.forEach(
+            TopLevelObjectContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -302,8 +331,9 @@ object AST {
         new KtLineStringLiteral {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.lineStringContent.asScala.toVector
-            .flatMap(LineStringContentContext.visit(_)(Some(this)))
+          ctx.lineStringContent.forEach(
+            LineStringContentContext.visit(_)(Some(this)).map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -315,8 +345,9 @@ object AST {
         new KtMultiplicativeExpression {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.asExpression.asScala.toVector
-            .flatMap(AsExpressionContext.visit(_)(Some(this)))
+          ctx.asExpression.forEach(
+            AsExpressionContext.visit(_)(Some(this)).map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -351,8 +382,9 @@ object AST {
         new KtPrimaryConstructor {
           context = Some(ctx)
           parent = parentNode
-          children = ctx.classParameters.classParameter.asScala.toVector
-            .flatMap(ClassParameterContext.visit(_)(Some(this)))
+          ctx.classParameters.classParameter.forEach(
+            ClassParameterContext.visit(_)(Some(this)).map(children addOne _)
+          )
         }
       }.toOption
   }
@@ -395,8 +427,11 @@ object AST {
         new KtRangeExpression {
           parent = parentNode
           context = Some(ctx)
-          children = ctx.additiveExpression.asScala.toVector
-            .flatMap(AdditiveExpressionContext.visit(_)(Some(this)))
+          ctx.additiveExpression.forEach(
+            AdditiveExpressionContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
+          )
         }
       }.toOption
   }

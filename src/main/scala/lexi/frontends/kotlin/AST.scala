@@ -2,16 +2,18 @@ package lexi.frontends.kotlin
 
 import org.antlr.v4.runtime.ParserRuleContext
 
-trait AST extends lexi.frontends.AST {
+import scala.collection.mutable.ListBuffer
+
+class AST extends lexi.frontends.AST {
   var parent: Option[AST] = None
-  var children: Vector[AST] = Vector.empty
+  var children: ListBuffer[AST] = ListBuffer.empty
   var context: Option[ParserRuleContext] = None
 }
 
 case class KtFile() extends AST {
   def name: Option[KtSimpleIdentifier] =
     children.collectFirst { case node: KtSimpleIdentifier => node }
-  def topLevelObjects: Vector[KtTopLevelObject] =
+  def topLevelObjects: ListBuffer[KtTopLevelObject] =
     children.collect { case node: KtTopLevelObject => node }
 }
 
@@ -34,9 +36,9 @@ case class KtClass() extends AST {
 }
 
 case class KtClassBody() extends AST {
-  def declarations: Vector[KtDeclaration] =
+  def declarations: ListBuffer[KtDeclaration] =
     children.collect { case node: KtDeclaration => node }
-  def functions: Vector[KtNamedFunction] =
+  def functions: ListBuffer[KtNamedFunction] =
     children.collect { case node: KtNamedFunction => node }
 }
 
@@ -49,7 +51,7 @@ case class KtClassParameter(
 }
 
 case class KtPrimaryConstructor() extends AST {
-  def classParameters: Vector[KtClassParameter] =
+  def classParameters: ListBuffer[KtClassParameter] =
     children.collect { case node: KtClassParameter => node }
 }
 
@@ -63,7 +65,7 @@ case class KtProperty() extends AST {
 }
 
 case class KtAdditiveExpression() extends AST {
-  def multiplicativeExpression: Vector[KtMultiplicativeExpression] =
+  def multiplicativeExpression: ListBuffer[KtMultiplicativeExpression] =
     children.collect { case node: KtMultiplicativeExpression => node }
 }
 
@@ -78,19 +80,19 @@ case class KtCall() extends AST {
 }
 
 case class KtComparison() extends AST {
-  def genericCallLikeComparisonContext: Vector[KtGenericCallLikeComparison] =
+  def genericCallLikeComparisonContext: ListBuffer[KtGenericCallLikeComparison] =
     children.collect { case node: KtGenericCallLikeComparison => node }
 }
 
 case class KtConjunction(
 ) extends AST {
-  def equalities: Vector[KtEquality] =
+  def equalities: ListBuffer[KtEquality] =
     children.collect { case node: KtEquality => node }
 }
 
 case class KtDisjunction(
 ) extends AST {
-  def conjunctions: Vector[KtConjunction] =
+  def conjunctions: ListBuffer[KtConjunction] =
     children.collect { case node: KtConjunction => node }
 }
 
@@ -104,12 +106,12 @@ case class KtDeclaration() extends AST {
 }
 
 case class KtElvisExpression() extends AST {
-  def infixFunctionCalls: Vector[KtInfixFunctionCall] =
+  def infixFunctionCalls: ListBuffer[KtInfixFunctionCall] =
     children.collect { case node: KtInfixFunctionCall => node }
 }
 
 case class KtEquality() extends AST {
-  def comparison: Vector[KtComparison] =
+  def comparison: ListBuffer[KtComparison] =
     children.collect { case node: KtComparison => node }
 }
 
@@ -130,7 +132,7 @@ case class KtNamedFunction() extends AST {
 }
 
 case class KtBlockExpression() extends AST {
-  def statements: Vector[KtExpression] = Vector.empty
+  def statements: ListBuffer[KtExpression] = ListBuffer.empty
 }
 
 case class KtGenericCallLikeComparison() extends AST {
@@ -139,13 +141,13 @@ case class KtGenericCallLikeComparison() extends AST {
 }
 
 case class KtInfixFunctionCall() extends AST {
-  def rangeExpressions: Vector[KtRangeExpression] =
+  def rangeExpressions: ListBuffer[KtRangeExpression] =
     children.collect { case node: KtRangeExpression => node }
 }
 
 case class KtInfixOperation(
 ) extends AST {
-  def elvisExpression: Vector[KtElvisExpression] =
+  def elvisExpression: ListBuffer[KtElvisExpression] =
     children.collect { case node: KtElvisExpression => node }
 }
 
@@ -154,12 +156,12 @@ case class KtLineStringContent(
 ) extends AST
 
 case class KtLineStringLiteral() extends AST {
-  def lineStringContent: Vector[KtLineStringContent] =
+  def lineStringContent: ListBuffer[KtLineStringContent] =
     children.collect { case node: KtLineStringContent => node }
 }
 
 case class KtMultiplicativeExpression() extends AST {
-  def asExpression: Vector[KtAsExpression] =
+  def asExpression: ListBuffer[KtAsExpression] =
     children.collect { case node: KtAsExpression => node }
 }
 
@@ -177,7 +179,7 @@ case class KtPrimaryExpression(
 }
 
 case class KtRangeExpression() extends AST {
-  def additiveExpressions: Vector[KtAdditiveExpression] =
+  def additiveExpressions: ListBuffer[KtAdditiveExpression] =
     children.collect { case node: KtAdditiveExpression => node }
 }
 

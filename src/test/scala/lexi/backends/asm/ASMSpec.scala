@@ -4,13 +4,15 @@ import lexi.backends.transformations.ASM
 import lexi.ir.{IrClass, IrClassBody, IrDeclaration, IrFunction}
 import org.objectweb.asm.ClassReader
 
+import scala.collection.mutable.ListBuffer
+
 class ASMSpec extends munit.FunSuite {
   test("generates JVM class from IrClass") {
     val irClass = IrClass(
       name = Some("GeneratedClass"),
       classBody = Some(
         IrClassBody(
-          declarations = Vector(
+          declarations = ListBuffer(
             IrDeclaration(
               functionDeclaration = Some(
                 IrFunction(

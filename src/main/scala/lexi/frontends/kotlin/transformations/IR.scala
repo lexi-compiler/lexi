@@ -3,6 +3,8 @@ package lexi.frontends.kotlin.transformations
 import lexi.frontends.kotlin._
 import lexi.ir._
 
+import scala.collection.mutable.ListBuffer
+
 object IR {
   def irClassBody(ast: KtClassBody): IrClassBody = {
     new IrClassBody(
@@ -37,7 +39,7 @@ object IR {
 
   def irBlockExpression(ast: KtBlockExpression): IrBlockExpression = {
     IrBlockExpression(
-      block = Vector.empty,
+      block = ListBuffer.empty,
       expression = ast.statements.map(irExpression(_))
     )
   }
