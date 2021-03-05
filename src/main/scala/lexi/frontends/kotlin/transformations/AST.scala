@@ -46,7 +46,7 @@ object AST {
             .map(
               DeclarationContext
                 .visit(_)(Some(this))
-                .map(node => children = children :+ node)
+                .map(children addOne _)
             )
         }
       }.toOption
@@ -58,15 +58,15 @@ object AST {
         new KtClass {
           context = Some(ctx)
           parent = parentNode
-          SimpleIdentifierContext.visit(ctx.simpleIdentifier)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          PrimaryConstructorContext.visit(ctx.primaryConstructor)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          ClassBodyContext.visit(ctx.classBody)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          SimpleIdentifierContext
+            .visit(ctx.simpleIdentifier)(Some(this))
+            .map(children addOne _)
+          PrimaryConstructorContext
+            .visit(ctx.primaryConstructor)(Some(this))
+            .map(children addOne _)
+          ClassBodyContext
+            .visit(ctx.classBody)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -87,12 +87,12 @@ object AST {
         new KtClassParameter {
           context = Some(ctx)
           parent = parentNode
-          SimpleIdentifierContext.visit(ctx.simpleIdentifier)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          TypeContext.visit(ctx.`type`)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          SimpleIdentifierContext
+            .visit(ctx.simpleIdentifier)(Some(this))
+            .map(children addOne _)
+          TypeContext
+            .visit(ctx.`type`)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -237,20 +237,22 @@ object AST {
         new KtNamedFunction {
           parent = parentNode
           context = Some(ctx)
-          TypeContext.visit(ctx.`type`)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          SimpleIdentifierContext.visit(ctx.simpleIdentifier)(Some(this)).map { node =>
-            children = children :+ node
-          }
+
+          TypeContext
+            .visit(ctx.`type`)(Some(this))
+            .map(children addOne _)
+          SimpleIdentifierContext
+            .visit(ctx.simpleIdentifier)(Some(this))
+            .map(children addOne _)
+
           if (ctx.functionBody.expression != null) {
-            ExpressionContext.visit(ctx.functionBody.expression)(Some(this)).map { node =>
-              children = children :+ node
-            }
+            ExpressionContext
+              .visit(ctx.functionBody.expression)(Some(this))
+              .map(children addOne _)
           } else if (ctx.functionBody.block != null) {
-            BlockExpressionContext.visit(ctx.functionBody.block)(Some(this)).map { node =>
-              children = children :+ node
-            }
+            BlockExpressionContext
+              .visit(ctx.functionBody.block)(Some(this))
+              .map(children addOne _)
           }
         }
       }.toOption
@@ -332,7 +334,9 @@ object AST {
           parent = parentNode
           context = Some(ctx)
           ctx.lineStringContent.forEach(
-            LineStringContentContext.visit(_)(Some(this)).map(children addOne _)
+            LineStringContentContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
           )
         }
       }.toOption
@@ -346,7 +350,9 @@ object AST {
           parent = parentNode
           context = Some(ctx)
           ctx.asExpression.forEach(
-            AsExpressionContext.visit(_)(Some(this)).map(children addOne _)
+            AsExpressionContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
           )
         }
       }.toOption
@@ -369,9 +375,9 @@ object AST {
         new KtPrefixUnaryExpression {
           parent = parentNode
           context = Some(ctx)
-          PostfixUnaryExpressionContext.visit(ctx.postfixUnaryExpression)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          PostfixUnaryExpressionContext
+            .visit(ctx.postfixUnaryExpression)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -383,7 +389,9 @@ object AST {
           context = Some(ctx)
           parent = parentNode
           ctx.classParameters.classParameter.forEach(
-            ClassParameterContext.visit(_)(Some(this)).map(children addOne _)
+            ClassParameterContext
+              .visit(_)(Some(this))
+              .map(children addOne _)
           )
         }
       }.toOption
@@ -395,9 +403,9 @@ object AST {
         new KtPrimaryExpression {
           parent = parentNode
           context = Some(ctx)
-          StringLiteralContext.visit(ctx.stringLiteral)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          StringLiteralContext
+            .visit(ctx.stringLiteral)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -408,15 +416,15 @@ object AST {
         new KtProperty {
           parent = parentNode
           context = Some(ctx)
-          SimpleIdentifierContext.visit(ctx.variableDeclaration.simpleIdentifier)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          ExpressionContext.visit(ctx.expression)(Some(this)).map { node =>
-            children = children :+ node
-          }
-          TypeContext.visit(ctx.variableDeclaration.`type`)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          SimpleIdentifierContext
+            .visit(ctx.variableDeclaration.simpleIdentifier)(Some(this))
+            .map(children addOne _)
+          ExpressionContext
+            .visit(ctx.expression)(Some(this))
+            .map(children addOne _)
+          TypeContext
+            .visit(ctx.variableDeclaration.`type`)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -442,9 +450,9 @@ object AST {
         new KtStatement {
           parent = parentNode
           context = Some(ctx)
-          ExpressionContext.visit(ctx.expression)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          ExpressionContext
+            .visit(ctx.expression)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -455,9 +463,9 @@ object AST {
         new KtStringLiteral {
           parent = parentNode
           context = Some(ctx)
-          LineStringLiteralContext.visit(ctx.lineStringLiteral)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          LineStringLiteralContext
+            .visit(ctx.lineStringLiteral)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
@@ -468,9 +476,9 @@ object AST {
         new KtTopLevelObject {
           parent = parentNode
           context = Some(ctx)
-          DeclarationContext.visit(ctx.declaration)(Some(this)).map { node =>
-            children = children :+ node
-          }
+          DeclarationContext
+            .visit(ctx.declaration)(Some(this))
+            .map(children addOne _)
         }
       }.toOption
   }
