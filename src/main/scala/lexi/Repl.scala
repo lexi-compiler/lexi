@@ -12,7 +12,7 @@ object Repl {
       .foreach { line =>
         val result = Interpreter(line, language)
         print(
-          if (result.trim.length == 0) "@ "
+          if (result.isEmpty) "@ "
           else s"$result\n@ "
         )
       }
