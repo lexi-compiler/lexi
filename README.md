@@ -2,6 +2,12 @@
 
 A multi-language and multi-target modular research compiler designed for easy modification with first-class plugin support.
 
+Lexi is not just a standard compiler; it will also provide metaprogramming capabilities for you to use with existing compilers, including parsing and type system APIs.
+
+## Current State
+
+Lexi is in its infancy and will not be available for production use any time soon.
+
 ## Install Lexi
 
 ### macOS
